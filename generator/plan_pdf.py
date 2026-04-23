@@ -1120,6 +1120,9 @@ def draw_nutrition(c, program):
 
     bc = program['assessment'].get('body_comp', {}) or {}
     targets = bc.get('nutrition_targets', {}) or {}
+    # Guard against non-dict values (e.g. leftover "AUTO" string from form intake)
+    if not isinstance(targets, dict):
+        targets = {}
     has_real_targets = bool(targets)
 
     y = PAGE_H - MARGIN - 150
