@@ -1,0 +1,887 @@
+{
+  "library_meta": {
+    "name": "IMS Isometric Ramping Library",
+    "version": "1.0",
+    "methodology": {
+      "what_is_iso_ramping": "Isometric ramping is a graded-intensity isometric protocol where the client progressively increases effort from 10% through 100% of maximum voluntary contraction, either across multiple reps or within a single rep. The muscle or capsular structure is held at a specific position (long/stretched OR short/shortened) while effort ramps. Unlike a simple iso hold, the ramp trains the neurological recruitment curve and the tissue's load tolerance at graduated thresholds.",
+      "long_vs_short_iso": {
+        "long_iso": "Long iso = isometric contraction performed at the LENGTHENED / STRETCHED position. Example: in 90/90, pushing front shin into floor while the hip is in full ER (the stretched position of the capsule). Primarily trains capsular load tolerance and end-range strength. Routes to ISM Inputs 1 and 3.",
+        "short_iso": "Short iso = isometric contraction performed at the SHORTENED / CONTRACTED position. Example: in 90/90, actively lifting the front shin and holding it at end-range active ER (the shortened position of the external rotators). Primarily trains active end-range strength and neurological recruitment. Routes to ISM Input 4 for fast twitch and Input 3 for connective tissue load bearing."
+      },
+      "two_use_cases": {
+        "tissue_prep": "Ramping used BEFORE heavy loaded work to prime the tissue and neurological system. Fast ramp (10-100% in 30-45 seconds total), short rest, 2-3 rounds. Purpose: wake up the motor units, prepare the capsule for loading, establish neurological access to end-range force production. Done early in a session before strength or power work.",
+        "spasm_relaxation": "Ramping used to DOWN-REGULATE a guarded or spasmed muscle. Slow ramp (10-100% over 60-90 seconds), long holds at each tier, 3-5 rounds. Purpose: use graded contraction-relaxation cycles to exhaust the guarded tissue and allow it to release. Done when assessment identifies spasm as the primary restrictor. Often paired with breath work and follows the PAILs/RAILs pattern but with more tiers of effort."
+      },
+      "the_ramp_tiers": {
+        "10_percent": "Just initiation. Barely noticeable contraction. Wake up the motor unit.",
+        "25_percent": "Light engagement. Client should feel the muscle turn on cleanly.",
+        "50_percent": "Moderate effort. Sustained contraction without breath holding.",
+        "75_percent": "Hard effort. Client is working. Still controlling the breath.",
+        "100_percent": "Maximum voluntary contraction. Brief - 2-3 seconds maximum. Full recruitment."
+      },
+      "ism_integration": "Iso ramping primarily addresses Inputs 1 (Capsular Space - via long iso at stretched positions), Input 2 (CT Architecture - via ramped loading that organizes tissue), and Input 3 (Load Bearing Capacity - via progressive load tolerance). Spasm-relaxation protocols directly address guarded tissue that limits all other input work from being accessible."
+    },
+    "total_exercises": 21,
+    "organization": "By base position, then by joint + iso type (long/short)",
+    "integration_with_assessment": "Iso ramping is the primary prescription for assessment findings of Input 1 (Capsular Space) when the capsule is guarded, Input 2 (CT Architecture) when graded loading is needed, and Input 3 (Load Bearing) when tissue tolerance needs to be built. Spasm-protocol ramping is used when the assessment reveals guarding/protective patterns limiting access to other work. Tissue-prep protocol is used pre-session before loaded strength work at the flagged joint.",
+    "builder_integration": {
+      "session_placement": "Base Position Block (early) for tissue prep, OR dedicated slot for spasm work",
+      "typical_dose": "2-3 rounds for prep, 3-5 rounds for spasm relaxation",
+      "time_cost": "3-8 minutes per joint depending on rounds and rest"
+    }
+  },
+  "exercises": {
+    "iso_ramp_9090_front_er_long": {
+      "id": "iso_ramp_9090_front_er_long",
+      "name": "90/90 Front Hip ER Long Iso Ramp",
+      "base_position": "90_90",
+      "joint": "hip",
+      "target": "anterior_capsule_er_in_flexion",
+      "iso_type": "long",
+      "setup": "Client seated in 90/90 position, front leg externally rotated at 90 degrees flexion (shin parallel to front of mat). This IS the stretched position of the anterior hip capsule / external rotators at end range ER.",
+      "description": "Client presses front shin DOWN into the floor - contracting the external rotators against the stretched position. The effort ramps through tiers. This is a long iso because the muscle is lengthened while contracting.",
+      "ramp_protocol_prep": "Fast ramp. 10% \u2192 25% \u2192 50% \u2192 75% \u2192 100% across 5 reps. Each effort level held 3-5 seconds. 10 seconds rest between tiers. One full ramp ladder per round.",
+      "ramp_protocol_spasm": "Slow ramp. 10% held 10s \u2192 rest 20s \u2192 25% held 10s \u2192 rest 20s \u2192 50% held 10-15s \u2192 rest 30s \u2192 75% held 10s \u2192 rest 30s \u2192 100% held 5s. Focus on complete relaxation between tiers. Breath into the position on each rest.",
+      "dose_prep": "2-3 rounds of the full ladder. 60 seconds rest between rounds.",
+      "dose_spasm": "3-5 rounds. 90 seconds rest between rounds. Stop if spasm releases cleanly.",
+      "tier": "intermediate",
+      "indications": [
+        "PRE-heavy squat or lunge session (tissue prep)",
+        "Hip flexor / ER spasm or guarding (spasm relaxation)",
+        "Input 1 Capsular restriction that needs loaded approach",
+        "Transitioning client from PAIL/RAIL L2 to L3"
+      ],
+      "contraindications": [
+        "Acute knee pain (front knee)",
+        "Hip labral flare",
+        "Cannot hold 90/90 position passively"
+      ],
+      "ism_inputs": [
+        1,
+        3
+      ],
+      "pairs_with": [
+        "Follow with loaded hip work (goblet squat, RFESS) if tissue prep use",
+        "Precede with breathwork and follow with 90/90 active CARs if spasm use",
+        "Pairs with hip_prh_er_90_90_front as the baseline"
+      ],
+      "coach_notes": "The tell for a properly-ramped iso: client's breath stays even through all tiers. If breath locks at 50%+, the ramp is too steep or the position is too intense - regress to a modified 90/90 with elevated sit bones. For spasm relaxation, watch for visible tissue release in the glute and hip flexor complex - that's the signal the protocol is working."
+    },
+    "iso_ramp_9090_back_ir_long": {
+      "id": "iso_ramp_9090_back_ir_long",
+      "name": "90/90 Back Hip IR Long Iso Ramp",
+      "base_position": "90_90",
+      "joint": "hip",
+      "target": "posterior_capsule_ir_in_flexion",
+      "iso_type": "long",
+      "setup": "Client seated in 90/90, back leg internally rotated. Thigh rests out to the side at end range IR.",
+      "description": "Client presses back thigh DOWN into the floor - contracting the internal rotators against the stretched position. Long iso because the IR tissues are lengthened while contracting.",
+      "ramp_protocol_prep": "Fast ramp. 10-100% across 5 reps, 3-5 second holds, 10 second rests. One ladder per round.",
+      "ramp_protocol_spasm": "Slow ramp. Same structure as front leg protocol but 10-15 second holds at each tier, full relaxation rests.",
+      "dose_prep": "2-3 rounds. 60s rest.",
+      "dose_spasm": "3-5 rounds. 90s rest.",
+      "tier": "intermediate_to_advanced",
+      "indications": [
+        "Hip IR restriction (very common in desk-bound adults)",
+        "Pre-squat prep for clients with hip IR deficit",
+        "Input 1 capsular restriction on posterior hip",
+        "Following a PAIL/RAIL block - higher-demand progression"
+      ],
+      "contraindications": [
+        "Acute back knee pain",
+        "Cannot tolerate 90/90 back leg position"
+      ],
+      "ism_inputs": [
+        1,
+        3
+      ],
+      "pairs_with": [
+        "Hip_prh_ir_90_90_back (PRH baseline)",
+        "PAIL/RAIL hip posterior capsule",
+        "Pre-squat session tissue prep"
+      ],
+      "coach_notes": "Back leg IR is harder for most clients than front leg ER. Expect weaker contractions at the high tiers - don't push to 100% if form breaks. 75% clean beats 100% with compensation every time."
+    },
+    "iso_ramp_9090_front_er_short": {
+      "id": "iso_ramp_9090_front_er_short",
+      "name": "90/90 Front Hip ER Short Iso Ramp",
+      "base_position": "90_90",
+      "joint": "hip",
+      "target": "active_er_at_end_range",
+      "iso_type": "short",
+      "setup": "Client seated in 90/90. Front shin lifts slightly off floor via active external rotation - this is the SHORTENED position of the ER muscles (they're actively contracting to hold the lifted position).",
+      "description": "From the lifted-shin position, client ramps effort upward - trying to lift the shin HIGHER / contract the ERs HARDER. This is a short iso because the muscle is in its shortened position while contracting.",
+      "ramp_protocol_prep": "Fast ramp. 10-100% across 5 efforts at 3-second holds each. The 'effort' here = how hard to lift the shin. 10% = just barely floating it. 100% = maximum active ER.",
+      "ramp_protocol_spasm": "Not typically used for spasm - short isos are more for capacity building than spasm release. If used, slower ramp with longer rests.",
+      "dose_prep": "2-3 rounds of the ladder. 60-90s rest.",
+      "dose_spasm": "Not recommended - use long iso for spasm work",
+      "tier": "advanced",
+      "indications": [
+        "Client has passive ER but lacks active end-range strength",
+        "Input 4 Fast Twitch deficit at hip ER",
+        "Building active CARs from passive range",
+        "Converting PRLO work to capacity work"
+      ],
+      "contraindications": [
+        "Cannot hold 90/90 passively",
+        "Cannot lift shin at all (start with PRLO first)"
+      ],
+      "ism_inputs": [
+        3,
+        4
+      ],
+      "pairs_with": [
+        "hip_prlo_er_lift_off (prerequisite)",
+        "hip_hover_er (progression from ramping)"
+      ],
+      "coach_notes": "Short iso ramping is the hardest variant. Most clients will struggle to produce clean force at the higher tiers from this shortened position. That's expected and IS the training stimulus. Don't force 100% - the ramp itself is the work."
+    },
+    "iso_ramp_pigeon_front_er_long": {
+      "id": "iso_ramp_pigeon_front_er_long",
+      "name": "Pigeon Front Hip ER Long Iso Ramp",
+      "base_position": "pigeon",
+      "joint": "hip",
+      "target": "anterior_capsule_deep_er",
+      "iso_type": "long",
+      "setup": "Client in pigeon position, front leg externally rotated and flexed. Can be upright or in forward fold. Deeper loading of the anterior capsule than 90/90.",
+      "description": "Press front shin into floor - contracting ER against stretched position. More intense than 90/90 variant because the position loads deeper.",
+      "ramp_protocol_prep": "Moderate ramp. 25% \u2192 50% \u2192 75% \u2192 100% across 4 efforts, 3-4 second holds. Start at 25% because pigeon is already a loaded position - 10% is essentially passive.",
+      "ramp_protocol_spasm": "Slow ramp with long rests. 25% \u2192 50% \u2192 75% with 15s holds, 30s rest, multiple rounds. Pair with breath at each rest.",
+      "dose_prep": "2 rounds. 90s rest.",
+      "dose_spasm": "3-4 rounds. 2 min rest.",
+      "tier": "advanced",
+      "indications": [
+        "Advanced hip ER capsule work",
+        "Pre-session tissue prep for clients doing heavy squatting",
+        "Hip flexor / ER spasm release (most effective position for this)",
+        "Input 1 + Input 3 combined deficit at hip"
+      ],
+      "contraindications": [
+        "Knee pain in pigeon",
+        "Cannot tolerate pigeon for 60s passively",
+        "Acute SI joint irritation"
+      ],
+      "ism_inputs": [
+        1,
+        3
+      ],
+      "pairs_with": [
+        "hip_prh_er_90_90_front (regression)",
+        "PAIL/RAIL hip anterior capsule L2-L3",
+        "Pigeon forward fold work"
+      ],
+      "coach_notes": "Pigeon iso ramping is intense. Use sparingly - 1-2x per week maximum. Excellent for spasm relaxation when the glute/piriformis is guarding. Watch for cramping in the glute at 75%+ effort - that's often the spasm breaking."
+    },
+    "iso_ramp_butterfly_adductor_long": {
+      "id": "iso_ramp_butterfly_adductor_long",
+      "name": "Butterfly Adductor Long Iso Ramp",
+      "base_position": "butterfly",
+      "joint": "hip",
+      "target": "adductor_lengthened",
+      "iso_type": "long",
+      "setup": "Client in butterfly position, soles of feet together, knees falling to sides at end range of adductor length.",
+      "description": "Client actively presses knees DOWN to the floor - this contracts the adductors AT their lengthened position. Long iso for the adductor chain.",
+      "ramp_protocol_prep": "Fast ramp. 10-100% across 5 efforts, 3-5s holds, 10s rests.",
+      "ramp_protocol_spasm": "Slow ramp for adductor release. 10% \u2192 25% \u2192 50% \u2192 75% with 10-15s holds, full relaxation rests. Breath into adductors during rests.",
+      "dose_prep": "2-3 rounds. 60s rest.",
+      "dose_spasm": "3-5 rounds. 90s rest.",
+      "tier": "beginner_to_intermediate",
+      "indications": [
+        "Adductor tightness / guarding",
+        "Pre-squat or Cossack session prep",
+        "Input 1 adductor capsule restriction",
+        "Groin strain rehabilitation (late-stage)"
+      ],
+      "contraindications": [
+        "Acute adductor strain",
+        "Acute knee pain (medial)"
+      ],
+      "ism_inputs": [
+        1,
+        2,
+        3
+      ],
+      "pairs_with": [
+        "hip_prh_abduction_straddle (straddle version)",
+        "Cossack squat progression",
+        "Butterfly forward fold"
+      ],
+      "coach_notes": "Adductor ramping is the most teachable iso ramp - clients immediately feel the muscle contracting at length. Great introduction to the concept of iso ramping for new clients."
+    },
+    "iso_ramp_butterfly_adductor_short": {
+      "id": "iso_ramp_butterfly_adductor_short",
+      "name": "Butterfly Abduction Short Iso Ramp (Opposite Direction)",
+      "base_position": "butterfly",
+      "joint": "hip",
+      "target": "abductor_end_range",
+      "iso_type": "short",
+      "setup": "Client in butterfly position. Knees AT end range of drop to floor.",
+      "description": "Client actively pulls knees FURTHER toward the floor using abductor contraction - shortening the abductors at their end range. Short iso for hip abductors.",
+      "ramp_protocol_prep": "Fast ramp. 10-100% across 5 efforts, 3s holds.",
+      "ramp_protocol_spasm": "Not typically used",
+      "dose_prep": "2-3 rounds. 60s rest.",
+      "dose_spasm": "Not recommended",
+      "tier": "intermediate",
+      "indications": [
+        "Active abduction at end range deficit",
+        "Input 4 fast-twitch hip abduction capacity",
+        "Pairing with butterfly long iso for full reciprocal work"
+      ],
+      "contraindications": [
+        "Acute knee pain (medial)",
+        "Cramping during contraction"
+      ],
+      "ism_inputs": [
+        3,
+        4
+      ],
+      "pairs_with": [
+        "iso_ramp_butterfly_adductor_long (opposite direction)"
+      ],
+      "coach_notes": "Pair butterfly long iso (pressing knees into floor) and butterfly short iso (pulling knees to floor) in the same block - they train opposite sides of the same joint. PAIL/RAIL-style reciprocal loading."
+    },
+    "iso_ramp_straddle_adductor_long": {
+      "id": "iso_ramp_straddle_adductor_long",
+      "name": "Straddle Adductor Long Iso Ramp (Straight Leg)",
+      "base_position": "straddle",
+      "joint": "hip",
+      "target": "adductor_extended_knee_lengthened",
+      "iso_type": "long",
+      "setup": "Client seated in straddle, legs extended wide, knees straight, feet flexed. More intense adductor load than butterfly due to extended knees.",
+      "description": "Client presses legs DOWN into floor - contracting adductors at full extension. More intense than butterfly due to the extended-knee position.",
+      "ramp_protocol_prep": "Fast ramp 10-100% across 5 efforts, 3-5s holds, 10s rests.",
+      "ramp_protocol_spasm": "Slow ramp. 10% \u2192 25% \u2192 50% \u2192 75% with 10-15s holds. Great for chronic adductor guarding.",
+      "dose_prep": "2-3 rounds. 60-90s rest.",
+      "dose_spasm": "3-5 rounds. 90s rest.",
+      "tier": "intermediate",
+      "indications": [
+        "Chronic adductor tightness",
+        "Athletes with groin issues (cyclists, soccer)",
+        "Pre-Cossack squat prep",
+        "Input 1 adductor capsule deep restriction"
+      ],
+      "contraindications": [
+        "Acute adductor strain",
+        "Hamstring strain (straddle loads hamstrings)"
+      ],
+      "ism_inputs": [
+        1,
+        3
+      ],
+      "pairs_with": [
+        "Straddle PRH",
+        "Cossack squat loading",
+        "Sumo deadlift prep"
+      ],
+      "coach_notes": "Straddle ramping is more intense than butterfly - use with clients who have adequate passive range and need to build tissue tolerance at that range."
+    },
+    "iso_ramp_halfkneeling_hip_flexor_long": {
+      "id": "iso_ramp_halfkneeling_hip_flexor_long",
+      "name": "Half-Kneeling Hip Flexor Long Iso Ramp",
+      "base_position": "half_kneeling",
+      "joint": "hip",
+      "target": "hip_flexor_anterior_capsule",
+      "iso_type": "long",
+      "setup": "Half-kneeling position. Back leg in hip extension, hip flexor at lengthened position.",
+      "description": "Client actively drives back knee INTO the floor - contracting hip flexors at their lengthened position. Long iso for the anterior hip / hip flexor complex.",
+      "ramp_protocol_prep": "Fast ramp. 10-100% across 5 efforts, 3-5s holds.",
+      "ramp_protocol_spasm": "Slow ramp for hip flexor spasm release. Common protocol. 10 \u2192 25 \u2192 50 \u2192 75% with 15s holds. Extremely effective for psoas-dominant back pain.",
+      "dose_prep": "2-3 rounds. 60-90s rest.",
+      "dose_spasm": "4-5 rounds. 90s rest.",
+      "tier": "beginner_to_intermediate",
+      "indications": [
+        "Chronic hip flexor tightness / psoas guarding",
+        "Desk-bound clients with anterior hip restriction",
+        "Lower back pain with hip flexor contribution",
+        "Pre-squat / deadlift tissue prep"
+      ],
+      "contraindications": [
+        "Acute back knee pain",
+        "Acute hip flexor strain"
+      ],
+      "ism_inputs": [
+        1,
+        3
+      ],
+      "pairs_with": [
+        "Couch stretch progression",
+        "Glute activation drills",
+        "Half-kneeling CAR work"
+      ],
+      "coach_notes": "One of the most useful iso ramps for the IMS population. Desk-bound 40+ year olds often have psoas guarding driving low back issues - this ramps down the psoas through graded contraction."
+    },
+    "iso_ramp_couch_quad_long": {
+      "id": "iso_ramp_couch_quad_long",
+      "name": "Couch Stretch Quad Long Iso Ramp",
+      "base_position": "couch_stretch",
+      "joint": "hip",
+      "target": "quad_rectus_femoris_lengthened",
+      "iso_type": "long",
+      "setup": "Client in couch stretch. Back knee on floor, foot up against wall/couch. Tall torso, active glute.",
+      "description": "Client actively presses back foot INTO the wall - contracting the quad / rec fem at its lengthened position. Long iso for the quad complex.",
+      "ramp_protocol_prep": "Moderate ramp. 25% \u2192 50% \u2192 75% \u2192 100% across 4 efforts, 3-5s holds. Starts higher because couch stretch is already intense.",
+      "ramp_protocol_spasm": "Slow ramp. 25 \u2192 50 \u2192 75% with 15-20s holds. For chronic quad/hip flexor guarding.",
+      "dose_prep": "2 rounds. 90s rest.",
+      "dose_spasm": "3-4 rounds. 2 min rest.",
+      "tier": "advanced",
+      "indications": [
+        "Chronic quad tightness",
+        "Post-running recovery",
+        "Pre-squat session if quad is the limiter",
+        "Cyclists with chronic quad shortening"
+      ],
+      "contraindications": [
+        "Acute knee pain",
+        "Recent knee surgery",
+        "Cannot tolerate couch stretch 30s passively"
+      ],
+      "ism_inputs": [
+        1,
+        3
+      ],
+      "pairs_with": [
+        "Half-kneeling hip flexor work",
+        "Leg extension strength work",
+        "Post-session recovery"
+      ],
+      "coach_notes": "Use sparingly - couch stretch ramping is one of the most intense isos in the library. 1x/week maximum for most clients. Excellent post-heavy-squat session."
+    },
+    "iso_ramp_deep_squat_long": {
+      "id": "iso_ramp_deep_squat_long",
+      "name": "Deep Squat Hip Flexion Long Iso Ramp",
+      "base_position": "squat",
+      "joint": "hip",
+      "target": "deep_hip_flexion_capsule",
+      "iso_type": "long",
+      "setup": "Deep squat passive hold. Heels flat, hips below knees, torso upright.",
+      "description": "From the passive hold, client drives feet INTO the floor while trying to stand - contracting the hip extensors at their lengthened position. Long iso at deepest squat position.",
+      "ramp_protocol_prep": "Moderate ramp. 25% \u2192 50% \u2192 75% \u2192 100% across 4 efforts, 3s holds.",
+      "ramp_protocol_spasm": "Not typically spasm-protocol - use for capacity building",
+      "dose_prep": "2-3 rounds. 90s rest.",
+      "dose_spasm": "Not standard application",
+      "tier": "advanced",
+      "indications": [
+        "Building end-range squat strength",
+        "Pre-deadlift or heavy squat prep",
+        "Input 3 Load Bearing at deep hip flexion",
+        "Athletes needing deep-position power"
+      ],
+      "contraindications": [
+        "Cannot hold deep squat for 30s",
+        "Acute knee or hip pain"
+      ],
+      "ism_inputs": [
+        3,
+        4
+      ],
+      "pairs_with": [
+        "Deep squat PRH",
+        "Heavy squat sessions (pre-lift tissue prep)",
+        "Loaded deep squat work"
+      ],
+      "coach_notes": "Advanced. Only program for clients who own the deep squat for 60s+ passively. The ramp itself is a strength-at-end-range stimulus that transfers directly to heavy squatting."
+    },
+    "iso_ramp_supine_shoulder_er_long": {
+      "id": "iso_ramp_supine_shoulder_er_long",
+      "name": "Supine 90/90 Shoulder ER Long Iso Ramp",
+      "base_position": "supine",
+      "joint": "shoulder",
+      "target": "anterior_capsule_er_abducted",
+      "iso_type": "long",
+      "setup": "Supine, shoulder abducted 90 degrees, elbow 90, forearm at end range of external rotation (back of hand on floor or block).",
+      "description": "Client presses back of hand DOWN into floor - contracting the external rotators against the stretched anterior capsule. Long iso for the shoulder anterior capsule.",
+      "ramp_protocol_prep": "Fast ramp. 10-100% across 5 efforts, 3s holds, 10s rests.",
+      "ramp_protocol_spasm": "Slow ramp. 10 \u2192 25 \u2192 50 \u2192 75% with 10-15s holds, 30s rests. Great for chronic anterior shoulder guarding.",
+      "dose_prep": "2-3 rounds. 60s rest.",
+      "dose_spasm": "3-5 rounds. 90s rest.",
+      "tier": "intermediate",
+      "indications": [
+        "Pre-pressing session prep (bench, overhead press)",
+        "Anterior shoulder capsule restriction (common in lifters)",
+        "Input 1 capsular at shoulder",
+        "Chronic anterior deltoid / pec guarding"
+      ],
+      "contraindications": [
+        "Acute shoulder pain",
+        "Recent shoulder surgery",
+        "Cannot tolerate supine 90/90 passively"
+      ],
+      "ism_inputs": [
+        1,
+        3
+      ],
+      "pairs_with": [
+        "shoulder_prh_er_90_abducted (baseline)",
+        "Pre-bench press or overhead press",
+        "PAIL/RAIL shoulder anterior capsule"
+      ],
+      "coach_notes": "Essential pre-work for heavy pressing. 2 minutes of this before a bench session can mean the difference between a healthy shoulder and a flared one. Don't skip with clients who press heavy."
+    },
+    "iso_ramp_standing_shoulder_flex_long": {
+      "id": "iso_ramp_standing_shoulder_flex_long",
+      "name": "Wall Shoulder Flexion Long Iso Ramp",
+      "base_position": "standing",
+      "joint": "shoulder",
+      "target": "shoulder_flexion_end_range_lengthened",
+      "iso_type": "long",
+      "setup": "Standing back to wall, arms overhead in goalpost against wall, elbows and wrists pressed to wall at end range of shoulder flexion. Ribs down, glutes on.",
+      "description": "Client presses arms INTO wall - contracting shoulder flexors at their lengthened overhead position. Long iso.",
+      "ramp_protocol_prep": "Fast ramp 10-100%, 3s holds, 10s rests.",
+      "ramp_protocol_spasm": "Slow ramp for lat / pec minor guarding. 10 \u2192 25 \u2192 50 \u2192 75% with 15s holds.",
+      "dose_prep": "2-3 rounds. 60s rest.",
+      "dose_spasm": "3-5 rounds. 90s rest.",
+      "tier": "beginner_to_intermediate",
+      "indications": [
+        "Overhead mobility restriction (universal need)",
+        "Pre-pressing session prep",
+        "Chronic lat tightness",
+        "Input 1 shoulder flexion capsule"
+      ],
+      "contraindications": [
+        "Acute shoulder pain overhead",
+        "Cannot touch wall with elbows without lumbar arch"
+      ],
+      "ism_inputs": [
+        1,
+        3
+      ],
+      "pairs_with": [
+        "Wall slides",
+        "shoulder_prh_flexion_wall (baseline)",
+        "Pre-overhead press work"
+      ],
+      "coach_notes": "Teachable for any client. Pair with wall slides as a pre-session warm-up for any upper body day."
+    },
+    "iso_ramp_quadruped_shoulder_ir_long": {
+      "id": "iso_ramp_quadruped_shoulder_ir_long",
+      "name": "Quadruped Thread-the-Needle Shoulder IR Long Iso Ramp",
+      "base_position": "quadruped",
+      "joint": "shoulder",
+      "target": "posterior_capsule_ir",
+      "iso_type": "long",
+      "setup": "Quadruped with one arm threaded under body, palm up, in the posterior capsule loading position.",
+      "description": "Client presses threaded arm DOWN into the floor - contracting the IR muscles against the stretched posterior capsule. Long iso at posterior shoulder.",
+      "ramp_protocol_prep": "Fast ramp 10-100%, 3s holds.",
+      "ramp_protocol_spasm": "Slow ramp for posterior shoulder capsule work. 10-15s holds.",
+      "dose_prep": "2 rounds per side. 60s rest.",
+      "dose_spasm": "3-4 rounds per side. 90s rest.",
+      "tier": "intermediate",
+      "indications": [
+        "Posterior capsule tightness",
+        "IR restriction (common in overhead athletes)",
+        "Anterior shoulder irritation secondary to posterior tightness",
+        "Input 1 shoulder posterior capsule"
+      ],
+      "contraindications": [
+        "Acute AC joint pain",
+        "Cannot tolerate thread-the-needle position"
+      ],
+      "ism_inputs": [
+        1,
+        3
+      ],
+      "pairs_with": [
+        "shoulder_prh_ir_quadruped (baseline)",
+        "Pre-pulling session prep",
+        "PAIL/RAIL shoulder posterior capsule"
+      ],
+      "coach_notes": "Under-programmed. Posterior capsule work is the forgotten half of shoulder health - anterior tightness gets all the attention. Clients with chronic anterior shoulder issues often need posterior work more."
+    },
+    "iso_ramp_quadruped_tspine_rotation_long": {
+      "id": "iso_ramp_quadruped_tspine_rotation_long",
+      "name": "Quadruped T-Spine Rotation Long Iso Ramp",
+      "base_position": "quadruped",
+      "joint": "thoracic",
+      "target": "tspine_rotation_end_range",
+      "iso_type": "long",
+      "setup": "Quadruped with one hand behind head. Rotated to open end range (elbow pointing up and out).",
+      "description": "At end range of rotation, client contracts rotational muscles to drive HARDER into the open position - long iso at rotated end range.",
+      "ramp_protocol_prep": "Fast ramp 10-100%, 3s holds.",
+      "ramp_protocol_spasm": "Slow ramp for T-spine stiffness from prolonged sitting. 10-15s holds at each tier.",
+      "dose_prep": "2 rounds per side. 60s rest.",
+      "dose_spasm": "3-4 rounds per side. 90s rest.",
+      "tier": "intermediate",
+      "indications": [
+        "T-spine rotation restriction",
+        "Desk-bound clients with mid-back stiffness",
+        "Pre-rotational sport prep (golf, tennis)",
+        "Input 1 T-spine capsular restriction"
+      ],
+      "contraindications": [
+        "Acute thoracic pain",
+        "Shoulder pain in the behind-head position"
+      ],
+      "ism_inputs": [
+        1,
+        2,
+        3
+      ],
+      "pairs_with": [
+        "tspine_prh_rotation_quadruped (baseline)",
+        "Standing cable rotation work",
+        "Upper body training day warm-up"
+      ],
+      "coach_notes": "Use with desk workers regularly. Pairs well with breathing at end range - the rotation + breath combination releases mid-back tension effectively."
+    },
+    "iso_ramp_supine_tspine_extension_long": {
+      "id": "iso_ramp_supine_tspine_extension_long",
+      "name": "Supine Foam Roller T-Spine Extension Long Iso Ramp",
+      "base_position": "supine",
+      "joint": "thoracic",
+      "target": "tspine_extension",
+      "iso_type": "long",
+      "setup": "Supine with foam roller at mid-thoracic. Hands behind head, extended over the roller.",
+      "description": "Client presses hands into back of head while maintaining extension position - contracting deep spinal extensors at their lengthened position. Long iso.",
+      "ramp_protocol_prep": "Fast ramp. 10-100%, 3s holds.",
+      "ramp_protocol_spasm": "Slow ramp for chronic kyphotic postures. 10-15s holds. Pair with breath.",
+      "dose_prep": "2 rounds per segment (mid, upper T-spine). 60s rest.",
+      "dose_spasm": "3-4 rounds. 90s rest.",
+      "tier": "beginner",
+      "indications": [
+        "Kyphotic postures",
+        "Desk-bound upper back tightness",
+        "Pre-overhead pressing prep",
+        "Input 1 T-spine extension capsular"
+      ],
+      "contraindications": [
+        "Acute thoracic pain",
+        "Osteoporosis with fracture risk"
+      ],
+      "ism_inputs": [
+        1,
+        3
+      ],
+      "pairs_with": [
+        "Wall slides",
+        "Overhead pressing prep",
+        "Posture-focused programs"
+      ],
+      "coach_notes": "Underutilized tool. Most clients just do passive foam roller work - adding the iso ramp makes it an active capsular and neurological drill. Far more effective."
+    },
+    "iso_ramp_halfkneeling_ankle_df_long": {
+      "id": "iso_ramp_halfkneeling_ankle_df_long",
+      "name": "Half-Kneeling Ankle DF Long Iso Ramp",
+      "base_position": "half_kneeling",
+      "joint": "ankle",
+      "target": "ankle_df_calf_complex",
+      "iso_type": "long",
+      "setup": "Half-kneeling. Front ankle at end range DF (knee over or past toes, heel down).",
+      "description": "Client actively drives heel INTO the floor / calf contracts against the DF position - long iso for the gastroc/soleus complex.",
+      "ramp_protocol_prep": "Fast ramp 10-100%, 3s holds.",
+      "ramp_protocol_spasm": "Slow ramp for chronic calf tightness. 10-15s holds. Extremely effective for runners with calf guarding.",
+      "dose_prep": "2-3 rounds per side. 60s rest.",
+      "dose_spasm": "3-5 rounds per side. 90s rest.",
+      "tier": "beginner_to_intermediate",
+      "indications": [
+        "Ankle DF restriction",
+        "Calf tightness / guarding",
+        "Pre-squat or lunge prep",
+        "Input 1 ankle DF capsular"
+      ],
+      "contraindications": [
+        "Acute Achilles pain",
+        "Recent ankle sprain"
+      ],
+      "ism_inputs": [
+        1,
+        3
+      ],
+      "pairs_with": [
+        "ankle_prh_df_kneeling (baseline)",
+        "Pre-deep-squat session",
+        "Calf raise work"
+      ],
+      "coach_notes": "High-utility. Most adults need DF ramping. 2-3 minutes pre-squat session can change the bottom of every squat."
+    },
+    "iso_ramp_prone_lumbar_extension_long": {
+      "id": "iso_ramp_prone_lumbar_extension_long",
+      "name": "Prone Sphinx Lumbar Extension Long Iso Ramp",
+      "base_position": "prone",
+      "joint": "lumbar",
+      "target": "lumbar_extensors",
+      "iso_type": "long",
+      "setup": "Prone on forearms (sphinx). Lumbar extension position. Pelvis heavy on floor.",
+      "description": "Client actively lifts chest slightly MORE - contracting spinal extensors at the extended position. Gentle long iso. Respect spine caution.",
+      "ramp_protocol_prep": "GENTLE ramp. 10-50% only across 3 efforts, 3s holds, 30s rests. Do NOT go to 100% in the spine.",
+      "ramp_protocol_spasm": "Slow ramp but capped at 50% effort. 10 \u2192 25 \u2192 50% with 10s holds. Pair with breath.",
+      "dose_prep": "2 rounds. 60s rest.",
+      "dose_spasm": "3 rounds. 90s rest.",
+      "tier": "intermediate",
+      "indications": [
+        "Flexion-intolerant back (McKenzie protocol adjunct)",
+        "Post-sitting decompression",
+        "Chronic anterior core dominance"
+      ],
+      "contraindications": [
+        "Extension-intolerant back (stenosis)",
+        "Acute lumbar pain",
+        "Disc flare"
+      ],
+      "ism_inputs": [
+        1,
+        3
+      ],
+      "pairs_with": [
+        "Cat-cow",
+        "McKenzie progression",
+        "Post-sitting recovery"
+      ],
+      "coach_notes": "CAP at 50% effort maximum. Spine is not meant for 100% effort ramping. Unlike hip or shoulder, spinal ramping stays conservative."
+    },
+    "iso_ramp_long_sit_knee_extension_short": {
+      "id": "iso_ramp_long_sit_knee_extension_short",
+      "name": "Long Sit Terminal Knee Extension Short Iso Ramp",
+      "base_position": "long_sit",
+      "joint": "knee",
+      "target": "terminal_knee_extension_vmo",
+      "iso_type": "short",
+      "setup": "Long sit. Working leg fully extended with heel lifted slightly (terminal extension, shortened quad position).",
+      "description": "Client ramps effort trying to lift heel HIGHER / contract quad HARDER in terminal extension - short iso for VMO and quad at its shortened range.",
+      "ramp_protocol_prep": "Fast ramp. 10-100% across 5 efforts. Range of motion is tiny - 1-2 inches of heel lift.",
+      "ramp_protocol_spasm": "Not typically used for spasm",
+      "dose_prep": "2-3 rounds per side. 60s rest.",
+      "dose_spasm": "Not standard",
+      "tier": "intermediate",
+      "indications": [
+        "Post-surgical knee rehab (terminal extension deficit)",
+        "VMO activation deficit",
+        "Patellofemoral issues",
+        "Input 4 FT at VMO"
+      ],
+      "contraindications": [
+        "Hyperextended knees",
+        "Acute patellar tendon issues"
+      ],
+      "ism_inputs": [
+        3,
+        4
+      ],
+      "pairs_with": [
+        "knee_prh_extension_full (baseline)",
+        "VMO-focused rehab",
+        "Single-leg press progressions"
+      ],
+      "coach_notes": "Rehab-focused primarily. Great for clients with nagging knee issues - pairs with single-leg squat progression to build VMO strength through range."
+    },
+    "iso_ramp_supine_cervical_flexion_long": {
+      "id": "iso_ramp_supine_cervical_flexion_long",
+      "name": "Supine Chin Tuck Long Iso Ramp",
+      "base_position": "supine",
+      "joint": "cervical",
+      "target": "deep_cervical_flexors",
+      "iso_type": "long",
+      "setup": "Supine, back of head on floor, chin tucked toward chest (deep cervical flexors at contracted position).",
+      "description": "Client actively tucks chin harder - ramping effort in the cervical flexion pattern. Very gentle spine iso.",
+      "ramp_protocol_prep": "GENTLE ramp. 10-50% only. 3 efforts, 3s holds, 20s rests.",
+      "ramp_protocol_spasm": "Slow ramp 10 \u2192 25 \u2192 50% for cervical extensor release. 10-15s holds.",
+      "dose_prep": "2 rounds. 60s rest.",
+      "dose_spasm": "3 rounds. 90s rest.",
+      "tier": "beginner",
+      "indications": [
+        "Forward head posture",
+        "Cervical extensor dominance",
+        "Tension headache prep (with medical clearance)",
+        "Desk-bound neck tightness"
+      ],
+      "contraindications": [
+        "Acute cervical pain",
+        "Cervical radiculopathy",
+        "Vertebral artery concerns"
+      ],
+      "ism_inputs": [
+        1,
+        3
+      ],
+      "pairs_with": [
+        "cervical_prh_flexion (baseline)",
+        "T-spine extension work",
+        "Postural resets"
+      ],
+      "coach_notes": "Cap at 50%. Cervical is NEVER a 100% tissue. Program cautiously and document client tolerance."
+    },
+    "iso_ramp_quadruped_wrist_ext_long": {
+      "id": "iso_ramp_quadruped_wrist_ext_long",
+      "name": "Quadruped Wrist Extension Long Iso Ramp",
+      "base_position": "quadruped",
+      "joint": "wrist",
+      "target": "wrist_flexors_lengthened",
+      "iso_type": "long",
+      "setup": "Quadruped with palms flat, fingers forward. Wrist at end range of extension under bodyweight load.",
+      "description": "Client actively lifts fingers / contracts wrist flexors at the extended position - long iso for wrist flexors at their lengthened range.",
+      "ramp_protocol_prep": "Fast ramp. 25-100% across 4 efforts (skipping 10% as it's essentially passive). 3s holds.",
+      "ramp_protocol_spasm": "Slow ramp for wrist flexor guarding (common in desk workers / climbers). 25 \u2192 50 \u2192 75% with 10s holds.",
+      "dose_prep": "2 rounds. 60s rest.",
+      "dose_spasm": "3 rounds. 90s rest.",
+      "tier": "intermediate",
+      "indications": [
+        "Wrist extension restriction",
+        "Pre-pressing prep (pushups, bench)",
+        "Post-wrist-injury rehab",
+        "Input 1 wrist capsular"
+      ],
+      "contraindications": [
+        "Acute wrist pain",
+        "Carpal tunnel flare"
+      ],
+      "ism_inputs": [
+        1,
+        3
+      ],
+      "pairs_with": [
+        "wrist_prh_extension_floor (baseline)",
+        "Pre-bench or pushup work"
+      ],
+      "coach_notes": "Quick add-on to any upper body warm-up. 60 seconds of wrist ramping before heavy pressing pays dividends."
+    },
+    "iso_ramp_standing_foot_arch_short": {
+      "id": "iso_ramp_standing_foot_arch_short",
+      "name": "Standing Short Foot Iso Ramp",
+      "base_position": "standing",
+      "joint": "foot",
+      "target": "foot_intrinsics_arch_short",
+      "iso_type": "short",
+      "setup": "Standing barefoot. Actively shorten the foot (arch lifts, ball draws toward heel without toe curl).",
+      "description": "Client ramps effort pulling the foot into a shorter position - short iso for foot intrinsics.",
+      "ramp_protocol_prep": "Fast ramp. 25-100% across 4 efforts, 3s holds.",
+      "ramp_protocol_spasm": "Not applicable",
+      "dose_prep": "2-3 rounds per foot. 45s rest.",
+      "dose_spasm": "Not applicable",
+      "tier": "beginner",
+      "indications": [
+        "Flat-foot pattern",
+        "Foot intrinsic weakness",
+        "Pre-single-leg-balance work",
+        "Input 4 FT foot intrinsics"
+      ],
+      "contraindications": [
+        "Cramping (reduce effort or stop)"
+      ],
+      "ism_inputs": [
+        3,
+        4
+      ],
+      "pairs_with": [
+        "Single-leg balance progressions",
+        "Running form work"
+      ],
+      "coach_notes": "Underprogrammed. Foot intrinsics matter for balance, gait, and knee/hip health. Small ramp, big downstream effect."
+    }
+  },
+  "indexes": {
+    "by_joint": {
+      "hip": [
+        "iso_ramp_9090_front_er_long",
+        "iso_ramp_9090_back_ir_long",
+        "iso_ramp_9090_front_er_short",
+        "iso_ramp_pigeon_front_er_long",
+        "iso_ramp_butterfly_adductor_long",
+        "iso_ramp_butterfly_adductor_short",
+        "iso_ramp_straddle_adductor_long",
+        "iso_ramp_halfkneeling_hip_flexor_long",
+        "iso_ramp_couch_quad_long",
+        "iso_ramp_deep_squat_long"
+      ],
+      "shoulder": [
+        "iso_ramp_supine_shoulder_er_long",
+        "iso_ramp_standing_shoulder_flex_long",
+        "iso_ramp_quadruped_shoulder_ir_long"
+      ],
+      "thoracic": [
+        "iso_ramp_quadruped_tspine_rotation_long",
+        "iso_ramp_supine_tspine_extension_long"
+      ],
+      "ankle": [
+        "iso_ramp_halfkneeling_ankle_df_long"
+      ],
+      "lumbar": [
+        "iso_ramp_prone_lumbar_extension_long"
+      ],
+      "knee": [
+        "iso_ramp_long_sit_knee_extension_short"
+      ],
+      "cervical": [
+        "iso_ramp_supine_cervical_flexion_long"
+      ],
+      "wrist": [
+        "iso_ramp_quadruped_wrist_ext_long"
+      ],
+      "foot": [
+        "iso_ramp_standing_foot_arch_short"
+      ]
+    },
+    "by_base_position": {
+      "90_90": [
+        "iso_ramp_9090_front_er_long",
+        "iso_ramp_9090_back_ir_long",
+        "iso_ramp_9090_front_er_short"
+      ],
+      "pigeon": [
+        "iso_ramp_pigeon_front_er_long"
+      ],
+      "butterfly": [
+        "iso_ramp_butterfly_adductor_long",
+        "iso_ramp_butterfly_adductor_short"
+      ],
+      "straddle": [
+        "iso_ramp_straddle_adductor_long"
+      ],
+      "half_kneeling": [
+        "iso_ramp_halfkneeling_hip_flexor_long",
+        "iso_ramp_halfkneeling_ankle_df_long"
+      ],
+      "couch_stretch": [
+        "iso_ramp_couch_quad_long"
+      ],
+      "squat": [
+        "iso_ramp_deep_squat_long"
+      ],
+      "supine": [
+        "iso_ramp_supine_shoulder_er_long",
+        "iso_ramp_supine_tspine_extension_long",
+        "iso_ramp_supine_cervical_flexion_long"
+      ],
+      "standing": [
+        "iso_ramp_standing_shoulder_flex_long",
+        "iso_ramp_standing_foot_arch_short"
+      ],
+      "quadruped": [
+        "iso_ramp_quadruped_shoulder_ir_long",
+        "iso_ramp_quadruped_tspine_rotation_long",
+        "iso_ramp_quadruped_wrist_ext_long"
+      ],
+      "prone": [
+        "iso_ramp_prone_lumbar_extension_long"
+      ],
+      "long_sit": [
+        "iso_ramp_long_sit_knee_extension_short"
+      ]
+    },
+    "by_iso_type": {
+      "long": [
+        "iso_ramp_9090_front_er_long",
+        "iso_ramp_9090_back_ir_long",
+        "iso_ramp_pigeon_front_er_long",
+        "iso_ramp_butterfly_adductor_long",
+        "iso_ramp_straddle_adductor_long",
+        "iso_ramp_halfkneeling_hip_flexor_long",
+        "iso_ramp_couch_quad_long",
+        "iso_ramp_deep_squat_long",
+        "iso_ramp_supine_shoulder_er_long",
+        "iso_ramp_standing_shoulder_flex_long",
+        "iso_ramp_quadruped_shoulder_ir_long",
+        "iso_ramp_quadruped_tspine_rotation_long",
+        "iso_ramp_supine_tspine_extension_long",
+        "iso_ramp_halfkneeling_ankle_df_long",
+        "iso_ramp_prone_lumbar_extension_long",
+        "iso_ramp_supine_cervical_flexion_long",
+        "iso_ramp_quadruped_wrist_ext_long"
+      ],
+      "short": [
+        "iso_ramp_9090_front_er_short",
+        "iso_ramp_butterfly_adductor_short",
+        "iso_ramp_long_sit_knee_extension_short",
+        "iso_ramp_standing_foot_arch_short"
+      ]
+    }
+  }
+}
