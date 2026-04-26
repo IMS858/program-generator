@@ -1,0 +1,3578 @@
+{
+  "library_meta": {
+    "name": "IMS Base Position Library",
+    "version": "1.0",
+    "methodology": "FRS / Kinstretch / IMS hybrid - base positions as programming containers",
+    "total_positions": 18,
+    "philosophy": "Base positions are the primary unit of FRC programming at IMS. A session's 'Base Position Block' is structured around 1-2 positions with all the modalities pulled from underlying libraries: CARs, PAILs/RAILs, end-range isos, hovers, ramping, and position-specific coaching work. The position is the container; the modalities are what lives inside it.",
+    "categories": {
+      "seated_floor": [
+        "long_sit",
+        "butterfly",
+        "straddle",
+        "90_90",
+        "number_4",
+        "pigeon",
+        "bear_sit"
+      ],
+      "kneeling": [
+        "tall_kneeling",
+        "half_kneeling",
+        "couch_stretch",
+        "runners_lunge"
+      ],
+      "standing": [
+        "standing",
+        "squat"
+      ],
+      "lying": [
+        "supine",
+        "prone",
+        "side_lying"
+      ],
+      "quadruped": [
+        "quadruped"
+      ],
+      "standing_loaded": [
+        "cossack"
+      ]
+    },
+    "builder_integration": {
+      "session_block": "Base Position Block (0-20 min depending on session length)",
+      "selection_rule": "Builder selects 1-2 positions per session based on assessment findings + block intent",
+      "block_content_source": "Position file contains references to CARs, PAILs/RAILs from existing libraries + live-in work native to the position"
+    }
+  },
+  "positions": {
+    "long_sit": {
+      "id": "base_pos_long_sit",
+      "name": "Long Sit",
+      "aliases": [
+        "long seated",
+        "staff pose",
+        "dandasana"
+      ],
+      "category": "seated_floor",
+      "primary_plane": "sagittal",
+      "tier": "beginner",
+      "description": "Seated on the floor with legs extended straight in front, feet flexed, spine tall and stacked over pelvis. Foundational seated position that tests passive hamstring length, hip flexion at extended knee, and seated spine control simultaneously. Most adults struggle to sit tall here without rounding - that's the diagnostic.",
+      "setup_cues": [
+        "Legs extended straight, feet flexed (dorsiflexed)",
+        "Knees soft (not locked)",
+        "Sit bones rooted, pelvis neutral",
+        "Spine tall - imagine a string lifting the crown of the head",
+        "Hands rest on thighs or on the floor beside the hips"
+      ],
+      "primary_joints_addressed": [
+        "hip",
+        "lumbar"
+      ],
+      "secondary_joints_addressed": [
+        "knee",
+        "ankle",
+        "thoracic"
+      ],
+      "primary_capacities_trained": [
+        "Hip flexion at extended knee (hamstring length)",
+        "Seated spine control without rounding",
+        "Ankle dorsiflexion with feet flexed",
+        "Pelvic neutral maintenance"
+      ],
+      "entry_criteria": "Can sit on floor. Can extend legs without acute pain. Hamstring tolerance sufficient to hold the shape briefly.",
+      "contraindications": [
+        "Acute hamstring strain",
+        "Acute low back pain (particularly disc-related flexion-intolerant)",
+        "Recent knee surgery preventing full extension"
+      ],
+      "regressions": [
+        {
+          "name": "Elevated Long Sit (block under sit bones)",
+          "when_to_use": "Pelvis tips back, spine rounds hard. Elevate to allow pelvis to stay neutral.",
+          "rebuilds_to": "Floor long sit"
+        },
+        {
+          "name": "Long Sit with Bent Knees",
+          "when_to_use": "Hamstring restriction too severe for full extension. Bend knees, feet flat - still trains seated spine control.",
+          "rebuilds_to": "Straight-leg long sit"
+        },
+        {
+          "name": "Long Sit Against Wall",
+          "when_to_use": "Client needs tactile feedback for spine position. Back against wall.",
+          "rebuilds_to": "Unsupported long sit"
+        }
+      ],
+      "progressions": [
+        {
+          "name": "Long Sit Forward Fold",
+          "what_it_adds": "Loads the hamstring and spine flexion under gravity",
+          "gates_to_move_up": "Owns upright long sit for 60s with neutral pelvis"
+        },
+        {
+          "name": "Long Sit Active Leg Lifts",
+          "what_it_adds": "Active hip flexion + quad engagement at end range. Tests what's active range vs passive.",
+          "gates_to_move_up": "Owns long sit + fold"
+        },
+        {
+          "name": "Long Sit with Toes Pointed",
+          "what_it_adds": "Changes the demand - now plantarflexion + hamstring length. Different neurological pattern.",
+          "gates_to_move_up": "Owns feet-flexed version"
+        }
+      ],
+      "cars_available": [
+        {
+          "exercise_id": "lumbar_car_seated_tall_l6",
+          "joint": "lumbar",
+          "level": "LVI",
+          "notes": "Segmental spine work from long sit - legs fixed forces pelvis stability",
+          "use_when": "Spine control work"
+        },
+        {
+          "exercise_id": "tspine_car_seated_tall_l6",
+          "joint": "thoracic",
+          "level": "LVI",
+          "notes": "T-spine rotation with extended legs",
+          "use_when": "T-spine work"
+        }
+      ],
+      "pails_rails_targets_available": [
+        {
+          "target_id": "hip_flexion",
+          "joint": "hip",
+          "target_name": "Hip Flexion (hamstring length)",
+          "how_it_sets_up_in_this_position": "Long sit loads hamstring length at end hip flexion with knee extended. PAIL = press legs down into floor (hamstrings contract against stretched position). RAIL = lift legs off floor actively (hip flexors drive deeper flexion).",
+          "level_programming": "L1-L2 - hamstring work usually conservative intro"
+        }
+      ],
+      "end_range_iso_positions": [
+        {
+          "placeholder_id": "long_sit_hamstring_hold",
+          "description": "Active hamstring hold - legs pressed firmly into floor, 20-45s",
+          "progression_code": "PRH",
+          "library_status": "TO BE BUILT"
+        }
+      ],
+      "hovers_available": [
+        {
+          "placeholder_id": "long_sit_leg_hover",
+          "description": "Hover legs 1-2 inches off floor while maintaining pelvis neutral. Active hip flexion.",
+          "library_status": "TO BE BUILT"
+        }
+      ],
+      "ramping_opportunities": [],
+      "live_in_the_position_work": [
+        {
+          "name": "Slow Forward Fold",
+          "description": "Hinge forward from hips, not spine. Hands walk toward shins/feet.",
+          "dose": "3-5 holds at 30-45s",
+          "purpose": "Passive hamstring + hip flexion loading"
+        },
+        {
+          "name": "Active Leg Press-Down",
+          "description": "Press legs actively into floor - quad and hamstring engage.",
+          "dose": "10-15 reps with 3-5s holds",
+          "purpose": "Active hamstring work at length"
+        },
+        {
+          "name": "Ankle Pump",
+          "description": "In long sit, flex and point the feet. Ankle mobility + hamstring variation.",
+          "dose": "10-15 reps",
+          "purpose": "Ankle DF/PF capacity + lower leg integration"
+        },
+        {
+          "name": "Arm Reach Overhead (spine extension demand)",
+          "description": "Reach arms overhead in long sit. Tests spine + hip flexion simultaneously.",
+          "dose": "5-8 reaches with 3-5s hold",
+          "purpose": "Integrated spine-hip demand"
+        },
+        {
+          "name": "Spine Rotation from Long Sit",
+          "description": "Rotate torso to look behind. Legs stay fixed, spine does the work.",
+          "dose": "6-8 per side",
+          "purpose": "Spine rotation isolation"
+        }
+      ],
+      "typical_block_dose": {
+        "beginner_client": "5-8 min - introduce position, breath, gentle fold",
+        "intermediate_client": "8-12 min - CARs + PAIL/RAIL + fold + active work",
+        "advanced_client": "10-15 min - full integration with active leg work and rotations",
+        "kinstretch_flow_class": "5-8 min in flow"
+      },
+      "flow_partners": [
+        {
+          "position": "butterfly",
+          "why_pairs": "Long sit tests hamstring (extended knee); butterfly tests hip ER (bent knee). Complementary."
+        },
+        {
+          "position": "straddle",
+          "why_pairs": "Long sit legs together; straddle legs apart. Progression."
+        },
+        {
+          "position": "90_90",
+          "why_pairs": "Long sit bilateral extended; 90/90 unilateral flexed+rotated. Different capacity dimensions."
+        },
+        {
+          "position": "supine",
+          "why_pairs": "Supine removes gravity on spine - good transition out of long sit if fatigued"
+        }
+      ],
+      "builder_selection_logic": {
+        "prescribe_this_position_when": [
+          "Hamstring length / hip flexion restriction flagged",
+          "Spine flexion tolerance work",
+          "Kinstretch flow opener",
+          "Re-test position for hamstring ROM improvements"
+        ],
+        "avoid_this_position_when": [
+          "Acute hamstring strain",
+          "Disc flare (flexion intolerant)",
+          "Recent knee surgery"
+        ],
+        "pair_with_external_strength_work": [
+          "Hinge pattern blocks - long sit opens hamstrings for RDL work",
+          "Any lower body session with hamstring tightness flagged"
+        ]
+      }
+    },
+    "butterfly": {
+      "id": "base_pos_butterfly",
+      "name": "Butterfly",
+      "aliases": [
+        "cobbler's pose",
+        "bound angle",
+        "baddha konasana"
+      ],
+      "category": "seated_floor",
+      "primary_plane": "frontal",
+      "tier": "beginner",
+      "description": "Seated with soles of the feet together, knees falling out to the sides. Bilateral hip ER + abduction + flexion. Spine upright, hands on feet or ankles. The foundational adductor/hip opener - simple position, profound demand on hip external rotators and adductor lengthening.",
+      "setup_cues": [
+        "Soles of feet pressed together, drawn toward the pelvis (not forced)",
+        "Let the knees fall naturally - don't force them toward the floor",
+        "Sit tall, ribs stacked over pelvis",
+        "Hands cupping the feet or resting on ankles - not pulling",
+        "Breathe - the shape releases on exhale, tightens on hold"
+      ],
+      "primary_joints_addressed": [
+        "hip"
+      ],
+      "secondary_joints_addressed": [
+        "lumbar",
+        "knee"
+      ],
+      "primary_capacities_trained": [
+        "Hip external rotation (bilateral)",
+        "Hip abduction at end range",
+        "Adductor lengthening",
+        "Hip flexion with rotation",
+        "Seated spine control"
+      ],
+      "entry_criteria": "Can sit on the floor with hips level for 30 seconds. If knees are up by the ears (very restricted), use elevation regressions before full butterfly.",
+      "contraindications": [
+        "Acute knee pain (butterfly loads the medial knee)",
+        "Acute hip flare",
+        "Adductor strain acute phase",
+        "Recent knee surgery"
+      ],
+      "regressions": [
+        {
+          "name": "Elevated Butterfly (block under sit bones)",
+          "when_to_use": "Pelvis tips backward, spine rounds. Block/folded mat elevates the sit bones.",
+          "rebuilds_to": "Floor butterfly"
+        },
+        {
+          "name": "Supported Knees Butterfly",
+          "when_to_use": "Knees float very high, adductor tightness prevents floor contact. Place blocks/pillows under knees.",
+          "rebuilds_to": "Unsupported butterfly"
+        },
+        {
+          "name": "Supine Butterfly",
+          "when_to_use": "Client can't sit in the shape. Lie on back, soles together, knees out. Gravity-assisted.",
+          "rebuilds_to": "Seated butterfly"
+        },
+        {
+          "name": "Feet Further From Pelvis",
+          "when_to_use": "Full butterfly (feet at pelvis) too intense. Move feet 12-18 inches away.",
+          "rebuilds_to": "Full butterfly over time"
+        }
+      ],
+      "progressions": [
+        {
+          "name": "Butterfly Forward Fold",
+          "what_it_adds": "Loads the capsule under gravity, spine flexion with hip demand",
+          "gates_to_move_up": "Owns upright butterfly for 60s without knee pain"
+        },
+        {
+          "name": "Butterfly with PAIL Press (knees into floor)",
+          "what_it_adds": "Active adductor engagement while in abducted position - isometric ramping for adductor capacity",
+          "gates_to_move_up": "Owns butterfly fold. Adductor tolerance cleared."
+        },
+        {
+          "name": "Butterfly with RAIL Drive (knees to floor)",
+          "what_it_adds": "Active hip abduction at end range - drives adductor lengthening neurologically",
+          "gates_to_move_up": "Owns butterfly + PAIL press"
+        }
+      ],
+      "cars_available": [
+        {
+          "exercise_id": "hip_car_seated_90_90_l6",
+          "joint": "hip",
+          "level": "LVI",
+          "notes": "Modified hip CARs from butterfly position - legs explore in abducted/ER position",
+          "use_when": "Client new to seated hip work"
+        }
+      ],
+      "pails_rails_targets_available": [
+        {
+          "target_id": "hip_adduction",
+          "joint": "hip",
+          "target_name": "Hip Adduction / Adductor Capacity",
+          "how_it_sets_up_in_this_position": "Butterfly loads adductor lengthening bilaterally. PAIL = press knees down into the floor (adductor contracts in stretched position). RAIL = actively pull knees toward floor (abductors drive deeper).",
+          "level_programming": "L1-L2 for most clients. Adductor-heavy work, respect tolerance."
+        },
+        {
+          "target_id": "hip_anterior_capsule_er",
+          "joint": "hip",
+          "target_name": "Anterior Capsule (ER component)",
+          "how_it_sets_up_in_this_position": "Butterfly's ER component allows mild anterior capsule loading - less intense than 90/90 or pigeon, good teaching position.",
+          "level_programming": "L1 typically - butterfly is often the introduction to capsular work"
+        }
+      ],
+      "end_range_iso_positions": [
+        {
+          "placeholder_id": "butterfly_knee_to_floor_hold",
+          "description": "Active press knees toward floor, hold 20-45s - adductor + hip abductor iso work",
+          "progression_code": "PRH -> PRLO (adding overhead load or forward fold)",
+          "library_status": "TO BE BUILT"
+        }
+      ],
+      "hovers_available": [],
+      "ramping_opportunities": [
+        {
+          "placeholder_id": "butterfly_adductor_ramping",
+          "description": "Graded adductor effort 20-80% while in butterfly - indicated for adductor spasm finding",
+          "library_status": "TO BE BUILT"
+        }
+      ],
+      "live_in_the_position_work": [
+        {
+          "name": "Forward Fold (slow descent)",
+          "description": "Walk hands forward, spine rounds, fold into butterfly. Find the edge of the stretch, breathe.",
+          "dose": "3-5 holds at 30-60s",
+          "purpose": "Passive adductor + spine loading"
+        },
+        {
+          "name": "Side-to-Side Weight Shift",
+          "description": "Shift weight to one sit bone, then the other, feeling one hip load more than the other.",
+          "dose": "10-15 shifts",
+          "purpose": "Asymmetric hip exploration"
+        },
+        {
+          "name": "Spine Rotation in Butterfly",
+          "description": "Keeping legs in butterfly, rotate the torso one direction then the other.",
+          "dose": "8-12 per side",
+          "purpose": "T-spine rotation from a locked hip base"
+        },
+        {
+          "name": "Knee Press-Down (active adductor work)",
+          "description": "Press knees actively toward the floor. Release. Repeat. Not a stretch - active engagement.",
+          "dose": "10-15 reps",
+          "purpose": "Adductor activation at length"
+        },
+        {
+          "name": "Breath Into the Adductors",
+          "description": "Hands on inner thighs, breath expanded into the adductors. Felt awareness of the tissue.",
+          "dose": "3-5 min",
+          "purpose": "Tissue awareness, parasympathetic drive"
+        }
+      ],
+      "typical_block_dose": {
+        "beginner_client": "5-8 min - introduce position, forward fold, breath",
+        "intermediate_client": "10-12 min - CARs + PAILs/RAILs + fold work",
+        "advanced_client": "12-18 min - multi-modal with deep live-in and ramping",
+        "kinstretch_flow_class": "5-8 min in flow"
+      },
+      "flow_partners": [
+        {
+          "position": "straddle",
+          "why_pairs": "Butterfly loads adductors at short length; straddle loads them long. Complementary."
+        },
+        {
+          "position": "90_90",
+          "why_pairs": "Butterfly is bilateral, 90/90 is asymmetric - sequence from general to specific"
+        },
+        {
+          "position": "long_sit",
+          "why_pairs": "Long sit balances butterfly's hip ER focus with hip flexion at extended knees"
+        },
+        {
+          "position": "pigeon",
+          "why_pairs": "Butterfly warms bilateral ER, pigeon takes it unilateral and deeper"
+        }
+      ],
+      "builder_selection_logic": {
+        "prescribe_this_position_when": [
+          "Adductor tightness flagged",
+          "Hip ER restriction that needs a gentle teaching entry",
+          "Introduction to seated hip work for new clients",
+          "Kinstretch flow opener or cooldown"
+        ],
+        "avoid_this_position_when": [
+          "Acute knee pain (medial)",
+          "Adductor strain acute",
+          "Recent knee surgery"
+        ],
+        "pair_with_external_strength_work": [
+          "Squat pattern blocks - butterfly opens adductors for Cossack squats and wide-stance loading",
+          "Lateral movement days - butterfly prepares frontal plane work",
+          "General warm-up for lower body sessions"
+        ]
+      }
+    },
+    "straddle": {
+      "id": "base_pos_straddle",
+      "name": "Straddle",
+      "aliases": [
+        "seated straddle",
+        "wide-leg seated",
+        "samakonasana variant"
+      ],
+      "category": "seated_floor",
+      "primary_plane": "frontal",
+      "tier": "intermediate",
+      "description": "Seated with legs extended wide to the sides, feet flexed, spine tall. Loads adductor lengthening with knees straight - different adductor demand than butterfly. Hip flexion with abduction + spine control. A challenging position for most adult clients due to adductor restriction.",
+      "setup_cues": [
+        "Legs extended wide apart, toes pointing straight up (feet flexed)",
+        "Knees face up (don't let them rotate in or out)",
+        "Sit bones rooted, pelvis neutral",
+        "Spine tall - tendency is to round forward, resist that",
+        "Hands can rest on floor in front or on thighs"
+      ],
+      "primary_joints_addressed": [
+        "hip"
+      ],
+      "secondary_joints_addressed": [
+        "lumbar",
+        "knee"
+      ],
+      "primary_capacities_trained": [
+        "Hip abduction at end range (with knee extended)",
+        "Adductor length (straight-knee demand - different than butterfly)",
+        "Hip flexion with abduction combined",
+        "Seated spine control in wide-leg position"
+      ],
+      "entry_criteria": "Can sit in long sit comfortably. Can abduct legs at least 60 degrees. Adductor tolerance at full knee extension.",
+      "contraindications": [
+        "Acute adductor strain",
+        "Acute knee pain (especially medial)",
+        "Acute hamstring strain",
+        "Acute low back pain (flexion intolerant)"
+      ],
+      "regressions": [
+        {
+          "name": "Elevated Straddle (block under sit bones)",
+          "when_to_use": "Pelvis tips back hard in wide-leg seated",
+          "rebuilds_to": "Floor straddle"
+        },
+        {
+          "name": "Narrow Straddle",
+          "when_to_use": "Adductor restriction prevents wide abduction. Start with legs at 45 degrees apart, widen over time.",
+          "rebuilds_to": "Wider straddle progressively"
+        },
+        {
+          "name": "Supine Straddle (legs on wall)",
+          "when_to_use": "Seated is too intense. Lie on back, legs up wall, let them open into straddle gravity-assisted.",
+          "rebuilds_to": "Seated straddle"
+        }
+      ],
+      "progressions": [
+        {
+          "name": "Straddle Forward Fold (center)",
+          "what_it_adds": "Loads adductor length under gravity + spine flexion",
+          "gates_to_move_up": "Owns upright straddle at moderate width for 60s"
+        },
+        {
+          "name": "Straddle Side Bend (reach to one foot)",
+          "what_it_adds": "Adds anti-lateral flexion + side-specific adductor loading",
+          "gates_to_move_up": "Owns center fold"
+        },
+        {
+          "name": "Straddle Press-Downs (active adduction)",
+          "what_it_adds": "Active adductor engagement while in abducted position - the PAIL for adductors",
+          "gates_to_move_up": "Owns straddle + folds"
+        }
+      ],
+      "cars_available": [
+        {
+          "exercise_id": "hip_car_seated_90_90_l6",
+          "joint": "hip",
+          "level": "LVI",
+          "notes": "Modified from straddle - each leg moves in abducted position",
+          "use_when": "Hip ROM exploration in abducted position"
+        }
+      ],
+      "pails_rails_targets_available": [
+        {
+          "target_id": "hip_adduction",
+          "joint": "hip",
+          "target_name": "Hip Adduction / Adductor Length",
+          "how_it_sets_up_in_this_position": "Straddle loads adductor lengthening at end abduction with extended knee - differs from butterfly (bent knee). PAIL = press legs down into floor (adductors contract in stretched position). RAIL = pull legs wider (abductors drive deeper abduction).",
+          "level_programming": "L1-L2 - straddle is intense adductor demand, respect tolerance"
+        },
+        {
+          "target_id": "hip_flexion",
+          "joint": "hip",
+          "target_name": "Hip Flexion (combined with abduction)",
+          "how_it_sets_up_in_this_position": "Straddle fold loads hip flexion at abducted + extended knee - unique capacity demand",
+          "level_programming": "L1-L2"
+        }
+      ],
+      "end_range_iso_positions": [
+        {
+          "placeholder_id": "straddle_adductor_hold",
+          "description": "Press legs actively into floor while in straddle - isometric adductor + hip flexion hold",
+          "progression_code": "PRH -> PRLO (adding overhead load)",
+          "library_status": "TO BE BUILT"
+        }
+      ],
+      "hovers_available": [
+        {
+          "placeholder_id": "straddle_leg_hover",
+          "description": "Hover legs 1-2 inches off floor from straddle - active hip abduction + flexion",
+          "library_status": "TO BE BUILT"
+        }
+      ],
+      "ramping_opportunities": [
+        {
+          "placeholder_id": "straddle_adductor_ramping",
+          "description": "Graded adductor effort while in straddle - 20-80% ramps",
+          "library_status": "TO BE BUILT"
+        }
+      ],
+      "live_in_the_position_work": [
+        {
+          "name": "Slow Forward Fold",
+          "description": "From straddle, fold forward from the hips. Adductor + spine loading.",
+          "dose": "3-5 holds 30-60s",
+          "purpose": "Passive adductor loading"
+        },
+        {
+          "name": "Side Reach (one hand to one foot)",
+          "description": "Reach one hand toward the same-side foot. Anti-lateral flexion + unilateral adductor.",
+          "dose": "5-8 per side",
+          "purpose": "Frontal plane spine + hip work"
+        },
+        {
+          "name": "Active Adductor Press-Downs",
+          "description": "Press legs firmly into floor. Adductors contract at length.",
+          "dose": "10-15 reps with 3-5s hold",
+          "purpose": "Adductor strength at stretched length"
+        },
+        {
+          "name": "Spine Rotation (left and right)",
+          "description": "Rotate torso one direction then the other in straddle.",
+          "dose": "6-8 per side",
+          "purpose": "Spine rotation with stable wide-leg base"
+        },
+        {
+          "name": "Breath Work at Edge",
+          "description": "In deepest accessible straddle, deep breaths. Parasympathetic drive.",
+          "dose": "2-3 min",
+          "purpose": "Tissue release, tolerance building"
+        }
+      ],
+      "typical_block_dose": {
+        "beginner_client": "5-8 min - introduce, short folds, breath",
+        "intermediate_client": "8-12 min - CARs + PAIL/RAIL + fold variations",
+        "advanced_client": "12-15 min - full work with active holds and ramping",
+        "kinstretch_flow_class": "5-8 min in flow"
+      },
+      "flow_partners": [
+        {
+          "position": "butterfly",
+          "why_pairs": "Butterfly (bent knee) and straddle (extended knee) load adductors differently - sequence them"
+        },
+        {
+          "position": "long_sit",
+          "why_pairs": "Long sit tests hamstring in midline; straddle tests hamstring + adductor in abduction"
+        },
+        {
+          "position": "cossack",
+          "why_pairs": "Straddle prepares the passive adductor length; Cossack loads it actively"
+        },
+        {
+          "position": "90_90",
+          "why_pairs": "Straddle bilateral abduction; 90/90 unilateral ER. Different dimensions of hip capacity."
+        }
+      ],
+      "builder_selection_logic": {
+        "prescribe_this_position_when": [
+          "Adductor restriction flagged (straight-knee version)",
+          "Hip abduction + flexion combined restriction",
+          "Preparation for Cossack squats or wide-stance lower body work",
+          "Frontal plane mobility blocks"
+        ],
+        "avoid_this_position_when": [
+          "Acute adductor strain",
+          "Acute knee pain",
+          "Acute hamstring strain"
+        ],
+        "pair_with_external_strength_work": [
+          "Cossack squat / lateral squat progression days",
+          "Wide stance deadlift preparation",
+          "Any lower body session with adductor tightness"
+        ]
+      }
+    },
+    "90_90": {
+      "id": "base_pos_90_90",
+      "name": "90/90",
+      "aliases": [
+        "9090",
+        "seated 90/90",
+        "lotus of the hip"
+      ],
+      "category": "seated_floor",
+      "primary_plane": "transverse",
+      "tier": "intermediate",
+      "description": "Seated on the floor with both knees bent to 90 degrees - front leg rotated externally (shin horizontal across the body, thigh in front), back leg rotated internally (thigh out to the side, shin behind). Pelvis stays upright and square to the front shin. Tall spine, hands on the floor or knees for support.",
+      "setup_cues": [
+        "Sit tall - imagine a string pulling the crown of the head up",
+        "Front shin parallel to the front of the mat, knee at 90, foot flexed",
+        "Back leg mirrors: knee at 90, thigh pointed straight out to the side",
+        "Both sit bones aim to stay grounded - lift whichever one wants to float",
+        "Hands can be on thighs, knees, or supporting behind you"
+      ],
+      "primary_joints_addressed": [
+        "hip",
+        "lumbar",
+        "thoracic"
+      ],
+      "secondary_joints_addressed": [
+        "knee",
+        "ankle"
+      ],
+      "primary_capacities_trained": [
+        "Hip external rotation (front leg)",
+        "Hip internal rotation (back leg)",
+        "Hip flexion under load",
+        "Pelvic control in asymmetric loading",
+        "Seated spine control / anti-collapse"
+      ],
+      "entry_criteria": "Can sit on the floor with hips reasonably level for 30 seconds without significant pain or pelvis tipping 45+ degrees. If client can't get into the shape at all, use regression options below.",
+      "contraindications": [
+        "Acute knee pain or recent knee surgery (position loads both knees end-range)",
+        "Acute hip labral flare (position compresses the hip capsule)",
+        "Acute low back pain with radicular symptoms",
+        "Meniscus flare on either knee",
+        "Post-surgical hip (ask clinician)"
+      ],
+      "regressions": [
+        {
+          "name": "Elevated 90/90 (on a block or folded mat)",
+          "when_to_use": "Client can't sit upright in 90/90 without pelvis tipping hard backward. Yoga block or 2-3 inches of elevation under the sit bones.",
+          "rebuilds_to": "Full 90/90 once hip ROM and pelvic control improve"
+        },
+        {
+          "name": "Wall-Supported 90/90",
+          "when_to_use": "Client tips backward without support. Back against the wall, legs in the shape.",
+          "rebuilds_to": "Unsupported 90/90"
+        },
+        {
+          "name": "Modified 90/90 (one leg at a time)",
+          "when_to_use": "Client can only tolerate one hip in position at a time. Front leg in position, back leg straight behind. Switch sides to address the other hip.",
+          "rebuilds_to": "Full bilateral 90/90"
+        },
+        {
+          "name": "Cross-Legged Seated (Easy Sit)",
+          "when_to_use": "Client can't tolerate 90/90 shape at all. Start with a symmetric cross-legged position to train spine control and hip ER baseline.",
+          "rebuilds_to": "Modified 90/90"
+        }
+      ],
+      "progressions": [
+        {
+          "name": "90/90 Lift-Off (front leg)",
+          "what_it_adds": "Active hip ER capacity at end range - lifting the front shin off the floor while maintaining position",
+          "gates_to_move_up": "Owns static 90/90 for 2+ minutes. No pelvic shift when lift-off attempted."
+        },
+        {
+          "name": "90/90 Rocking (dynamic transitions)",
+          "what_it_adds": "Active switching between sides - hip ER to IR demand under load",
+          "gates_to_move_up": "Owns static 90/90 bilaterally. Can transition both directions without hands."
+        },
+        {
+          "name": "90/90 with External Load (KB or plate)",
+          "what_it_adds": "Axial loading of the seated position - forces deeper pelvic control",
+          "gates_to_move_up": "Owns static 90/90 + lift-off. Used in capacity blocks only."
+        }
+      ],
+      "cars_available": [
+        {
+          "exercise_id": "hip_car_seated_90_90_l6",
+          "joint": "hip",
+          "level": "LVI",
+          "notes": "Movement-focused hip CAR from the 90/90 position. Each leg trains different articular demand.",
+          "use_when": "Client new to 90/90 or assessment shows aberrant hip CARs"
+        },
+        {
+          "exercise_id": "hip_car_seated_90_90_l7",
+          "joint": "hip",
+          "level": "LVII",
+          "notes": "Articular focus hip CAR - front leg works ER in flexion, back leg works IR in flexion",
+          "use_when": "Client has owned the position, CARs were normal but asymmetries present"
+        },
+        {
+          "exercise_id": "hip_car_seated_90_90_l8",
+          "joint": "hip",
+          "level": "LVIII",
+          "notes": "Capacity-focused hip CAR in 90/90 - high irradiation, full body tension, slowest rep",
+          "use_when": "Capacity blocks for cleared clients"
+        },
+        {
+          "exercise_id": "tspine_car_seated_tall_l6",
+          "joint": "thoracic",
+          "level": "LVI",
+          "notes": "T-spine rotation in 90/90 - pelvis is locked, rotation has to come from thorax",
+          "use_when": "T-spine rotation restriction flagged, especially in desk-bound clients"
+        },
+        {
+          "exercise_id": "tspine_car_seated_tall_l7",
+          "joint": "thoracic",
+          "level": "LVII",
+          "notes": "Articular focus T-spine rotation from a locked pelvis base",
+          "use_when": "T-spine work in capacity-building blocks"
+        }
+      ],
+      "pails_rails_targets_available": [
+        {
+          "target_id": "hip_anterior_capsule_er",
+          "joint": "hip",
+          "target_name": "Anterior Capsule (ER in flexion)",
+          "how_it_sets_up_in_this_position": "Front leg IS the setup for anterior capsule PAIL/RAIL - the leg is already in the stretched ER-in-flexion position. Client sits in 90/90, then actively pushes the front shin down into the floor (PAIL - contracting the stretched ER) or lifts the shin off the floor (RAIL - contracting the antagonist to drive deeper ER).",
+          "level_programming": "L1 for new clients at 20-40% effort, 2 rounds of 10s/10s. L2 at 50-70% once owned."
+        },
+        {
+          "target_id": "hip_posterior_capsule_ir",
+          "joint": "hip",
+          "target_name": "Posterior Capsule (IR in flexion)",
+          "how_it_sets_up_in_this_position": "BACK leg IS the setup for posterior capsule PAIL/RAIL - already in IR-in-flexion end range. Client pushes back shin down into floor (PAIL - contracting stretched IR) or lifts the shin to drive deeper IR (RAIL).",
+          "level_programming": "L1 for new clients. Progress to L2-L3 once owned."
+        },
+        {
+          "target_id": "tspine_rotation",
+          "joint": "thoracic",
+          "target_name": "T-Spine Rotation",
+          "how_it_sets_up_in_this_position": "Rotate to end range T-spine rotation toward the front leg. Client pushes hands into floor behind them (PAIL - rotation antagonist drive) or actively rotates further (RAIL).",
+          "level_programming": "L1-L2 for most clients. Combining spine + hip PAIL/RAIL in same session requires L2+ mastery."
+        }
+      ],
+      "end_range_iso_positions": [
+        {
+          "placeholder_id": "90_90_front_leg_er_hold",
+          "description": "Hold the 90/90 front leg in full ER with active glute engagement. Iso hold, 20-45 seconds.",
+          "progression_code": "PRH (Passive Range Hold) -> PRLO (Passive Range Loaded)",
+          "library_status": "TO BE BUILT in End-Range Iso library"
+        },
+        {
+          "placeholder_id": "90_90_back_leg_ir_hold",
+          "description": "Hold the 90/90 back leg in full IR with pelvis upright. Static hold challenges posterior capsule capacity.",
+          "progression_code": "PRH -> PRLO",
+          "library_status": "TO BE BUILT"
+        },
+        {
+          "placeholder_id": "90_90_lift_off_hold",
+          "description": "Lift the front shin 1-2 inches off floor and hold. Active end-range hip ER capacity.",
+          "progression_code": "ERR (End Range Rotation) drill",
+          "library_status": "TO BE BUILT"
+        }
+      ],
+      "hovers_available": [
+        {
+          "placeholder_id": "90_90_shin_hover",
+          "description": "Hover the front leg shin slightly off the floor while maintaining position. Tests active hip ER at end range.",
+          "library_status": "TO BE BUILT in Hovers library"
+        },
+        {
+          "placeholder_id": "90_90_back_leg_hover",
+          "description": "Hover the back leg thigh slightly up - tests active hip IR capacity at end range.",
+          "library_status": "TO BE BUILT"
+        }
+      ],
+      "ramping_opportunities": [
+        {
+          "placeholder_id": "90_90_hip_er_ramping",
+          "description": "Isometric ramping in 90/90 - graded increases in effort from 20% to 80% across 5-8 reps. Indicated if spasm finding on assessment.",
+          "library_status": "TO BE BUILT in Isometric Ramping library"
+        }
+      ],
+      "live_in_the_position_work": [
+        {
+          "name": "Pelvic Rocking (forward/back)",
+          "description": "In 90/90, gently rock the pelvis forward and back - exploring the anterior/posterior tilt range while the legs stay fixed.",
+          "dose": "10-15 slow reps",
+          "purpose": "Pelvic awareness, hip flexion capacity, spine integration"
+        },
+        {
+          "name": "Side-to-Side Rocking",
+          "description": "Shift weight from sit bone to sit bone in 90/90. Identifies asymmetries and trains glute activation at end range.",
+          "dose": "10-15 slow shifts",
+          "purpose": "Pelvic control, asymmetry awareness, side-to-side ROM"
+        },
+        {
+          "name": "T-Spine Reach-Arounds",
+          "description": "In 90/90, reach one arm behind and around to open the ribcage. Thoracic rotation with hips locked.",
+          "dose": "8 per side",
+          "purpose": "T-spine rotation from a locked-hip base"
+        },
+        {
+          "name": "Forward Fold over Front Leg",
+          "description": "Slowly fold forward over the front leg from 90/90. Loads hip ER in flexion under gravity.",
+          "dose": "3-5 slow holds at 20-60s each",
+          "purpose": "Passive capsule loading, breath work at end range"
+        },
+        {
+          "name": "Hand-Walk Transitions",
+          "description": "Transition from 90/90 to other seated positions (long sit, butterfly) using hands to support the change. Trains fluidity between positions.",
+          "dose": "5-8 transitions",
+          "purpose": "Dynamic control, capacity to flow between shapes"
+        },
+        {
+          "name": "Breath Work at End Range",
+          "description": "In any end-range position in 90/90, perform 5-10 slow breaths. Trains nervous system to relax at restricted ranges.",
+          "dose": "3-5 minutes",
+          "purpose": "Parasympathetic drive, restriction release, psychological tolerance"
+        },
+        {
+          "name": "Talking Through (Client Coaching Phase)",
+          "description": "Coach talks the client through what they're feeling in the position while they live in it. 'Where do you feel it?' 'What shifted?' 'Breathe into that spot.'",
+          "dose": "Integrated throughout the block",
+          "purpose": "Client awareness, mind-body connection, coach-client feedback loop"
+        }
+      ],
+      "typical_block_dose": {
+        "beginner_client": "5-8 minutes - introduce the position, one or two CARs, breath work, short forward fold",
+        "intermediate_client": "10-15 minutes - full CAR work, PAILs/RAILs on one capsular target, live-in work, T-spine integration",
+        "advanced_client": "15-20 minutes - multi-target PAILs/RAILs, end-range isos, hovers, rocking work, deep live-in",
+        "kinstretch_flow_class": "8-12 minutes - one position in a flow of 4-6 positions"
+      },
+      "flow_partners": [
+        {
+          "position": "pigeon",
+          "why_pairs": "Pigeon deepens hip flexion + ER after 90/90 - natural progression within a flow"
+        },
+        {
+          "position": "butterfly",
+          "why_pairs": "Butterfly opens the adductors and hip flexion differently than 90/90 - complementary seated position"
+        },
+        {
+          "position": "bear_sit",
+          "why_pairs": "Bear sit (feet wide, hands between legs) offers a recovery position and different hip demand between 90/90 sides"
+        },
+        {
+          "position": "long_sit",
+          "why_pairs": "Long sit extends the hip into flexion with knees straight - nervous system contrast after bent-knee work"
+        },
+        {
+          "position": "cossack",
+          "why_pairs": "Cossack takes the hip into loaded ER/IR at the same time - natural strength progression from 90/90 capacity work"
+        }
+      ],
+      "builder_selection_logic": {
+        "prescribe_this_position_when": [
+          "Hip IR or ER flagged as restricted (aberrant CAR or table test)",
+          "T-spine rotation restriction in desk-bound clients (locked pelvis forces T-spine to work)",
+          "Sessions focused on hip capacity building",
+          "Block intent includes Kinstretch flow",
+          "Client has plateaued in standing hip work and needs a loaded seated capsule focus"
+        ],
+        "avoid_this_position_when": [
+          "Acute knee or hip symptoms (see contraindications)",
+          "Post-surgical client in early phase",
+          "Client unable to get to the floor safely"
+        ],
+        "pair_with_external_strength_work": [
+          "Squat pattern blocks - 90/90 opens the hips for loaded squatting",
+          "Hinge blocks - hip capacity work carries to loaded RDLs",
+          "Any lower body session with hip-flagged findings"
+        ]
+      }
+    },
+    "number_4": {
+      "id": "base_pos_number_4",
+      "name": "Number 4 (Figure 4)",
+      "aliases": [
+        "figure four",
+        "seated figure 4",
+        "supine figure 4",
+        "couch figure 4"
+      ],
+      "category": "seated_floor_or_supine",
+      "primary_plane": "sagittal_with_rotation",
+      "tier": "beginner_to_intermediate",
+      "description": "Ankle of one leg crossed over the opposite knee to form a number '4' shape. Can be done seated (spine upright, opposite foot on floor), supine (lying on back, pulling opposite leg toward chest), or standing (balanced on one leg, other leg crossed in figure-4). Unilateral hip ER focus - the crossed leg's hip is loaded in external rotation.",
+      "setup_cues": [
+        "Ankle of working leg crosses over opposite thigh (just above the knee)",
+        "Working leg's shin approximately parallel to the floor or thigh",
+        "Supporting leg: seated = foot flat on floor, supine = pulled toward chest, standing = grounded and stable",
+        "Working hip's knee drifts out to the side - that's hip ER. Encourage it, don't force it.",
+        "Ankle stays flexed (dorsiflexed) to protect the knee"
+      ],
+      "primary_joints_addressed": [
+        "hip"
+      ],
+      "secondary_joints_addressed": [
+        "knee",
+        "lumbar"
+      ],
+      "primary_capacities_trained": [
+        "Hip external rotation (unilateral, isolated)",
+        "Hip flexion with ER",
+        "Piriformis / deep ER capacity",
+        "Pelvic control during unilateral hip loading"
+      ],
+      "entry_criteria": "Can sit or lie down without acute back pain. Can cross leg over without knee pain. Ankle flexion cleared.",
+      "contraindications": [
+        "Acute knee pain on the crossed leg side",
+        "Acute hip labral flare",
+        "SI joint acute irritation",
+        "Piriformis syndrome acute phase (paradoxically - figure 4 often prescribed for this, but acute flare should be avoided)"
+      ],
+      "regressions": [
+        {
+          "name": "Supine Figure 4 (gravity-assisted)",
+          "when_to_use": "Seated figure 4 loads too much. Lying on back removes gravity loading on spine, allows gentler hip ER.",
+          "rebuilds_to": "Seated or standing figure 4"
+        },
+        {
+          "name": "Modified Figure 4 with Strap",
+          "when_to_use": "Client can't reach the supporting leg to pull it toward chest. Use yoga strap around supporting thigh.",
+          "rebuilds_to": "Unassisted figure 4"
+        },
+        {
+          "name": "Seated Figure 4 on Chair",
+          "when_to_use": "Client can't get to floor. Chair-seated version - cross ankle over opposite knee while sitting in chair.",
+          "rebuilds_to": "Floor-seated figure 4"
+        }
+      ],
+      "progressions": [
+        {
+          "name": "Seated Figure 4 Forward Fold",
+          "what_it_adds": "Loads hip ER under gravity + spine flexion demand",
+          "gates_to_move_up": "Owns upright seated figure 4 for 60s per side"
+        },
+        {
+          "name": "Figure 4 with Supporting Leg Lift",
+          "what_it_adds": "Active hip flexion on supporting leg while maintaining figure 4 - harder pelvic control",
+          "gates_to_move_up": "Owns seated figure 4 + fold"
+        },
+        {
+          "name": "Standing Figure 4 (pistol squat prep)",
+          "what_it_adds": "Balance + unilateral loading + hip ER at depth - advanced capacity demand",
+          "gates_to_move_up": "Owns supine + seated figure 4. Pistol squat progression active."
+        }
+      ],
+      "cars_available": [
+        {
+          "exercise_id": "hip_car_side_lying_l6",
+          "joint": "hip",
+          "level": "LVI",
+          "notes": "Modified hip CARs adapted to figure 4 - working hip explores ER through its range",
+          "use_when": "Introduction to isolated hip ER work"
+        },
+        {
+          "exercise_id": "hip_car_seated_90_90_l7",
+          "joint": "hip",
+          "level": "LVII",
+          "notes": "Similar articular demand to 90/90 front leg - explore ER-in-flexion capsular edges",
+          "use_when": "Hip ER capsular restriction flagged"
+        }
+      ],
+      "pails_rails_targets_available": [
+        {
+          "target_id": "hip_anterior_capsule_er",
+          "joint": "hip",
+          "target_name": "Anterior Capsule (ER in flexion)",
+          "how_it_sets_up_in_this_position": "Figure 4 loads the anterior capsule unilaterally. PAIL = press the crossed-leg knee DOWN toward the floor (contract stretched ER). RAIL = drive the knee AWAY from midline (ER contraction to deepen the position).",
+          "level_programming": "L1-L3 based on tolerance. Figure 4 often easier than 90/90 for introducing the PAIL/RAIL concept."
+        }
+      ],
+      "end_range_iso_positions": [
+        {
+          "placeholder_id": "figure_4_er_hold",
+          "description": "Active hold of figure 4 with maximum hip ER engagement - 20-45s",
+          "progression_code": "PRH -> PRLO (adding opposite leg lift)",
+          "library_status": "TO BE BUILT"
+        }
+      ],
+      "hovers_available": [
+        {
+          "placeholder_id": "figure_4_knee_hover",
+          "description": "Hover the crossed-leg knee slightly off the supporting thigh - active ER hold at end range",
+          "library_status": "TO BE BUILT"
+        }
+      ],
+      "ramping_opportunities": [],
+      "live_in_the_position_work": [
+        {
+          "name": "Slow Forward Fold",
+          "description": "From seated figure 4, fold forward. Lets hip ER load under gravity.",
+          "dose": "3-5 holds at 30-60s",
+          "purpose": "Passive capsule loading"
+        },
+        {
+          "name": "Supporting Leg Pull-Toward-Chest (Supine)",
+          "description": "From supine figure 4, pull the supporting leg gently toward chest. Increases the hip ER on the crossed leg.",
+          "dose": "3-5 slow pulls with breath",
+          "purpose": "Graded depth exploration"
+        },
+        {
+          "name": "Crossed-Leg Knee Press",
+          "description": "Press the crossed-leg knee away from midline with the hand - passive ER deepening.",
+          "dose": "10-15 breaths at the edge",
+          "purpose": "Manual capsular loading"
+        },
+        {
+          "name": "Talking Through",
+          "description": "Where does the client feel it? Glute, outer hip, anterior hip? Tells you where the restriction lives.",
+          "dose": "Throughout block",
+          "purpose": "Diagnostic info for next session programming"
+        }
+      ],
+      "typical_block_dose": {
+        "beginner_client": "4-6 min per side",
+        "intermediate_client": "6-10 min per side",
+        "advanced_client": "8-12 min per side",
+        "kinstretch_flow_class": "4-6 min per side in flow"
+      },
+      "flow_partners": [
+        {
+          "position": "pigeon",
+          "why_pairs": "Figure 4 and pigeon both load anterior hip capsule - figure 4 is lighter intro, pigeon deeper"
+        },
+        {
+          "position": "supine",
+          "why_pairs": "Supine figure 4 IS a regression of this position - pair for deep recovery"
+        },
+        {
+          "position": "90_90",
+          "why_pairs": "Both load hip ER; figure 4 is unilateral/isolated, 90/90 is bilateral/symmetric"
+        },
+        {
+          "position": "standing",
+          "why_pairs": "Progression path - seated figure 4 to standing figure 4 (pistol prep)"
+        }
+      ],
+      "builder_selection_logic": {
+        "prescribe_this_position_when": [
+          "Hip ER restriction isolated to one side (asymmetric)",
+          "Introduction to hip ER work for new clients",
+          "Post-training hip decompression",
+          "Piriformis restriction (non-acute)"
+        ],
+        "avoid_this_position_when": [
+          "Acute knee pain crossed leg side",
+          "SI joint acute irritation",
+          "Piriformis acute flare"
+        ],
+        "pair_with_external_strength_work": [
+          "Unilateral lower body days (split squat, RFESS)",
+          "Cool-down after heavy squat or lunge work",
+          "Any session with unilateral hip asymmetry flagged"
+        ]
+      }
+    },
+    "pigeon": {
+      "id": "base_pos_pigeon",
+      "name": "Pigeon",
+      "aliases": [
+        "pigeon pose",
+        "sleeping pigeon",
+        "figure-4 variant"
+      ],
+      "category": "seated_floor",
+      "primary_plane": "sagittal_with_rotation",
+      "tier": "intermediate",
+      "description": "Front leg bent at the knee, shin angled across the body in hip external rotation and flexion. Back leg extended straight behind, hip in extension, toes pointed. Torso can be upright or folded forward. Classic hip opener that loads anterior capsule of the back hip and external rotators of the front hip simultaneously.",
+      "setup_cues": [
+        "Front shin angled across the mat - more parallel to the front = more ER demand",
+        "Back leg extended straight behind, hip pointing down to floor",
+        "Hips square toward the front of the mat - don't let the back hip open",
+        "Torso upright to start; fold forward for deeper capsular loading",
+        "Support hands on the floor or a block - don't grind into the knee"
+      ],
+      "primary_joints_addressed": [
+        "hip"
+      ],
+      "secondary_joints_addressed": [
+        "lumbar",
+        "knee",
+        "thoracic"
+      ],
+      "primary_capacities_trained": [
+        "Front hip external rotation + flexion (anterior capsule)",
+        "Back hip extension (anterior hip / hip flexor capsule)",
+        "Hip-pelvis dissociation under asymmetric load",
+        "Torso control with asymmetric hip position"
+      ],
+      "entry_criteria": "Can sit in 90/90 for 60 seconds on both sides without knee pain. Can tolerate knee flexion beyond 90 degrees passively. If knee pain prevents the position, regress immediately.",
+      "contraindications": [
+        "Acute knee pain - especially medial knee (pigeon loads the inside of the front knee)",
+        "Meniscus flare - pigeon compresses the knee joint",
+        "Acute hip labral flare (anterior impingement common in this position)",
+        "SI joint irritation acute phase",
+        "Total knee replacement early phase"
+      ],
+      "regressions": [
+        {
+          "name": "Supine Figure-4 (Threading the Needle)",
+          "when_to_use": "Client can't tolerate weight on the front knee. Lie on back, cross ankle over opposite knee, pull the supporting leg toward chest.",
+          "rebuilds_to": "Pigeon (on floor)"
+        },
+        {
+          "name": "Pigeon on Box or Bench",
+          "when_to_use": "Client can't get to floor or has hip restriction preventing full depth. Front shin on a box, back leg extended behind on floor.",
+          "rebuilds_to": "Pigeon (on floor)"
+        },
+        {
+          "name": "Half-Pigeon with Folded Blanket",
+          "when_to_use": "Hip ER restriction causes back hip to lift off floor. Fold blanket/towel under the front hip for support.",
+          "rebuilds_to": "Unsupported pigeon"
+        }
+      ],
+      "progressions": [
+        {
+          "name": "Pigeon Forward Fold",
+          "what_it_adds": "Loads anterior capsule of front hip under gravity. Increases depth of ER-in-flexion stretch.",
+          "gates_to_move_up": "Owns upright pigeon for 60s without knee or back pain"
+        },
+        {
+          "name": "Pigeon with Back Leg Quad Stretch",
+          "what_it_adds": "Adds hip extension + knee flexion on the back leg - loads back hip anterior capsule and quad",
+          "gates_to_move_up": "Owns pigeon forward fold. No knee restriction on back leg."
+        },
+        {
+          "name": "Active Pigeon Lift-Offs (front hip off floor)",
+          "what_it_adds": "Active hip ER strength at end range - lifts the front shin off floor in full pigeon position",
+          "gates_to_move_up": "Owns pigeon forward fold + back leg quad stretch. Active control at end range."
+        }
+      ],
+      "cars_available": [
+        {
+          "exercise_id": "hip_car_seated_90_90_l6",
+          "joint": "hip",
+          "level": "LVI",
+          "notes": "Modified hip CAR in pigeon position - front leg explores ER in flexion throughout",
+          "use_when": "Client new to pigeon"
+        },
+        {
+          "exercise_id": "hip_car_seated_90_90_l7",
+          "joint": "hip",
+          "level": "LVII",
+          "notes": "Articular focus - explore the restricted ranges of front hip ER",
+          "use_when": "Hip ER capsular restriction flagged"
+        }
+      ],
+      "pails_rails_targets_available": [
+        {
+          "target_id": "hip_anterior_capsule_er",
+          "joint": "hip",
+          "target_name": "Anterior Capsule (front hip - ER in flexion)",
+          "how_it_sets_up_in_this_position": "Pigeon is THE anterior capsule setup. Front leg is already in full ER-in-flexion. PAIL = push front shin down into floor (contract the stretched ER). RAIL = lift shin off floor to drive deeper ER.",
+          "level_programming": "L1-L3 based on tolerance. Pigeon loads the capsule more intensely than 90/90 - start conservative."
+        },
+        {
+          "target_id": "anterior_hip_extension",
+          "joint": "hip",
+          "target_name": "Anterior Hip (back leg extension)",
+          "how_it_sets_up_in_this_position": "Back leg is in full hip extension. PAIL = push the back thigh down into floor (contract hip flexors against the stretched position). RAIL = lift the back thigh off floor to drive deeper extension.",
+          "level_programming": "L1-L2 - most clients have hip flexor restriction, start conservative."
+        }
+      ],
+      "end_range_iso_positions": [
+        {
+          "placeholder_id": "pigeon_front_hip_er_hold",
+          "description": "Hold pigeon with active glute engagement on front hip - iso hold 30-60s",
+          "progression_code": "PRH -> PRLO (add load overhead or to front thigh)",
+          "library_status": "TO BE BUILT"
+        },
+        {
+          "placeholder_id": "pigeon_back_leg_extension_hold",
+          "description": "Active hip extension hold on back leg while in pigeon",
+          "progression_code": "PRH",
+          "library_status": "TO BE BUILT"
+        }
+      ],
+      "hovers_available": [
+        {
+          "placeholder_id": "pigeon_front_leg_hover",
+          "description": "Hover front leg slightly off floor - active hip ER at end range",
+          "library_status": "TO BE BUILT"
+        }
+      ],
+      "ramping_opportunities": [
+        {
+          "placeholder_id": "pigeon_front_hip_ramping",
+          "description": "Iso ramping in pigeon - graded effort from 20-80% over 5-8 reps",
+          "library_status": "TO BE BUILT"
+        }
+      ],
+      "live_in_the_position_work": [
+        {
+          "name": "Forward Fold Over Front Leg",
+          "description": "Slowly lower torso forward over the front leg. Passive loading of the front hip capsule.",
+          "dose": "3-5 holds at 30-60s each",
+          "purpose": "Passive capsule loading, breath work at end range"
+        },
+        {
+          "name": "Pigeon Rocking",
+          "description": "Shift weight forward and back subtly in the pigeon position - finds the edges of front hip restriction.",
+          "dose": "10-15 slow rocks",
+          "purpose": "Capsular exploration, find stuck spots"
+        },
+        {
+          "name": "Back Leg Quad Pull-In",
+          "description": "Reach back, grab back ankle, pull heel toward glute. Adds back hip extension + knee flexion simultaneously.",
+          "dose": "3-5 holds at 20-40s",
+          "purpose": "Back hip anterior capsule + quad lengthening"
+        },
+        {
+          "name": "Side-to-Side Weight Shift",
+          "description": "Shift weight onto the side of the front hip, then back. Explores different aspects of hip ER.",
+          "dose": "8-12 shifts",
+          "purpose": "Multi-angle capsular loading"
+        },
+        {
+          "name": "Breath Work at Deep Fold",
+          "description": "In deep pigeon fold, 5-10 slow breaths. Let the tissue release under gravity.",
+          "dose": "3-5 min",
+          "purpose": "Parasympathetic drive, restriction release"
+        },
+        {
+          "name": "Talking Through",
+          "description": "Coach dialogue while client is in the shape - 'where do you feel it, what shifted, how's breathing going.'",
+          "dose": "Integrated throughout block",
+          "purpose": "Client awareness, mind-body connection"
+        }
+      ],
+      "typical_block_dose": {
+        "beginner_client": "5-8 min per side - introduce position, forward fold, breath work",
+        "intermediate_client": "10-15 min per side - full CARs + PAILs/RAILs + fold work",
+        "advanced_client": "15-20 min per side - multi-modal with quad stretch, ramping, deep live-in",
+        "kinstretch_flow_class": "6-10 min per side in flow"
+      },
+      "flow_partners": [
+        {
+          "position": "90_90",
+          "why_pairs": "90/90 warms the hips bilaterally; pigeon takes the same direction deeper unilaterally"
+        },
+        {
+          "position": "runners_lunge",
+          "why_pairs": "Runner's lunge and pigeon both load the back hip anterior capsule - complementary"
+        },
+        {
+          "position": "butterfly",
+          "why_pairs": "Butterfly balances the ER-focused pigeon with bilateral adductor work"
+        },
+        {
+          "position": "supine",
+          "why_pairs": "Supine recovery after intense pigeon loading - figure-4 stretch as integration"
+        },
+        {
+          "position": "couch_stretch",
+          "why_pairs": "Couch stretch isolates the back hip capsule that pigeon loads - same target, different mechanical angle"
+        }
+      ],
+      "builder_selection_logic": {
+        "prescribe_this_position_when": [
+          "Hip external rotation OR hip extension flagged as restricted",
+          "Anterior hip capsule restriction on assessment (CAJP positive)",
+          "Chronic hip flexor tightness in desk-bound clients",
+          "Block intent includes deep hip capacity work",
+          "Kinstretch flow targeting hips"
+        ],
+        "avoid_this_position_when": [
+          "Acute knee pain (pigeon loads the knee medially)",
+          "Acute hip labral flare",
+          "SI joint acute irritation",
+          "Recent knee or hip surgery"
+        ],
+        "pair_with_external_strength_work": [
+          "Squat pattern blocks - pigeon opens the hips for deeper squatting",
+          "Split squat / RFESS blocks - pigeon trains the capsular demands of unilateral lower body",
+          "Any session where hip flexor tightness is limiting performance"
+        ]
+      }
+    },
+    "bear_sit": {
+      "id": "base_pos_bear_sit",
+      "name": "Bear Sit",
+      "aliases": [
+        "deep seated wide squat",
+        "malasana variant on ground"
+      ],
+      "category": "seated_floor",
+      "primary_plane": "sagittal_with_abduction",
+      "tier": "intermediate",
+      "description": "Seated on the floor with feet wide, knees bent and pulled up, heels on the floor, torso forward. The forearms or hands rest between the legs or on the floor in front. Loads deep hip flexion + abduction + ankle dorsiflexion simultaneously. Position of recovery between harder positions in a flow, also a capacity position itself.",
+      "setup_cues": [
+        "Feet wider than shoulders, heels flat",
+        "Knees bent and pulled up, tracking out over toes",
+        "Torso leans forward between the thighs",
+        "Arms between legs or on floor in front",
+        "Spine rounded is fine in bear sit (unlike deep squat, the spine fold is expected)"
+      ],
+      "primary_joints_addressed": [
+        "hip",
+        "ankle"
+      ],
+      "secondary_joints_addressed": [
+        "knee",
+        "lumbar",
+        "thoracic"
+      ],
+      "primary_capacities_trained": [
+        "Deep hip flexion with abduction",
+        "Ankle dorsiflexion (heels must stay down)",
+        "Recovery position - passive loading of multiple joints",
+        "Spine flexion tolerance",
+        "Hip ER in flexion"
+      ],
+      "entry_criteria": "Can deep squat with heels on the floor or close to it. Ankle DF sufficient to sit with heels down.",
+      "contraindications": [
+        "Acute knee pain",
+        "Recent knee surgery",
+        "Acute low back pain (if flexion intolerant)",
+        "Acute hip flare"
+      ],
+      "regressions": [
+        {
+          "name": "Bear Sit with Heels Elevated",
+          "when_to_use": "Ankle DF prevents heels on floor. Use small plates or folded mat under heels.",
+          "rebuilds_to": "Floor heels bear sit"
+        },
+        {
+          "name": "Supported Bear Sit (hands or forearms on blocks)",
+          "when_to_use": "Forward fold too intense, back rounds hard. Elevate hand support.",
+          "rebuilds_to": "Unsupported bear sit"
+        },
+        {
+          "name": "Narrow Bear Sit",
+          "when_to_use": "Hip ER restriction prevents wide stance. Start narrower, progress wider.",
+          "rebuilds_to": "Wider bear sit"
+        }
+      ],
+      "progressions": [
+        {
+          "name": "Bear Sit Rocks (forward/back)",
+          "what_it_adds": "Dynamic loading of hip flexion + ankle DF",
+          "gates_to_move_up": "Owns static bear sit for 60s"
+        },
+        {
+          "name": "Bear Sit with Arm Reaches",
+          "what_it_adds": "Adds shoulder flexion and T-spine extension while in deep hip flexion",
+          "gates_to_move_up": "Owns bear sit + rocks"
+        },
+        {
+          "name": "Bear Sit to Deep Squat Stand",
+          "what_it_adds": "Transition from bear sit up to deep squat (still with hips in flexion but standing on feet) - integrates strength",
+          "gates_to_move_up": "Owns bear sit + rocks. Deep squat pattern acceptable."
+        }
+      ],
+      "cars_available": [
+        {
+          "exercise_id": "hip_car_seated_90_90_l6",
+          "joint": "hip",
+          "level": "LVI",
+          "notes": "Modified for bear sit - hips already in deep flexion + abduction",
+          "use_when": "Deep hip flexion work"
+        }
+      ],
+      "pails_rails_targets_available": [
+        {
+          "target_id": "hip_flexion",
+          "joint": "hip",
+          "target_name": "Deep Hip Flexion",
+          "how_it_sets_up_in_this_position": "Bear sit loads deep hip flexion passively. PAIL = press feet into floor and drive hips into deeper flexion. RAIL = lift thighs off floor (hip flexors contract to deepen).",
+          "level_programming": "L1-L2"
+        }
+      ],
+      "end_range_iso_positions": [
+        {
+          "placeholder_id": "bear_sit_active_hold",
+          "description": "Active bear sit - press feet into floor, pull torso forward, active engagement",
+          "progression_code": "PRH",
+          "library_status": "TO BE BUILT"
+        }
+      ],
+      "hovers_available": [],
+      "ramping_opportunities": [],
+      "live_in_the_position_work": [
+        {
+          "name": "Bear Sit Rocks (forward/back)",
+          "description": "Rock torso forward (deeper fold) and back (less fold). Loads variably.",
+          "dose": "10-15 slow rocks",
+          "purpose": "Dynamic capsular loading"
+        },
+        {
+          "name": "Side-to-Side Weight Shift",
+          "description": "Shift weight onto one heel, then the other. Unilateral hip demand from bilateral position.",
+          "dose": "10-15 shifts",
+          "purpose": "Asymmetric hip + ankle loading"
+        },
+        {
+          "name": "Arm Reach Forward",
+          "description": "Reach arms forward on the floor while in bear sit. T-spine extension + shoulder flexion.",
+          "dose": "5-8 reaches with 10-20s holds",
+          "purpose": "Upper body integration"
+        },
+        {
+          "name": "Breath at Deep Fold",
+          "description": "In deepest bear sit fold, deep breathing. Passive recovery.",
+          "dose": "2-3 min",
+          "purpose": "Recovery, parasympathetic"
+        },
+        {
+          "name": "Stand to Deep Squat",
+          "description": "From bear sit, press feet into floor, stand up into a deep squat. Integrated strength work.",
+          "dose": "5-8 transitions",
+          "purpose": "Position-to-position transition"
+        }
+      ],
+      "typical_block_dose": {
+        "beginner_client": "3-5 min - primarily recovery between other positions",
+        "intermediate_client": "5-8 min - can include CARs and rock work",
+        "advanced_client": "6-10 min - fuller integration with rocks and transitions",
+        "kinstretch_flow_class": "3-5 min in flow as recovery / reset position"
+      },
+      "flow_partners": [
+        {
+          "position": "squat",
+          "why_pairs": "Bear sit is a seated version of deep squat - sequence them to build squat tolerance"
+        },
+        {
+          "position": "butterfly",
+          "why_pairs": "Both load hip ER in flexion but at different depths - butterfly superficial, bear sit deep"
+        },
+        {
+          "position": "straddle",
+          "why_pairs": "Both are wide-leg positions but straddle extends legs, bear sit flexes them"
+        },
+        {
+          "position": "90_90",
+          "why_pairs": "Bear sit is a recovery / transition position after 90/90 intensity"
+        }
+      ],
+      "builder_selection_logic": {
+        "prescribe_this_position_when": [
+          "Deep hip flexion + abduction capacity",
+          "Ankle DF restriction work",
+          "Recovery position between intense Kinstretch positions",
+          "Deep squat preparation"
+        ],
+        "avoid_this_position_when": [
+          "Acute knee pain",
+          "Ankle DF severely restricted (heels can't approach floor)",
+          "Acute low back pain"
+        ],
+        "pair_with_external_strength_work": [
+          "Squat pattern blocks - bear sit prepares the deep squat",
+          "Cossack / wide-stance lower body work",
+          "Recovery days after intense lower body training"
+        ]
+      }
+    },
+    "tall_kneeling": {
+      "id": "base_pos_tall_kneeling",
+      "name": "Tall Kneeling",
+      "aliases": [
+        "high kneeling",
+        "kneeling tall"
+      ],
+      "category": "kneeling",
+      "primary_plane": "sagittal",
+      "tier": "beginner",
+      "description": "Both knees on floor, hips fully extended, torso upright and stacked over knees. Tops of the feet flat or curled under (toes dorsiflexed). Foundational anti-extension / anti-rotation position that locks out the lower body and forces the trunk to do the work. The Pavel-influenced teaching position for trunk integration.",
+      "setup_cues": [
+        "Both knees down, hip-width apart",
+        "Hips fully extended - glutes on, pelvis neutral (tucked slightly)",
+        "Ribs stacked directly over the pelvis",
+        "Chest tall, shoulders relaxed, crown of head tall",
+        "Tops of feet either flat on floor or curled under (toes tucked) for ankle DF demand"
+      ],
+      "primary_joints_addressed": [
+        "lumbar",
+        "thoracic",
+        "hip"
+      ],
+      "secondary_joints_addressed": [
+        "knee",
+        "ankle"
+      ],
+      "primary_capacities_trained": [
+        "Hip extension at end range (glute activation)",
+        "Anti-extension core demand (no low back compensation)",
+        "T-spine rotation from locked pelvis",
+        "Shoulder and overhead work with stable base",
+        "Ankle dorsiflexion (if toes tucked)"
+      ],
+      "entry_criteria": "Can tolerate weight on knees for 2-3 minutes without pain. If knee pain prevents the position, use padding or regress to seated.",
+      "contraindications": [
+        "Acute knee pain",
+        "Recent knee surgery",
+        "Toe or forefoot acute injury (if toes tucked)",
+        "Meniscus flare"
+      ],
+      "regressions": [
+        {
+          "name": "Tall Kneeling on Pad",
+          "when_to_use": "Knee discomfort on bare floor. Use yoga mat, pad, or folded towel under knees.",
+          "rebuilds_to": "Unpadded tall kneeling if pain resolves"
+        },
+        {
+          "name": "Seated Tall (chair or bench)",
+          "when_to_use": "Knees cannot tolerate any kneeling. Use seated position - most of the same trunk demands apply.",
+          "rebuilds_to": "Tall kneeling when knees clear"
+        },
+        {
+          "name": "Tall Kneeling with Foam Roller Under Tops of Feet",
+          "when_to_use": "Client can't tuck toes and feet flat is uncomfortable. Roller under tops of feet compromises.",
+          "rebuilds_to": "Flat or tucked toe version"
+        }
+      ],
+      "progressions": [
+        {
+          "name": "Tall Kneeling with Overhead Reach",
+          "what_it_adds": "Shoulder flexion demand + anti-extension challenge (preventing lumbar extension during overhead reach)",
+          "gates_to_move_up": "Owns stable tall kneeling. Shoulder flexion cleared."
+        },
+        {
+          "name": "Tall Kneeling Pallof Press",
+          "what_it_adds": "Anti-rotation demand in the most locked-down position possible - pure trunk work",
+          "gates_to_move_up": "Owns tall kneeling + overhead reach"
+        },
+        {
+          "name": "Tall Kneeling Overhead Press (DB or landmine)",
+          "what_it_adds": "Integrated overhead pressing with anti-extension - direct transfer to standing OHP",
+          "gates_to_move_up": "Owns Pallof + overhead reach. Pressing pattern ready."
+        },
+        {
+          "name": "Tall Kneeling Chops (loaded)",
+          "what_it_adds": "Rotational core demand from the locked pelvis - teaches trunk to rotate, hips to stay still",
+          "gates_to_move_up": "Owns tall kneeling + Pallof press"
+        }
+      ],
+      "cars_available": [
+        {
+          "exercise_id": "tspine_car_quadruped_l6",
+          "joint": "thoracic",
+          "level": "LVI",
+          "notes": "Adapted T-spine rotation from tall kneeling - pelvis locked forces pure T-spine rotation",
+          "use_when": "T-spine rotation work with maximum pelvis lock"
+        },
+        {
+          "exercise_id": "shoulder_car_standing_l6",
+          "joint": "shoulder",
+          "level": "LVI",
+          "notes": "Shoulder CARs work well from tall kneeling - removes lower-body compensation",
+          "use_when": "Shoulder assessment or CAR work"
+        },
+        {
+          "exercise_id": "shoulder_car_standing_l7",
+          "joint": "shoulder",
+          "level": "LVII",
+          "notes": "Articular focus from locked-pelvis base",
+          "use_when": "Shoulder capsular restriction flagged"
+        }
+      ],
+      "pails_rails_targets_available": [
+        {
+          "target_id": "hip_anterior_hip_extension",
+          "joint": "hip",
+          "target_name": "Hip Extension (anterior capsule)",
+          "how_it_sets_up_in_this_position": "Tall kneeling itself IS hip extension. PAIL = tuck pelvis harder, glutes drive contraction (hip extensors work against stretched position). RAIL = actively drive pelvis forward to deepen hip extension.",
+          "level_programming": "L1-L2 for most clients - usually foundational teaching of hip extension capacity"
+        },
+        {
+          "target_id": "tspine_rotation",
+          "joint": "thoracic",
+          "target_name": "T-Spine Rotation",
+          "how_it_sets_up_in_this_position": "Pelvis locked. Rotate to end-range T-spine rotation. PAIL = rotation antagonist drive. RAIL = active rotation deeper.",
+          "level_programming": "L1-L3 based on mastery"
+        }
+      ],
+      "end_range_iso_positions": [
+        {
+          "placeholder_id": "tall_kneeling_glute_hold",
+          "description": "Active glute contraction in tall kneeling - iso hip extension hold",
+          "progression_code": "PRH -> PRLO (adding overhead load)",
+          "library_status": "TO BE BUILT"
+        }
+      ],
+      "hovers_available": [],
+      "ramping_opportunities": [],
+      "live_in_the_position_work": [
+        {
+          "name": "Pelvic Tuck-Untuck",
+          "description": "In tall kneeling, alternate between anterior and posterior pelvic tilt. Explore hip extension range.",
+          "dose": "10-15 slow reps",
+          "purpose": "Pelvis-spine coordination"
+        },
+        {
+          "name": "T-Spine Reach-Arounds",
+          "description": "Keeping pelvis locked, reach one arm around and up. Thoracic rotation from locked base.",
+          "dose": "8-12 per side",
+          "purpose": "Pure T-spine rotation"
+        },
+        {
+          "name": "Active Hip Extension Hold",
+          "description": "Squeeze glutes, tuck pelvis, hold the end of hip extension. Iso capacity work.",
+          "dose": "3-5 holds at 20-30s",
+          "purpose": "Glute activation, hip extension strength"
+        },
+        {
+          "name": "Slow Overhead Reaches",
+          "description": "Reach arms overhead slowly, maintain ribs stacked over pelvis. Tests anti-extension.",
+          "dose": "5-10 reaches with 3s holds overhead",
+          "purpose": "Shoulder flexion + anti-extension integration"
+        },
+        {
+          "name": "Breath Work (tall)",
+          "description": "In tall kneeling, deep diaphragmatic breathing. Tests breath-brace coordination.",
+          "dose": "2-3 min",
+          "purpose": "Breath-stability integration"
+        }
+      ],
+      "typical_block_dose": {
+        "beginner_client": "5-8 min - introduce position, basic reach-arounds, breath",
+        "intermediate_client": "10-12 min - Pallof, overhead work, rotation",
+        "advanced_client": "12-18 min - full integration: chops, lifts, overhead loading",
+        "kinstretch_flow_class": "5-10 min in flow"
+      },
+      "flow_partners": [
+        {
+          "position": "half_kneeling",
+          "why_pairs": "Tall kneeling tests bilateral hip extension; half-kneeling tests unilateral"
+        },
+        {
+          "position": "standing",
+          "why_pairs": "Tall kneeling is the 'locked' version; standing is the integrated version"
+        },
+        {
+          "position": "quadruped",
+          "why_pairs": "Quadruped unloads the spine; tall kneeling loads it. Sequence as progression."
+        },
+        {
+          "position": "couch_stretch",
+          "why_pairs": "Tall kneeling tests hip extension; couch stretch loads its deeper restriction"
+        }
+      ],
+      "builder_selection_logic": {
+        "prescribe_this_position_when": [
+          "Core anti-rotation / anti-extension work",
+          "T-spine rotation isolation from hip compensation",
+          "Overhead pressing preparation and progression",
+          "Teaching position for bracing under load",
+          "Hip extension capacity work"
+        ],
+        "avoid_this_position_when": [
+          "Acute knee pain",
+          "Meniscus flare",
+          "Recent knee surgery"
+        ],
+        "pair_with_external_strength_work": [
+          "Overhead pressing blocks - tall kneeling press is a direct progression",
+          "Anti-rotation / chop-lift blocks",
+          "Any day with core integration work"
+        ]
+      }
+    },
+    "half_kneeling": {
+      "id": "base_pos_half_kneeling",
+      "name": "Half-Kneeling",
+      "aliases": [
+        "half kneel",
+        "low lunge (active)"
+      ],
+      "category": "kneeling",
+      "primary_plane": "sagittal",
+      "tier": "beginner",
+      "description": "One knee down, opposite foot flat on floor in front, forming a 90/90 angle at both hip and knee. The back knee is in full hip extension (loaded stretch for hip flexors), the front leg is in flexion. Torso upright. One of the most programmed positions in IMS - unilateral hip extension + bilateral stability demand + direct transfer to split squat and lunge patterns.",
+      "setup_cues": [
+        "Back knee on mat, hip directly under (or slightly behind) shoulder",
+        "Front foot flat, knee stacked over ankle (shin vertical)",
+        "Pelvis square to the front (not rotated)",
+        "Back glute on - drive the hip into extension",
+        "Ribs stacked over pelvis, chest tall"
+      ],
+      "primary_joints_addressed": [
+        "hip"
+      ],
+      "secondary_joints_addressed": [
+        "lumbar",
+        "thoracic",
+        "knee",
+        "ankle"
+      ],
+      "primary_capacities_trained": [
+        "Back hip extension (anterior capsule / hip flexor lengthening)",
+        "Front hip flexion + knee flexion",
+        "Pelvic control in asymmetric stance",
+        "Anti-rotation demand",
+        "Front ankle dorsiflexion under load"
+      ],
+      "entry_criteria": "Can tolerate weight on one knee for 2-3 minutes. Basic hip flexor tolerance on back leg. No acute knee pain.",
+      "contraindications": [
+        "Acute knee pain (back knee specifically)",
+        "Acute hip flexor strain",
+        "Recent knee surgery",
+        "Front ankle acute injury"
+      ],
+      "regressions": [
+        {
+          "name": "Half-Kneeling on Pad",
+          "when_to_use": "Back knee discomfort on floor",
+          "rebuilds_to": "Standard half-kneeling"
+        },
+        {
+          "name": "Shortened Stance Half-Kneeling",
+          "when_to_use": "Hip flexor restriction too intense at standard stance",
+          "rebuilds_to": "Standard stance as hip flexor opens"
+        },
+        {
+          "name": "Half-Kneeling with Wall Support",
+          "when_to_use": "Client can't balance or stabilize the torso. Kneel facing a wall, use it for support.",
+          "rebuilds_to": "Unsupported half-kneeling"
+        }
+      ],
+      "progressions": [
+        {
+          "name": "Half-Kneeling Press / Pull",
+          "what_it_adds": "Loaded upper body work in a position that challenges both hip extension (back) and anti-rotation",
+          "gates_to_move_up": "Owns static half-kneeling for 60s per side"
+        },
+        {
+          "name": "Half-Kneeling Chops / Lifts",
+          "what_it_adds": "Rotational core demand + unilateral hip stability - one of the highest-value core exercises",
+          "gates_to_move_up": "Owns half-kneeling press"
+        },
+        {
+          "name": "Half-Kneeling Hip Flexor Mobilization (active)",
+          "what_it_adds": "Graded hip flexor loading with active glute drive",
+          "gates_to_move_up": "Owns static half-kneeling"
+        }
+      ],
+      "cars_available": [
+        {
+          "exercise_id": "hip_car_quadruped_fire_hydrant_l6",
+          "joint": "hip",
+          "level": "LVI",
+          "notes": "Modified for half-kneeling - back leg explores hip extension range",
+          "use_when": "Hip extension capsule work"
+        },
+        {
+          "exercise_id": "tspine_car_half_kneeling_l6",
+          "joint": "thoracic",
+          "level": "LVI",
+          "notes": "T-spine rotation from half-kneeling - half-kneeling locks the hips, T-spine does the work",
+          "use_when": "T-spine rotation + hip stability integration"
+        },
+        {
+          "exercise_id": "tspine_car_half_kneeling_l7",
+          "joint": "thoracic",
+          "level": "LVII",
+          "notes": "Articular focus T-spine rotation from half-kneeling - standard of care for desk-bound clients",
+          "use_when": "T-spine restriction flagged"
+        }
+      ],
+      "pails_rails_targets_available": [
+        {
+          "target_id": "hip_anterior_hip_extension",
+          "joint": "hip",
+          "target_name": "Back Hip Extension (anterior capsule)",
+          "how_it_sets_up_in_this_position": "Back leg is in hip extension. PAIL = press back knee down into floor (hip flexors contract against stretched position). RAIL = tuck pelvis and drive back hip forward (glute drives deeper extension).",
+          "level_programming": "L1-L3 based on mastery - foundational hip flexor mobility + strength work"
+        }
+      ],
+      "end_range_iso_positions": [
+        {
+          "placeholder_id": "half_kneeling_hip_extension_hold",
+          "description": "Active hip extension hold with glute engagement - iso work for back hip",
+          "progression_code": "PRH",
+          "library_status": "TO BE BUILT"
+        }
+      ],
+      "hovers_available": [],
+      "ramping_opportunities": [],
+      "live_in_the_position_work": [
+        {
+          "name": "Pelvic Tucks (isolated hip extension)",
+          "description": "Tuck pelvis, hold, release. Glute activation specific to this position.",
+          "dose": "10-15 reps",
+          "purpose": "Glute activation at back hip"
+        },
+        {
+          "name": "Forward Lean (deepen hip flexor stretch)",
+          "description": "Slowly shift forward over front leg. Back hip extension increases.",
+          "dose": "3-5 slow shifts with breath",
+          "purpose": "Graded hip flexor loading"
+        },
+        {
+          "name": "Active Glute Squeeze + Hold",
+          "description": "Maximum glute engagement on back leg, hold 10-20s.",
+          "dose": "3-5 holds",
+          "purpose": "Motor pattern for hip extension"
+        },
+        {
+          "name": "T-Spine Rotation Reach",
+          "description": "Reach the arm opposite the front leg across the body. T-spine rotates with stable hips.",
+          "dose": "8-10 per side",
+          "purpose": "T-spine rotation with locked pelvis"
+        },
+        {
+          "name": "Breath at Edge of Hip Flexor Stretch",
+          "description": "In deep half-kneeling position, deep breaths. Let tissue release.",
+          "dose": "2-3 min",
+          "purpose": "Parasympathetic, tissue release"
+        }
+      ],
+      "typical_block_dose": {
+        "beginner_client": "5-8 min per side - introduce, basic holds, breath",
+        "intermediate_client": "8-12 min per side - CARs + PAILs/RAILs + integrated work",
+        "advanced_client": "10-15 min per side - full integration with loaded chops/presses",
+        "kinstretch_flow_class": "4-6 min per side in flow"
+      },
+      "flow_partners": [
+        {
+          "position": "tall_kneeling",
+          "why_pairs": "Tall kneeling bilateral; half-kneeling unilateral - natural progression"
+        },
+        {
+          "position": "couch_stretch",
+          "why_pairs": "Both load back hip extension - couch deeper, half-kneeling active"
+        },
+        {
+          "position": "runners_lunge",
+          "why_pairs": "Runner's lunge takes half-kneeling deeper into hip extension + flexion"
+        },
+        {
+          "position": "pigeon",
+          "why_pairs": "Half-kneeling and pigeon both load unilateral hip work - different angles"
+        }
+      ],
+      "builder_selection_logic": {
+        "prescribe_this_position_when": [
+          "Hip extension restriction / hip flexor tightness flagged",
+          "Split squat or lunge progression preparation",
+          "T-spine rotation + hip stability integration",
+          "Overhead pressing preparation (half-kneeling press)",
+          "Asymmetric hip findings"
+        ],
+        "avoid_this_position_when": [
+          "Acute back knee pain",
+          "Recent knee surgery",
+          "Acute hip flexor strain"
+        ],
+        "pair_with_external_strength_work": [
+          "Split squat / RFESS progression blocks",
+          "Overhead pressing (half-kneeling press progression)",
+          "Any session with anti-rotation work"
+        ]
+      }
+    },
+    "couch_stretch": {
+      "id": "base_pos_couch_stretch",
+      "name": "Couch Stretch",
+      "aliases": [
+        "couch pose",
+        "deep hip flexor position"
+      ],
+      "category": "kneeling",
+      "primary_plane": "sagittal",
+      "tier": "intermediate",
+      "description": "Back knee on floor with back foot elevated on a couch, wall, or bench (foot resting on vertical surface). Front leg in a lunge position with foot flat. Torso upright. The back hip is driven into deep extension while the back knee is in deep flexion - the most intense hip flexor and quad loading position commonly programmed. Named for its use with a couch at home.",
+      "setup_cues": [
+        "Back knee on floor (padded), back foot pointing straight up against vertical surface",
+        "Back shin vertical, pressed into the wall/couch",
+        "Front leg forward in lunge position, foot flat, shin vertical",
+        "Torso tall - resist the instinct to lean forward (that lets the hip flexor off the hook)",
+        "Glute ON on the back leg - drives hip into extension"
+      ],
+      "primary_joints_addressed": [
+        "hip"
+      ],
+      "secondary_joints_addressed": [
+        "knee",
+        "lumbar"
+      ],
+      "primary_capacities_trained": [
+        "Back hip extension (anterior capsule loading)",
+        "Back knee flexion (quad lengthening)",
+        "Front hip flexion + knee flexion (lunge demand)",
+        "Anti-extension core (torso stays tall)"
+      ],
+      "entry_criteria": "Owns half-kneeling for 60s per side. Can tolerate deep knee flexion on the back leg. Clinical hip flexor + quad tolerance.",
+      "contraindications": [
+        "Acute knee pain (especially back knee - deep flexion)",
+        "Recent knee surgery",
+        "Acute hip flexor strain",
+        "Quad strain"
+      ],
+      "regressions": [
+        {
+          "name": "Standard Half-Kneeling",
+          "when_to_use": "Couch stretch too intense. Half-kneeling is the prerequisite - master first.",
+          "rebuilds_to": "Couch stretch"
+        },
+        {
+          "name": "Couch Stretch with Back Knee NOT Against Wall",
+          "when_to_use": "Full wall version too intense. Back knee on floor, back foot on a low box (6-12 inches), gentler knee flexion.",
+          "rebuilds_to": "Full couch stretch"
+        },
+        {
+          "name": "Bolster Under Back Ankle",
+          "when_to_use": "Back ankle discomfort pressing into wall. Bolster or pillow softens the contact.",
+          "rebuilds_to": "Unsupported couch"
+        }
+      ],
+      "progressions": [
+        {
+          "name": "Couch Stretch with Torso Upright + Active Glute",
+          "what_it_adds": "True position - most adults lean forward to escape. Tall torso + active glute is the full demand.",
+          "gates_to_move_up": "Can hold the tall torso for 60s per side without leaning"
+        },
+        {
+          "name": "Couch Stretch with Arm Reach Overhead",
+          "what_it_adds": "Shoulder flexion + anti-extension + deep hip extension simultaneously",
+          "gates_to_move_up": "Owns tall couch stretch"
+        },
+        {
+          "name": "Couch Stretch with Pelvic Tuck",
+          "what_it_adds": "Active hip extension engagement - glute drives pelvic tuck, deepens the stretch",
+          "gates_to_move_up": "Owns tall couch stretch"
+        }
+      ],
+      "cars_available": [],
+      "pails_rails_targets_available": [
+        {
+          "target_id": "anterior_hip_extension",
+          "joint": "hip",
+          "target_name": "Anterior Hip / Hip Flexor Capsule",
+          "how_it_sets_up_in_this_position": "Couch stretch loads the anterior capsule more intensely than any other base position. PAIL = drive back knee forward into floor (hip flexors contract against stretched position). RAIL = squeeze glute + drive pelvis forward (glute drives deeper hip extension).",
+          "level_programming": "L1-L3 based on mastery. This is the capsular target for hip flexor tightness."
+        }
+      ],
+      "end_range_iso_positions": [
+        {
+          "placeholder_id": "couch_stretch_active_extension_hold",
+          "description": "Tall torso + active glute squeeze in couch stretch - 30-60s hold",
+          "progression_code": "PRH -> PRLO (with overhead load)",
+          "library_status": "TO BE BUILT"
+        }
+      ],
+      "hovers_available": [],
+      "ramping_opportunities": [
+        {
+          "placeholder_id": "couch_stretch_hip_flexor_ramping",
+          "description": "Graded glute contraction 20-80% in couch stretch - indicated for hip flexor spasm finding",
+          "library_status": "TO BE BUILT"
+        }
+      ],
+      "live_in_the_position_work": [
+        {
+          "name": "Active Glute Squeeze + Hold",
+          "description": "In couch stretch, maximum glute engagement on back leg.",
+          "dose": "5-8 holds at 20-30s",
+          "purpose": "Hip extension capacity + motor pattern"
+        },
+        {
+          "name": "Pelvic Tuck (drive pelvis forward)",
+          "description": "Tuck pelvis, push hips forward - deepens hip extension.",
+          "dose": "10-15 slow tucks with hold",
+          "purpose": "Active hip extension"
+        },
+        {
+          "name": "Slow Tall-Up",
+          "description": "Start torso leaned forward (easier), slowly rise to fully upright. Graded tolerance build.",
+          "dose": "3-5 slow rises",
+          "purpose": "Graded loading of position"
+        },
+        {
+          "name": "Breath at the Edge",
+          "description": "In full couch stretch (tall torso), breathe deeply. Let tissue release.",
+          "dose": "2-3 min",
+          "purpose": "Parasympathetic drive"
+        },
+        {
+          "name": "Arm Reach Overhead",
+          "description": "Reach arms overhead in couch stretch. Integrate shoulder flexion with hip extension.",
+          "dose": "5-8 reaches with 10-15s hold",
+          "purpose": "Full-body integration"
+        }
+      ],
+      "typical_block_dose": {
+        "beginner_client": "3-5 min per side - introduce position, short holds",
+        "intermediate_client": "5-8 min per side - full PAIL/RAIL work",
+        "advanced_client": "8-12 min per side - multi-modal with integration",
+        "kinstretch_flow_class": "4-6 min per side in flow"
+      },
+      "flow_partners": [
+        {
+          "position": "half_kneeling",
+          "why_pairs": "Half-kneeling is the prerequisite; couch deepens it"
+        },
+        {
+          "position": "pigeon",
+          "why_pairs": "Pigeon loads back leg extension at knee straight; couch at knee bent - different angles same target"
+        },
+        {
+          "position": "runners_lunge",
+          "why_pairs": "Runner's lunge is dynamic; couch is the held, most-intense version"
+        },
+        {
+          "position": "tall_kneeling",
+          "why_pairs": "Tall kneeling active bilateral hip extension; couch unilateral deep hip extension"
+        }
+      ],
+      "builder_selection_logic": {
+        "prescribe_this_position_when": [
+          "Deep hip flexor restriction - the primary target",
+          "Quad tightness",
+          "Desk-bound clients with anterior pelvic tilt",
+          "Preparation for deep squat depth",
+          "Back hip asymmetry on assessment"
+        ],
+        "avoid_this_position_when": [
+          "Acute knee pain",
+          "Recent knee surgery",
+          "Acute quad strain"
+        ],
+        "pair_with_external_strength_work": [
+          "Squat pattern days (couch stretch opens hip flexors for squat depth)",
+          "Lunge/split squat progression blocks",
+          "Hip mobility priority blocks"
+        ]
+      }
+    },
+    "runners_lunge": {
+      "id": "base_pos_runners_lunge",
+      "name": "Runner's Lunge",
+      "aliases": [
+        "low lunge",
+        "anjaneyasana variant",
+        "long lunge"
+      ],
+      "category": "kneeling",
+      "primary_plane": "sagittal",
+      "tier": "beginner_to_intermediate",
+      "description": "Deep lunge position with back knee on floor (or hovered), front foot flat, front knee over ankle or slightly forward. Torso can be upright with hands on front thigh or hanging forward with hands on floor beside front foot. A dynamic-capable version of the half-kneeling / couch stretch family. Often used as a transition between standing and floor positions, and as an active hip flexor + hamstring opener.",
+      "setup_cues": [
+        "Front foot flat, knee stacked over ankle or slightly forward",
+        "Back knee on floor (rest) or hovered (active)",
+        "Front shin angle varies - vertical for balanced load, forward for deeper ankle DF demand",
+        "Torso can be upright or folded forward over front leg",
+        "Back leg actively engaged, not passive"
+      ],
+      "primary_joints_addressed": [
+        "hip"
+      ],
+      "secondary_joints_addressed": [
+        "knee",
+        "ankle",
+        "thoracic"
+      ],
+      "primary_capacities_trained": [
+        "Front hip flexion (deep)",
+        "Back hip extension (active)",
+        "Front ankle dorsiflexion",
+        "Hamstring length (front leg)",
+        "Dynamic position - transitions well in flows"
+      ],
+      "entry_criteria": "Can lunge with bodyweight cleanly. No acute knee or hip pain. Basic tolerance for deep lunge position.",
+      "contraindications": [
+        "Acute knee pain",
+        "Recent knee surgery",
+        "Acute hip flexor strain",
+        "Acute hamstring strain"
+      ],
+      "regressions": [
+        {
+          "name": "Runner's Lunge on Pad",
+          "when_to_use": "Back knee discomfort on floor",
+          "rebuilds_to": "Unpadded runner's lunge"
+        },
+        {
+          "name": "Shortened Stance Runner's Lunge",
+          "when_to_use": "Hip flexor restriction prevents long stance",
+          "rebuilds_to": "Longer stance"
+        },
+        {
+          "name": "Runner's Lunge with Blocks Under Hands",
+          "when_to_use": "Client can't reach floor with hands in forward-fold version. Blocks elevate.",
+          "rebuilds_to": "Hands to floor"
+        }
+      ],
+      "progressions": [
+        {
+          "name": "Runner's Lunge with Thoracic Rotation",
+          "what_it_adds": "T-spine rotation + open the ribcage while in hip flexion/extension asymmetry",
+          "gates_to_move_up": "Owns static runner's lunge"
+        },
+        {
+          "name": "Runner's Lunge to Standing (Flowing)",
+          "what_it_adds": "Dynamic strength transition - comes out of the lunge fluidly",
+          "gates_to_move_up": "Owns static runner's lunge"
+        },
+        {
+          "name": "Runner's Lunge with Back Knee Hovered",
+          "what_it_adds": "Active hip extension on back leg (quad + glute engaged) - isometric loading",
+          "gates_to_move_up": "Owns static runner's lunge"
+        }
+      ],
+      "cars_available": [
+        {
+          "exercise_id": "hip_car_half_kneeling_l6",
+          "joint": "hip",
+          "level": "LVI",
+          "notes": "Hip CARs adapted for runner's lunge - similar to half-kneeling but with more forward weight",
+          "use_when": "Hip work from a lunge position"
+        }
+      ],
+      "pails_rails_targets_available": [
+        {
+          "target_id": "anterior_hip_extension",
+          "joint": "hip",
+          "target_name": "Back Hip Extension",
+          "how_it_sets_up_in_this_position": "Same as half-kneeling and couch stretch - back hip in extension. Slightly different angle due to forward torso lean option.",
+          "level_programming": "L1-L2"
+        },
+        {
+          "target_id": "hip_flexion",
+          "joint": "hip",
+          "target_name": "Front Hip Flexion (hamstring length)",
+          "how_it_sets_up_in_this_position": "Front hip is in deep flexion with extended-leg option (straighten front leg). PAIL = press front leg into floor. RAIL = lift front leg actively.",
+          "level_programming": "L1-L2"
+        }
+      ],
+      "end_range_iso_positions": [
+        {
+          "placeholder_id": "runners_lunge_hover_hold",
+          "description": "Back knee hovered hold - active quad + glute - 15-30s",
+          "progression_code": "PRH",
+          "library_status": "TO BE BUILT"
+        }
+      ],
+      "hovers_available": [
+        {
+          "placeholder_id": "runners_lunge_back_knee_hover",
+          "description": "Hover back knee 1-2 inches off floor while in runner's lunge",
+          "library_status": "TO BE BUILT"
+        }
+      ],
+      "ramping_opportunities": [],
+      "live_in_the_position_work": [
+        {
+          "name": "Forward / Backward Rocking",
+          "description": "Rock pelvis forward (deeper back hip extension) and back (shifts load to front hip).",
+          "dose": "10-15 rocks",
+          "purpose": "Dynamic hip loading"
+        },
+        {
+          "name": "Thoracic Rotation Reach",
+          "description": "Reach the arm same-side as the front leg up and over. T-spine opens.",
+          "dose": "5-8 per side",
+          "purpose": "T-spine rotation integration"
+        },
+        {
+          "name": "Back Knee Hover",
+          "description": "Lift back knee 1-2 inches off floor. Active engagement of back leg.",
+          "dose": "3-5 holds 10-20s",
+          "purpose": "Active back leg capacity"
+        },
+        {
+          "name": "Front Leg Extension (reach)",
+          "description": "Straighten the front leg to turn runner's lunge into a hamstring stretch.",
+          "dose": "5-8 alternations with 5-10s each",
+          "purpose": "Dual capacity work"
+        },
+        {
+          "name": "Breath at Edge",
+          "description": "In deepest runner's lunge, breath work at end range.",
+          "dose": "1-2 min",
+          "purpose": "Tissue release"
+        }
+      ],
+      "typical_block_dose": {
+        "beginner_client": "3-5 min per side",
+        "intermediate_client": "5-8 min per side",
+        "advanced_client": "6-10 min per side",
+        "kinstretch_flow_class": "3-5 min per side - often transition position"
+      },
+      "flow_partners": [
+        {
+          "position": "half_kneeling",
+          "why_pairs": "Half-kneeling is static, runner's lunge is dynamic - complementary"
+        },
+        {
+          "position": "couch_stretch",
+          "why_pairs": "Runner's lunge dynamic version of couch - different angles of hip extension"
+        },
+        {
+          "position": "pigeon",
+          "why_pairs": "Both unilateral hip work - sequence from dynamic to deep"
+        },
+        {
+          "position": "standing",
+          "why_pairs": "Runner's lunge transitions fluidly to standing - good flow partner"
+        }
+      ],
+      "builder_selection_logic": {
+        "prescribe_this_position_when": [
+          "Hip flexor mobility + strength integration",
+          "Dynamic lunge pattern preparation",
+          "Flow-based sessions (Kinstretch classes)",
+          "Transition position between standing and floor work"
+        ],
+        "avoid_this_position_when": [
+          "Acute knee pain",
+          "Acute hip flexor strain",
+          "Acute hamstring strain"
+        ],
+        "pair_with_external_strength_work": [
+          "Lunge pattern training days",
+          "Split squat progression blocks",
+          "Dynamic mobility sessions"
+        ]
+      }
+    },
+    "standing": {
+      "id": "base_pos_standing",
+      "name": "Standing",
+      "aliases": [
+        "athletic stance",
+        "tall standing",
+        "mountain pose"
+      ],
+      "category": "standing",
+      "primary_plane": "sagittal",
+      "tier": "beginner",
+      "description": "Upright standing position with feet hip-width, weight distributed evenly, spine stacked, shoulders neutral. The integrated position - where all FRC capacity earned in floor positions must express itself under gravity. Most CARs and mobility work eventually gets tested in standing. Also the default position for external strength work.",
+      "setup_cues": [
+        "Feet hip-width apart, weight in the middle of each foot",
+        "Knees soft, not locked",
+        "Pelvis neutral - ribs stacked over pelvis",
+        "Shoulders relaxed, arms at sides",
+        "Crown of head tall, chin level"
+      ],
+      "primary_joints_addressed": [
+        "full_body_integration"
+      ],
+      "secondary_joints_addressed": [
+        "spine",
+        "hip",
+        "ankle"
+      ],
+      "primary_capacities_trained": [
+        "Integrated balance and posture",
+        "Shoulder CARs and mobility (expressed under gravity)",
+        "Spine CARs with integrated hip stability",
+        "Single-leg balance (progression from bilateral standing)",
+        "All external training patterns"
+      ],
+      "entry_criteria": "Any client who can stand for 5+ minutes without pain or balance failure.",
+      "contraindications": [
+        "Acute vertigo / vestibular issues (avoid unsupported standing CARs)",
+        "Active syncope / orthostatic hypotension issues"
+      ],
+      "regressions": [
+        {
+          "name": "Standing with Wall Support",
+          "when_to_use": "Balance issues or client recovering from vestibular event. Back against wall.",
+          "rebuilds_to": "Free standing"
+        },
+        {
+          "name": "Standing with Hand on Post/Rack",
+          "when_to_use": "Need light balance support for CARs or PAILs/RAILs work",
+          "rebuilds_to": "Unsupported standing"
+        },
+        {
+          "name": "Standing with Wider Stance",
+          "when_to_use": "Balance poor, need wider base",
+          "rebuilds_to": "Hip-width stance"
+        }
+      ],
+      "progressions": [
+        {
+          "name": "Single-Leg Standing",
+          "what_it_adds": "Balance challenge + unilateral hip/ankle demand",
+          "gates_to_move_up": "Can stand on one leg eyes open for 30+ seconds"
+        },
+        {
+          "name": "Single-Leg Standing Eyes Closed",
+          "what_it_adds": "Proprioception + vestibular challenge",
+          "gates_to_move_up": "30+ seconds each side, eyes open"
+        },
+        {
+          "name": "Standing on Unstable Surface (foam pad)",
+          "what_it_adds": "Reactive stabilization demand",
+          "gates_to_move_up": "Owns eyes-closed single-leg"
+        }
+      ],
+      "cars_available": [
+        {
+          "exercise_id": "shoulder_car_standing_l6",
+          "joint": "shoulder",
+          "level": "LVI",
+          "notes": "Default shoulder CAR position - integrates with gravity",
+          "use_when": "Shoulder work, assessment, baseline"
+        },
+        {
+          "exercise_id": "shoulder_car_standing_l7",
+          "joint": "shoulder",
+          "level": "LVII",
+          "notes": "Articular focus shoulder work from standing",
+          "use_when": "Shoulder capsular work"
+        },
+        {
+          "exercise_id": "shoulder_car_standing_l8",
+          "joint": "shoulder",
+          "level": "LVIII",
+          "notes": "Capacity shoulder work with full-body irradiation",
+          "use_when": "Advanced shoulder capacity blocks"
+        },
+        {
+          "exercise_id": "hip_car_standing_l6",
+          "joint": "hip",
+          "level": "LVI",
+          "notes": "Standing hip CAR - baseline articular screen",
+          "use_when": "Hip assessment or baseline work"
+        },
+        {
+          "exercise_id": "cervical_car_standing_tall_l6",
+          "joint": "cervical",
+          "level": "LVI",
+          "notes": "Neck CAR standing - postural demand on spine while moving head",
+          "use_when": "Cervical work with postural integration"
+        },
+        {
+          "exercise_id": "scapular_car_standing_l6",
+          "joint": "scapular",
+          "level": "LVI",
+          "notes": "Scap CARs from standing - isolated scap motion",
+          "use_when": "Scapular control work"
+        }
+      ],
+      "pails_rails_targets_available": [],
+      "end_range_iso_positions": [],
+      "hovers_available": [],
+      "ramping_opportunities": [],
+      "live_in_the_position_work": [
+        {
+          "name": "Standing Breath Work",
+          "description": "Quiet standing with breath focus. Posture check.",
+          "dose": "2-3 min",
+          "purpose": "Baseline awareness"
+        },
+        {
+          "name": "Single-Leg Balance Progressions",
+          "description": "Progress through eyes open -> eyes closed -> unstable surface on one leg.",
+          "dose": "30s holds, 2-4 per side",
+          "purpose": "Integrated balance"
+        },
+        {
+          "name": "Standing Walk Check",
+          "description": "Walk slowly across the studio, then back. Coach observes for gait asymmetries.",
+          "dose": "2-4 passes",
+          "purpose": "Gait diagnostic + integration of other position work"
+        },
+        {
+          "name": "Wall Slides",
+          "description": "Back against wall, arms slide up in goalpost - tests overhead capacity integrated.",
+          "dose": "10-15 reps",
+          "purpose": "Overhead pattern under postural demand"
+        }
+      ],
+      "typical_block_dose": {
+        "beginner_client": "5-8 min - baseline CARs, posture work",
+        "intermediate_client": "8-12 min - multiple CAR variations, balance work",
+        "advanced_client": "10-15 min - full body CAR sequence + balance progressions",
+        "kinstretch_flow_class": "4-6 min in flow - often opening or closing position"
+      },
+      "flow_partners": [
+        {
+          "position": "half_kneeling",
+          "why_pairs": "Standing vs half-kneeling - bilateral vs unilateral hip demand"
+        },
+        {
+          "position": "squat",
+          "why_pairs": "Standing transitions to deep squat - Kinstretch sequence common"
+        },
+        {
+          "position": "runners_lunge",
+          "why_pairs": "Standing flows into runner's lunge, back to standing"
+        }
+      ],
+      "builder_selection_logic": {
+        "prescribe_this_position_when": [
+          "Any session - standing is the default position",
+          "Shoulder or cervical CAR work",
+          "Balance and postural integration",
+          "All external strength work"
+        ],
+        "avoid_this_position_when": [
+          "Acute vestibular issues"
+        ],
+        "pair_with_external_strength_work": [
+          "All external strength patterns",
+          "Power and plyometric work",
+          "Conditioning"
+        ]
+      }
+    },
+    "squat": {
+      "id": "base_pos_deep_squat",
+      "name": "Deep Squat (Passive Hold)",
+      "aliases": [
+        "Asian squat",
+        "deep hang",
+        "ATG squat",
+        "resting squat",
+        "malasana"
+      ],
+      "category": "standing_to_floor",
+      "primary_plane": "sagittal",
+      "tier": "intermediate",
+      "description": "Deep squat with heels on the floor, hips below knees, torso upright. Held as a passive position rather than an active squat exercise. Tests hip flexion, ankle dorsiflexion, and T-spine extension simultaneously. Most adults have lost this position by age 30 and need weeks or months to rebuild it. Foundational squat capacity.",
+      "setup_cues": [
+        "Feet slightly wider than hip-width, toes angled out 10-20 degrees",
+        "Descend slowly, heels stay flat",
+        "Hips below knees (deep)",
+        "Torso stays as upright as possible - chest up, not collapsed",
+        "Elbows can push between knees to open the hips; hands in prayer or holding a post"
+      ],
+      "primary_joints_addressed": [
+        "hip",
+        "ankle",
+        "thoracic"
+      ],
+      "secondary_joints_addressed": [
+        "knee",
+        "lumbar"
+      ],
+      "primary_capacities_trained": [
+        "Deep hip flexion (110-130 degrees)",
+        "Ankle dorsiflexion (30+ degrees)",
+        "T-spine extension (prevents torso collapse)",
+        "Integrated squat pattern capacity",
+        "Hip abduction + ER at depth"
+      ],
+      "entry_criteria": "Can squat to parallel bodyweight clean. Ankle DF 25+ degrees. Hip flexion 100+ degrees. If any of these fail, use regressions.",
+      "contraindications": [
+        "Acute knee pain (deep squat loads knee heavily)",
+        "Recent knee surgery",
+        "Meniscus flare",
+        "Acute hip labral flare",
+        "Acute low back pain (especially flexion-related)"
+      ],
+      "regressions": [
+        {
+          "name": "Deep Squat Holding TRX or Post",
+          "when_to_use": "Balance or depth insufficient. Hold strap to descend gradually.",
+          "rebuilds_to": "Unsupported deep squat"
+        },
+        {
+          "name": "Heel-Elevated Deep Squat",
+          "when_to_use": "Ankle DF prevents heels on floor. Small plates/wedges under heels.",
+          "rebuilds_to": "Flat-foot deep squat"
+        },
+        {
+          "name": "Partial Deep Squat (parallel)",
+          "when_to_use": "Full depth inaccessible. Stop at parallel for now.",
+          "rebuilds_to": "Full deep squat"
+        },
+        {
+          "name": "Seated Deep Squat (on low box)",
+          "when_to_use": "Can't hold depth passively. Sit on small box at deep squat height.",
+          "rebuilds_to": "Unsupported deep squat"
+        }
+      ],
+      "progressions": [
+        {
+          "name": "Deep Squat with T-Spine Reach",
+          "what_it_adds": "Thoracic rotation while in full hip flexion - integrated demand",
+          "gates_to_move_up": "Owns 60s passive deep squat"
+        },
+        {
+          "name": "Deep Squat to Stand (slow)",
+          "what_it_adds": "Strength out of deep position - end-range squat strength",
+          "gates_to_move_up": "Owns 60s deep squat"
+        },
+        {
+          "name": "Loaded Deep Squat (goblet)",
+          "what_it_adds": "Loaded loading of end-range squat capacity",
+          "gates_to_move_up": "Owns unloaded deep squat + slow stand"
+        }
+      ],
+      "cars_available": [
+        {
+          "exercise_id": "hip_car_standing_l6",
+          "joint": "hip",
+          "level": "LVI",
+          "notes": "Modified for deep squat - pelvis locked in flexion, hip explores",
+          "use_when": "Hip work at full flexion"
+        }
+      ],
+      "pails_rails_targets_available": [
+        {
+          "target_id": "hip_flexion",
+          "joint": "hip",
+          "target_name": "Deep Hip Flexion",
+          "how_it_sets_up_in_this_position": "Deep squat is the loaded end-range of hip flexion with abduction. PAIL = push feet into floor, drive out of the squat (hip extensors contract against stretched position). RAIL = pull hips deeper into flexion with hands on ankles or ground.",
+          "level_programming": "L1-L3 based on mastery"
+        },
+        {
+          "target_id": "ankle_dorsiflexion",
+          "joint": "ankle",
+          "target_name": "Ankle Dorsiflexion (deep)",
+          "how_it_sets_up_in_this_position": "Deep squat loads DF with full hip flexion. PAIL = drive big toe into floor (calf contracts in DF). RAIL = lift toes + drive knee forward (tibialis drives deeper DF).",
+          "level_programming": "L1-L2"
+        }
+      ],
+      "end_range_iso_positions": [
+        {
+          "placeholder_id": "deep_squat_active_hold",
+          "description": "Active deep squat - knees drive out, chest up, 30-60s",
+          "progression_code": "PRH -> PRLO (goblet load)",
+          "library_status": "TO BE BUILT"
+        }
+      ],
+      "hovers_available": [],
+      "ramping_opportunities": [],
+      "live_in_the_position_work": [
+        {
+          "name": "Deep Squat Rocking (side to side)",
+          "description": "Shift weight from foot to foot at depth.",
+          "dose": "10-15 shifts",
+          "purpose": "Asymmetric hip loading at depth"
+        },
+        {
+          "name": "Knee Push-Outs (with elbows)",
+          "description": "Use elbows to push knees wider. Opens hip ER at depth.",
+          "dose": "5-8 with 5-10s holds",
+          "purpose": "Hip ER at full flexion"
+        },
+        {
+          "name": "Arm Reach Overhead",
+          "description": "Reach arms overhead while in deep squat. Tests T-spine extension at depth.",
+          "dose": "5-10 reaches with 3-5s hold",
+          "purpose": "Integrated T-spine + squat capacity"
+        },
+        {
+          "name": "T-Spine Rotation",
+          "description": "In deep squat, rotate torso to look over each shoulder.",
+          "dose": "5-8 per side",
+          "purpose": "Spine rotation at deep hip flexion"
+        },
+        {
+          "name": "Breath at Depth",
+          "description": "In deep squat, deep breathing. Parasympathetic at end range.",
+          "dose": "1-3 min",
+          "purpose": "Tolerance + tissue release"
+        }
+      ],
+      "typical_block_dose": {
+        "beginner_client": "3-5 min - with support, short holds",
+        "intermediate_client": "5-10 min - full holds + reach work",
+        "advanced_client": "8-15 min - capacity work + transitions",
+        "kinstretch_flow_class": "3-6 min in flow"
+      },
+      "flow_partners": [
+        {
+          "position": "bear_sit",
+          "why_pairs": "Bear sit is seated version; deep squat is standing version. Sequence them."
+        },
+        {
+          "position": "standing",
+          "why_pairs": "Deep squat and standing are bookends - integrate transitions"
+        },
+        {
+          "position": "butterfly",
+          "why_pairs": "Both load hip abduction; butterfly seated, deep squat standing"
+        },
+        {
+          "position": "pigeon",
+          "why_pairs": "Pigeon unilateral deep hip; deep squat bilateral deep hip"
+        }
+      ],
+      "builder_selection_logic": {
+        "prescribe_this_position_when": [
+          "Squat pattern mobility work",
+          "Deep hip flexion + ankle DF restriction",
+          "Kinstretch class core position",
+          "T-spine extension work under load"
+        ],
+        "avoid_this_position_when": [
+          "Acute knee pain",
+          "Recent knee/hip surgery",
+          "Severe meniscus flare"
+        ],
+        "pair_with_external_strength_work": [
+          "Squat pattern days",
+          "Deep hip capacity blocks",
+          "Power/plyo prep"
+        ]
+      }
+    },
+    "supine": {
+      "id": "base_pos_supine",
+      "name": "Supine",
+      "aliases": [
+        "lying on back",
+        "supine neutral"
+      ],
+      "category": "lying",
+      "primary_plane": "multiple",
+      "tier": "beginner",
+      "description": "Lying on the back with knees bent (feet flat on floor) or legs extended. Gravity-eliminated spine position - ideal for clients with acute back issues, pregnancy, or who need the lowest-load base for training. Most core work starts here. Also houses figure-4 variants and supine hip work.",
+      "setup_cues": [
+        "Lying on back, arms comfortable at sides or overhead",
+        "Knees bent, feet flat (default), OR legs extended",
+        "Low back in natural curve (not pressed hard into floor)",
+        "Shoulders relaxed, head neutral"
+      ],
+      "primary_joints_addressed": [
+        "lumbar",
+        "hip"
+      ],
+      "secondary_joints_addressed": [
+        "thoracic",
+        "cervical"
+      ],
+      "primary_capacities_trained": [
+        "Gravity-eliminated spine work",
+        "Core anti-extension training (dead bug base)",
+        "Supine hip work (figure-4, knee hugs, hip circles)",
+        "Breath work",
+        "Recovery position"
+      ],
+      "entry_criteria": "Any client who can lie down comfortably. No contraindications for supine in most cases.",
+      "contraindications": [
+        "Pregnancy 2nd/3rd trimester (avoid prolonged supine)",
+        "Acute severe reflux (not supine for any duration)",
+        "Post-surgical recent abdominal (check clinician)"
+      ],
+      "regressions": [
+        {
+          "name": "Supine with Pillow Under Knees",
+          "when_to_use": "Low back discomfort with legs extended",
+          "rebuilds_to": "Standard supine"
+        },
+        {
+          "name": "Supine with Pillow Under Head",
+          "when_to_use": "Cervical discomfort in flat supine",
+          "rebuilds_to": "Flat supine if cervical clears"
+        }
+      ],
+      "progressions": [
+        {
+          "name": "Supine Figure 4",
+          "what_it_adds": "Hip ER work gravity-assisted",
+          "gates_to_move_up": "Owns basic supine"
+        },
+        {
+          "name": "Dead Bug Progressions",
+          "what_it_adds": "Anti-extension core work with limb movement",
+          "gates_to_move_up": "Owns supine position"
+        },
+        {
+          "name": "Supine Leg Raises / Lowers",
+          "what_it_adds": "Hip flexion + anti-extension integration",
+          "gates_to_move_up": "Owns supine + dead bug"
+        }
+      ],
+      "cars_available": [
+        {
+          "exercise_id": "cervical_car_supine_l6",
+          "joint": "cervical",
+          "level": "LVI",
+          "notes": "Gravity-eliminated cervical CAR - safest option for neck work",
+          "use_when": "Cervical issues or acute neck pain clearing"
+        },
+        {
+          "exercise_id": "lumbar_car_quadruped_l6",
+          "joint": "lumbar",
+          "level": "LVI",
+          "notes": "Modified for supine - spine segmental work lying down",
+          "use_when": "Spine work for back-irritable clients"
+        }
+      ],
+      "pails_rails_targets_available": [
+        {
+          "target_id": "hip_flexion",
+          "joint": "hip",
+          "target_name": "Hip Flexion (supine knee-hug variants)",
+          "how_it_sets_up_in_this_position": "Supine pull-knee-to-chest is hip flexion end range. PAIL = push knee away from chest against resistance. RAIL = pull knee deeper to chest actively.",
+          "level_programming": "L1-L2"
+        }
+      ],
+      "end_range_iso_positions": [],
+      "hovers_available": [],
+      "ramping_opportunities": [],
+      "live_in_the_position_work": [
+        {
+          "name": "Supine Breath Work (diaphragmatic)",
+          "description": "Hand on belly, deep diaphragmatic breaths. Teaches breath mechanics.",
+          "dose": "3-5 min",
+          "purpose": "Breath pattern, parasympathetic drive"
+        },
+        {
+          "name": "Knee Hugs to Chest",
+          "description": "Pull one or both knees to chest. Hip flexion loading.",
+          "dose": "8-12 reps",
+          "purpose": "Hip flexion capacity"
+        },
+        {
+          "name": "Supine Twist",
+          "description": "Knees to one side, arms out in T position. Spine rotation with gravity support.",
+          "dose": "5-8 per side",
+          "purpose": "Gentle spine rotation"
+        },
+        {
+          "name": "Pelvic Tilts",
+          "description": "Flatten low back, then arch. Pelvis-spine awareness.",
+          "dose": "10-15 reps",
+          "purpose": "Pelvis-spine coordination"
+        },
+        {
+          "name": "Supine Figure 4 Hold",
+          "description": "Ankle over opposite knee, pull supporting leg toward chest. Hip ER work.",
+          "dose": "3-5 holds 30-45s per side",
+          "purpose": "Gravity-assisted hip ER"
+        }
+      ],
+      "typical_block_dose": {
+        "beginner_client": "5-10 min - breath, basic hip work, dead bug",
+        "intermediate_client": "8-12 min - figure 4, CARs, progressions",
+        "advanced_client": "10-15 min - loaded supine work with PAIL/RAIL",
+        "kinstretch_flow_class": "4-6 min - often opening or recovery position"
+      },
+      "flow_partners": [
+        {
+          "position": "prone",
+          "why_pairs": "Supine and prone are opposite positions - flip between them in flows"
+        },
+        {
+          "position": "quadruped",
+          "why_pairs": "Supine (unloaded) to quadruped (partial load) progression"
+        },
+        {
+          "position": "number_4",
+          "why_pairs": "Supine figure 4 is the regression of seated figure 4"
+        },
+        {
+          "position": "side_lying",
+          "why_pairs": "Supine and side-lying both unloaded - complementary"
+        }
+      ],
+      "builder_selection_logic": {
+        "prescribe_this_position_when": [
+          "Acute back issues preventing upright work",
+          "Pregnancy (1st trimester), post-partum",
+          "Recovery sessions",
+          "Core anti-extension work",
+          "Cervical work without postural demand"
+        ],
+        "avoid_this_position_when": [
+          "Pregnancy 2nd/3rd trimester (prolonged)",
+          "Severe reflux"
+        ],
+        "pair_with_external_strength_work": [
+          "Easy day programming",
+          "Core sessions",
+          "Warm-up for back-sensitive clients"
+        ]
+      }
+    },
+    "prone": {
+      "id": "base_pos_prone",
+      "name": "Prone",
+      "aliases": [
+        "lying on stomach",
+        "prone neutral",
+        "sphinx base"
+      ],
+      "category": "lying",
+      "primary_plane": "multiple",
+      "tier": "beginner",
+      "description": "Lying on the stomach, forehead on floor or on hands. Loads anterior body (hip flexors, quads, anterior chest) in extension. Foundational position for back extension work, prone press-ups (sphinx, cobra), and scapular work without gravity pulling the shoulder down.",
+      "setup_cues": [
+        "Lying face down, forehead on floor or on stacked hands",
+        "Legs extended straight, tops of feet on floor",
+        "Pelvis neutral - pelvis drives down into floor",
+        "Arms at sides or in goalpost position depending on exercise"
+      ],
+      "primary_joints_addressed": [
+        "lumbar",
+        "thoracic",
+        "hip"
+      ],
+      "secondary_joints_addressed": [
+        "shoulder",
+        "scapular"
+      ],
+      "primary_capacities_trained": [
+        "Spine extension (prone press-ups)",
+        "Anterior hip/quad lengthening",
+        "Scapular control without gravity load",
+        "Posterior chain activation (prone extensions)"
+      ],
+      "entry_criteria": "Any client who can lie prone without pain.",
+      "contraindications": [
+        "Pregnancy 2nd/3rd trimester",
+        "Acute extension-intolerant low back (avoid press-ups)",
+        "Acute cervical issues (avoid prolonged forehead on floor)"
+      ],
+      "regressions": [
+        {
+          "name": "Prone with Pillow Under Hips",
+          "when_to_use": "Low back discomfort in flat prone. Pillow reduces extension.",
+          "rebuilds_to": "Flat prone"
+        },
+        {
+          "name": "Prone with Pillow Under Chest",
+          "when_to_use": "Shoulder or cervical discomfort. Elevates torso slightly.",
+          "rebuilds_to": "Flat prone"
+        }
+      ],
+      "progressions": [
+        {
+          "name": "Prone Press-Up (Sphinx)",
+          "what_it_adds": "Spine extension with arm support",
+          "gates_to_move_up": "Owns flat prone"
+        },
+        {
+          "name": "Prone Cobra",
+          "what_it_adds": "Deeper spine extension with active trunk engagement",
+          "gates_to_move_up": "Owns sphinx"
+        },
+        {
+          "name": "Superman",
+          "what_it_adds": "Full posterior chain activation - spine extension + hip extension + scapular retraction",
+          "gates_to_move_up": "Owns sphinx + cobra"
+        }
+      ],
+      "cars_available": [
+        {
+          "exercise_id": "scapular_car_prone_l6",
+          "joint": "scapular",
+          "level": "LVI",
+          "notes": "Prone scap work - gravity doesn't pull shoulder down",
+          "use_when": "Scapular control work"
+        },
+        {
+          "exercise_id": "shoulder_car_prone_bench_l6",
+          "joint": "shoulder",
+          "level": "LVI",
+          "notes": "Shoulder CAR with trunk glued to floor - removes compensation",
+          "use_when": "Shoulder assessment, isolated work"
+        }
+      ],
+      "pails_rails_targets_available": [
+        {
+          "target_id": "spine_extension",
+          "joint": "lumbar",
+          "target_name": "Spine Extension (anterior capsule)",
+          "how_it_sets_up_in_this_position": "Prone press-up loads spine extension. PAIL = press chest away from floor, hold. RAIL = lift higher into extension actively.",
+          "level_programming": "L1 - very conservative. Respect extension tolerance."
+        }
+      ],
+      "end_range_iso_positions": [],
+      "hovers_available": [],
+      "ramping_opportunities": [],
+      "live_in_the_position_work": [
+        {
+          "name": "Prone Breath Work",
+          "description": "In prone with forehead on hands, deep breath into the back body.",
+          "dose": "2-3 min",
+          "purpose": "Breath awareness, parasympathetic"
+        },
+        {
+          "name": "Prone Press-Ups (Sphinx)",
+          "description": "Push up onto forearms, hips stay heavy on floor. Extension with control.",
+          "dose": "5-10 reps with 5-10s holds",
+          "purpose": "Graded spine extension"
+        },
+        {
+          "name": "Prone Reaches (Superman variations)",
+          "description": "Reach one arm forward, or opposite arm + leg. Posterior chain.",
+          "dose": "8-10 per side",
+          "purpose": "Spine + hip extension activation"
+        },
+        {
+          "name": "Prone Scap Retraction / Protraction",
+          "description": "Lift arms slightly, retract and protract scapulae. Isolated scap work.",
+          "dose": "10-15 reps",
+          "purpose": "Scap control without gravity"
+        },
+        {
+          "name": "Prone Quadriceps Stretch",
+          "description": "Bend one knee, grab ankle, pull heel to glute. Quad lengthening.",
+          "dose": "3-5 holds 30-45s per side",
+          "purpose": "Quad + hip flexor length"
+        }
+      ],
+      "typical_block_dose": {
+        "beginner_client": "5-8 min - basic prone, press-ups, breath",
+        "intermediate_client": "8-12 min - CARs, scap work, extension progressions",
+        "advanced_client": "10-15 min - superman variants, integrated posterior chain",
+        "kinstretch_flow_class": "4-6 min in flow - posterior chain complement to supine"
+      },
+      "flow_partners": [
+        {
+          "position": "supine",
+          "why_pairs": "Supine (anterior loading) and prone (posterior loading) - flip between"
+        },
+        {
+          "position": "quadruped",
+          "why_pairs": "Prone to quadruped is a natural transition"
+        },
+        {
+          "position": "couch_stretch",
+          "why_pairs": "Prone sets up the back-leg quad; couch stretch loads it standing"
+        },
+        {
+          "position": "side_lying",
+          "why_pairs": "Supine, prone, side-lying = the three floor-lying positions"
+        }
+      ],
+      "builder_selection_logic": {
+        "prescribe_this_position_when": [
+          "Spine extension work (press-ups, sphinx, cobra)",
+          "Scapular control without gravity",
+          "Posterior chain activation",
+          "Quad lengthening + hip flexor work"
+        ],
+        "avoid_this_position_when": [
+          "Pregnancy 2nd/3rd trimester",
+          "Extension-intolerant low back",
+          "Acute cervical flare"
+        ],
+        "pair_with_external_strength_work": [
+          "Posterior chain strength days (deadlift, bridge work)",
+          "Shoulder days with scap priority",
+          "Spine extension emphasis blocks"
+        ]
+      }
+    },
+    "side_lying": {
+      "id": "base_pos_side_lying",
+      "name": "Side-Lying",
+      "aliases": [
+        "lateral decubitus",
+        "side lying"
+      ],
+      "category": "lying",
+      "primary_plane": "frontal",
+      "tier": "beginner",
+      "description": "Lying on one side, bottom arm extended or under the head, top leg bent or extended. Gravity-assisted position that loads hip abduction, anti-lateral flexion (when active), and side-specific shoulder work. Also a regression for clients who can't tolerate supine or seated.",
+      "setup_cues": [
+        "On one side, bottom arm under head or extended straight",
+        "Hips stacked vertically (don't roll forward or back)",
+        "Knees bent 90 degrees (default) or extended",
+        "Top arm resting on top hip or reaching overhead"
+      ],
+      "primary_joints_addressed": [
+        "hip",
+        "shoulder"
+      ],
+      "secondary_joints_addressed": [
+        "lumbar",
+        "thoracic"
+      ],
+      "primary_capacities_trained": [
+        "Hip abduction / glute med activation",
+        "Hip rotation (gravity-assisted)",
+        "Side-specific shoulder work",
+        "Anti-lateral flexion (when held as side plank progression)"
+      ],
+      "entry_criteria": "Any client who can lie on their side comfortably.",
+      "contraindications": [
+        "Acute shoulder pain (bottom shoulder)",
+        "Rib or chest wall pain",
+        "Pregnancy (side-lying is generally recommended, but check)"
+      ],
+      "regressions": [
+        {
+          "name": "Side-Lying with Pillow Between Knees",
+          "when_to_use": "Hip discomfort or pelvic alignment issues",
+          "rebuilds_to": "Standard side-lying"
+        },
+        {
+          "name": "Side-Lying with Pillow Under Head",
+          "when_to_use": "Neck discomfort without support",
+          "rebuilds_to": "Standard side-lying if cervical clears"
+        }
+      ],
+      "progressions": [
+        {
+          "name": "Side-Lying Hip Abduction (Clam)",
+          "what_it_adds": "Active hip abduction / glute med activation",
+          "gates_to_move_up": "Owns basic side-lying"
+        },
+        {
+          "name": "Side-Lying Leg Raises",
+          "what_it_adds": "Straight-leg abduction - more demanding than clam",
+          "gates_to_move_up": "Owns clams"
+        },
+        {
+          "name": "Side Plank from Side-Lying",
+          "what_it_adds": "Anti-lateral flexion - huge progression",
+          "gates_to_move_up": "Owns active side-lying work"
+        }
+      ],
+      "cars_available": [
+        {
+          "exercise_id": "hip_car_side_lying_l6",
+          "joint": "hip",
+          "level": "LVI",
+          "notes": "Side-lying hip CAR - gravity-assisted, great for restricted clients",
+          "use_when": "Hip ROM work when gravity upright is too demanding"
+        },
+        {
+          "exercise_id": "hip_car_side_lying_l7",
+          "joint": "hip",
+          "level": "LVII",
+          "notes": "Articular focus from side-lying",
+          "use_when": "Hip capsular work"
+        },
+        {
+          "exercise_id": "shoulder_car_side_lying_l6",
+          "joint": "shoulder",
+          "level": "LVI",
+          "notes": "Shoulder CAR side-lying - gravity-eliminated for restricted shoulders",
+          "use_when": "Shoulder ROM work for restricted clients"
+        },
+        {
+          "exercise_id": "wrist_car_side_lying_forearm_locked_l6",
+          "joint": "wrist",
+          "level": "LVI",
+          "notes": "Side-lying wrist CAR with forearm locked against torso",
+          "use_when": "Wrist isolation work"
+        }
+      ],
+      "pails_rails_targets_available": [
+        {
+          "target_id": "hip_abduction",
+          "joint": "hip",
+          "target_name": "Hip Abduction",
+          "how_it_sets_up_in_this_position": "Top leg abducted, gravity wants to pull it down. PAIL = pull leg down against resistance. RAIL = drive leg higher actively.",
+          "level_programming": "L1-L2 for most"
+        }
+      ],
+      "end_range_iso_positions": [
+        {
+          "placeholder_id": "side_lying_abduction_hold",
+          "description": "Top leg lifted, held in abduction - 15-30s",
+          "progression_code": "PRH",
+          "library_status": "TO BE BUILT"
+        }
+      ],
+      "hovers_available": [],
+      "ramping_opportunities": [],
+      "live_in_the_position_work": [
+        {
+          "name": "Clam Shells",
+          "description": "Knees bent, top knee lifts while feet stay together. Glute med activation.",
+          "dose": "10-15 per side",
+          "purpose": "Hip abduction + rotation"
+        },
+        {
+          "name": "Side-Lying Leg Raises",
+          "description": "Straight leg abduction raises.",
+          "dose": "10-15 per side",
+          "purpose": "Hip abduction capacity"
+        },
+        {
+          "name": "Side-Lying Hip Rotation",
+          "description": "In clam position, rotate knee forward and back (hip IR/ER).",
+          "dose": "10-15 per side",
+          "purpose": "Gravity-assisted hip rotation"
+        },
+        {
+          "name": "Thread-the-Needle (side-lying T-spine)",
+          "description": "Top arm reaches across body and around. T-spine rotation.",
+          "dose": "5-8 per side",
+          "purpose": "Thoracic rotation gravity-assisted"
+        },
+        {
+          "name": "Side-Lying Shoulder CAR",
+          "description": "Top arm performs shoulder CAR without gravity pulling it down.",
+          "dose": "2-3 per direction",
+          "purpose": "Shoulder ROM work for restricted clients"
+        }
+      ],
+      "typical_block_dose": {
+        "beginner_client": "4-6 min per side",
+        "intermediate_client": "6-10 min per side",
+        "advanced_client": "8-12 min per side",
+        "kinstretch_flow_class": "3-5 min per side in flow"
+      },
+      "flow_partners": [
+        {
+          "position": "supine",
+          "why_pairs": "Supine and side-lying are complementary gravity-assisted positions"
+        },
+        {
+          "position": "prone",
+          "why_pairs": "Cycling through supine/side/prone covers all lying orientations"
+        },
+        {
+          "position": "quadruped",
+          "why_pairs": "Side-lying to quadruped is a natural transition"
+        }
+      ],
+      "builder_selection_logic": {
+        "prescribe_this_position_when": [
+          "Hip abduction / glute med work",
+          "Gravity-assisted hip or shoulder CAR work for restricted clients",
+          "Anti-lateral flexion progressions",
+          "Clients who need floor-based work but supine is uncomfortable"
+        ],
+        "avoid_this_position_when": [
+          "Acute bottom-shoulder pain",
+          "Rib injury"
+        ],
+        "pair_with_external_strength_work": [
+          "Glute med activation days",
+          "Anti-lateral flexion blocks",
+          "Restricted client programming"
+        ]
+      }
+    },
+    "quadruped": {
+      "id": "base_pos_quadruped",
+      "name": "Quadruped",
+      "aliases": [
+        "all-fours",
+        "table top",
+        "hands-and-knees"
+      ],
+      "category": "quadruped",
+      "primary_plane": "multiple",
+      "tier": "beginner",
+      "description": "On hands and knees, hands under shoulders, knees under hips, spine neutral. Partially loaded position - weight distributed through four points. Ideal for spine segmental work, thoracic rotation, hip-spine dissociation, and bird dog family. One of the most-used positions in IMS programming.",
+      "setup_cues": [
+        "Hands directly under shoulders, fingers spread",
+        "Knees directly under hips",
+        "Spine neutral - not rounded or arched",
+        "Elbows soft (slight bend)",
+        "Crown of head forward, chin level"
+      ],
+      "primary_joints_addressed": [
+        "thoracic",
+        "lumbar",
+        "hip"
+      ],
+      "secondary_joints_addressed": [
+        "shoulder",
+        "scapular",
+        "wrist"
+      ],
+      "primary_capacities_trained": [
+        "Spine segmental control",
+        "Thoracic rotation isolated from lumbar",
+        "Hip extension with stable spine",
+        "Scapular control under partial load",
+        "Anti-rotation / anti-extension base (bird dog family)"
+      ],
+      "entry_criteria": "Any client without wrist or knee contraindications.",
+      "contraindications": [
+        "Acute wrist pain",
+        "Acute knee pain",
+        "Acute shoulder pain",
+        "Pregnancy later stages (position gets harder but not contraindicated)"
+      ],
+      "regressions": [
+        {
+          "name": "Quadruped on Fists",
+          "when_to_use": "Wrist pain on extension in quadruped. Fist position protects wrists.",
+          "rebuilds_to": "Flat palm quadruped"
+        },
+        {
+          "name": "Quadruped on Elbows (forearm plank variant)",
+          "when_to_use": "Wrist can't tolerate any load",
+          "rebuilds_to": "Flat palm quadruped"
+        },
+        {
+          "name": "Quadruped with Pad Under Knees",
+          "when_to_use": "Knee discomfort",
+          "rebuilds_to": "Unpadded if knee clears"
+        }
+      ],
+      "progressions": [
+        {
+          "name": "Bird Dog (opposite arm + leg)",
+          "what_it_adds": "Anti-rotation demand + coordination",
+          "gates_to_move_up": "Owns stable quadruped"
+        },
+        {
+          "name": "Bear Position (knees hovered)",
+          "what_it_adds": "Increased anti-extension + shoulder load",
+          "gates_to_move_up": "Owns quadruped + bird dog"
+        },
+        {
+          "name": "Bear Crawl (dynamic)",
+          "what_it_adds": "Loaded locomotion from the position",
+          "gates_to_move_up": "Owns bear position"
+        }
+      ],
+      "cars_available": [
+        {
+          "exercise_id": "cervical_car_quadruped_l6",
+          "joint": "cervical",
+          "level": "LVI",
+          "notes": "Neck CAR from quadruped - spine loaded, neck isolated",
+          "use_when": "Cervical work with integrated spine stability"
+        },
+        {
+          "exercise_id": "tspine_car_quadruped_l6",
+          "joint": "thoracic",
+          "level": "LVI",
+          "notes": "The default T-spine rotation position - isolates from lumbar",
+          "use_when": "T-spine work (most common position)"
+        },
+        {
+          "exercise_id": "tspine_car_quadruped_l7",
+          "joint": "thoracic",
+          "level": "LVII",
+          "notes": "Articular focus T-spine from quadruped",
+          "use_when": "T-spine capsular work"
+        },
+        {
+          "exercise_id": "tspine_car_quadruped_l8",
+          "joint": "thoracic",
+          "level": "LVIII",
+          "notes": "Capacity T-spine work with full body tension",
+          "use_when": "Advanced T-spine blocks"
+        },
+        {
+          "exercise_id": "lumbar_car_quadruped_l6",
+          "joint": "lumbar",
+          "level": "LVI",
+          "notes": "Spine segmental CAR - cat-cow base plus segmental exploration",
+          "use_when": "Spine segmental work"
+        },
+        {
+          "exercise_id": "hip_car_quadruped_fire_hydrant_l6",
+          "joint": "hip",
+          "level": "LVI",
+          "notes": "Fire hydrant - unloaded hip CAR from quadruped",
+          "use_when": "Hip work without gravity upright"
+        },
+        {
+          "exercise_id": "scapular_car_quadruped_l6",
+          "joint": "scapular",
+          "level": "LVI",
+          "notes": "Scapular protraction/retraction under partial body weight",
+          "use_when": "Scapular control + loading"
+        },
+        {
+          "exercise_id": "shoulder_car_quadruped_bear_l6",
+          "joint": "shoulder",
+          "level": "LVI",
+          "notes": "Shoulder CAR in bear position (load demanding)",
+          "use_when": "Advanced shoulder work"
+        }
+      ],
+      "pails_rails_targets_available": [
+        {
+          "target_id": "hip_extension",
+          "joint": "hip",
+          "target_name": "Hip Extension (bird dog loaded)",
+          "how_it_sets_up_in_this_position": "Bird dog extended leg loads hip extension. PAIL/RAIL applied at extended position.",
+          "level_programming": "L1-L2"
+        },
+        {
+          "target_id": "tspine_rotation",
+          "joint": "thoracic",
+          "target_name": "T-Spine Rotation",
+          "how_it_sets_up_in_this_position": "Quadruped rotation with bottom hand driving into floor. Pelvis locked. PAIL = rotation antagonist. RAIL = drive further rotation.",
+          "level_programming": "L1-L3"
+        }
+      ],
+      "end_range_iso_positions": [
+        {
+          "placeholder_id": "bird_dog_hold",
+          "description": "Bird dog opposite arm+leg extended, held 10-20s. Anti-rotation iso.",
+          "progression_code": "PRH",
+          "library_status": "TO BE BUILT"
+        },
+        {
+          "placeholder_id": "bear_position_hold",
+          "description": "Quadruped with knees hovered, held 15-30s. Anti-extension + shoulder load.",
+          "progression_code": "PRH -> PRLO",
+          "library_status": "TO BE BUILT"
+        }
+      ],
+      "hovers_available": [
+        {
+          "placeholder_id": "bird_dog_hovering_limbs",
+          "description": "Bird dog with longer reach and hover at end range",
+          "library_status": "TO BE BUILT"
+        }
+      ],
+      "ramping_opportunities": [],
+      "live_in_the_position_work": [
+        {
+          "name": "Cat-Cow",
+          "description": "Spine flexion to extension, segmentally. Foundational spine mobility.",
+          "dose": "10-15 slow reps",
+          "purpose": "Spine segmental control"
+        },
+        {
+          "name": "Rock and Reach",
+          "description": "Rock hips back to heels, thread an arm under and through. T-spine + hip flexion.",
+          "dose": "8-10 per side",
+          "purpose": "Integrated mobility"
+        },
+        {
+          "name": "Thread-the-Needle",
+          "description": "Reach one arm under body and across. T-spine rotation from quadruped.",
+          "dose": "8-10 per side",
+          "purpose": "T-spine rotation"
+        },
+        {
+          "name": "Bird Dog Hold",
+          "description": "Opposite arm and leg extended, spine stable. Anti-rotation.",
+          "dose": "5-8 holds at 10-20s",
+          "purpose": "Trunk stability + coordination"
+        },
+        {
+          "name": "Slow Hip Circles",
+          "description": "One leg lifts, traces a circle in the air. Hip mobility with spine stability.",
+          "dose": "5-8 per direction per side",
+          "purpose": "Hip-spine dissociation"
+        },
+        {
+          "name": "Segmental Rocking (back and forth)",
+          "description": "Rock forward and backward on hands and knees. Wrist and shoulder warm-up.",
+          "dose": "10-15 rocks",
+          "purpose": "Upper body warm-up"
+        }
+      ],
+      "typical_block_dose": {
+        "beginner_client": "5-8 min - basic quadruped, cat-cow, bird dog",
+        "intermediate_client": "8-12 min - full CARs + PAIL/RAIL + live-in work",
+        "advanced_client": "10-15 min - bear position progressions, loaded work",
+        "kinstretch_flow_class": "5-8 min in flow - common transition and work position"
+      },
+      "flow_partners": [
+        {
+          "position": "prone",
+          "why_pairs": "Prone to quadruped is a natural transition"
+        },
+        {
+          "position": "tall_kneeling",
+          "why_pairs": "Quadruped unloaded; tall kneeling loaded spine"
+        },
+        {
+          "position": "bear_sit",
+          "why_pairs": "Quadruped to bear sit - similar floor positions"
+        },
+        {
+          "position": "half_kneeling",
+          "why_pairs": "Quadruped transitions to half-kneeling by bringing one leg forward"
+        }
+      ],
+      "builder_selection_logic": {
+        "prescribe_this_position_when": [
+          "T-spine rotation work (primary position)",
+          "Spine segmental mobility",
+          "Bird dog / anti-rotation training",
+          "Scapular control work",
+          "Transition position in flows"
+        ],
+        "avoid_this_position_when": [
+          "Acute wrist pain",
+          "Acute knee pain (without padding)",
+          "Acute shoulder pain"
+        ],
+        "pair_with_external_strength_work": [
+          "Core anti-rotation days",
+          "Upper body days (warm-up + scap)",
+          "Spine mobility priority blocks"
+        ]
+      }
+    },
+    "cossack": {
+      "id": "base_pos_cossack",
+      "name": "Cossack",
+      "aliases": [
+        "cossack squat position",
+        "side squat",
+        "lateral squat"
+      ],
+      "category": "kneeling_to_standing",
+      "primary_plane": "frontal",
+      "tier": "intermediate",
+      "description": "Wide stance with weight shifted onto one bent leg (deep side squat) while the other leg extends straight out to the side with heel down and toe up. Loads the bent leg in deep hip flexion + abduction while the extended leg loads adductor length + knee extension + hip abduction. Strength and mobility simultaneously.",
+      "setup_cues": [
+        "Very wide stance - wider than shoulders by a lot",
+        "Shift weight onto one leg, bend that knee deeply",
+        "Other leg stays straight, heel on floor, toe pointing up",
+        "Bent leg's knee tracks out over the toe (not caving in)",
+        "Torso upright, can hold a counterweight (KB goblet) for balance"
+      ],
+      "primary_joints_addressed": [
+        "hip",
+        "knee"
+      ],
+      "secondary_joints_addressed": [
+        "ankle",
+        "lumbar"
+      ],
+      "primary_capacities_trained": [
+        "Unilateral deep hip flexion + abduction (loaded leg)",
+        "Adductor length + hip abduction (extended leg)",
+        "Ankle dorsiflexion (loaded leg)",
+        "Frontal plane strength integration",
+        "Unilateral balance + control"
+      ],
+      "entry_criteria": "Can squat to parallel bodyweight clean. Can do a butterfly or straddle for 60s. Adductor tolerance sufficient.",
+      "contraindications": [
+        "Acute adductor strain",
+        "Acute knee pain",
+        "Recent knee surgery",
+        "Acute hip flare"
+      ],
+      "regressions": [
+        {
+          "name": "Supported Cossack (holding TRX or post)",
+          "when_to_use": "Balance or depth insufficient. Use support.",
+          "rebuilds_to": "Unsupported Cossack"
+        },
+        {
+          "name": "Shallower Cossack (partial depth)",
+          "when_to_use": "Full depth too intense. Go to 50% depth, build over blocks.",
+          "rebuilds_to": "Full depth Cossack"
+        },
+        {
+          "name": "Kneeling Lateral Shift",
+          "when_to_use": "Can't stand in Cossack. Kneel with one leg extended to side, shift weight. Similar demand, less load.",
+          "rebuilds_to": "Standing Cossack"
+        }
+      ],
+      "progressions": [
+        {
+          "name": "Cossack Squat (active reps)",
+          "what_it_adds": "Strength work - shifting side to side under tension",
+          "gates_to_move_up": "Owns static Cossack for 30s per side"
+        },
+        {
+          "name": "Goblet Cossack Squat",
+          "what_it_adds": "Loaded version with KB or DB held at chest",
+          "gates_to_move_up": "Owns BW Cossack reps"
+        },
+        {
+          "name": "Cossack with Overhead Load",
+          "what_it_adds": "Shoulder demand + anti-lateral flexion while in Cossack",
+          "gates_to_move_up": "Owns goblet Cossack"
+        }
+      ],
+      "cars_available": [],
+      "pails_rails_targets_available": [
+        {
+          "target_id": "hip_adduction",
+          "joint": "hip",
+          "target_name": "Hip Adduction (extended leg adductor)",
+          "how_it_sets_up_in_this_position": "Extended leg's adductor is in stretched position. PAIL = press extended leg's heel down into floor (adductor contracts). RAIL = lift extended leg's heel slightly off floor (abductor drives).",
+          "level_programming": "L1-L2 based on tolerance"
+        },
+        {
+          "target_id": "hip_flexion",
+          "joint": "hip",
+          "target_name": "Deep Hip Flexion (loaded leg)",
+          "how_it_sets_up_in_this_position": "Loaded leg is in deep flexion + abduction. PAIL/RAIL as per deep squat protocols.",
+          "level_programming": "L1-L2"
+        }
+      ],
+      "end_range_iso_positions": [
+        {
+          "placeholder_id": "cossack_active_hold",
+          "description": "Static hold in deep Cossack - knee over toe, torso upright, 20-45s",
+          "progression_code": "PRH -> PRLO (goblet load)",
+          "library_status": "TO BE BUILT"
+        }
+      ],
+      "hovers_available": [],
+      "ramping_opportunities": [],
+      "live_in_the_position_work": [
+        {
+          "name": "Side-to-Side Cossack Shifts",
+          "description": "Slowly shift weight from one leg to the other through the full Cossack shape.",
+          "dose": "6-10 per side",
+          "purpose": "Dynamic frontal plane mobility + strength"
+        },
+        {
+          "name": "Extended Leg Active Press",
+          "description": "In Cossack position, actively press extended leg's heel into floor.",
+          "dose": "10-15 reps",
+          "purpose": "Adductor activation at length"
+        },
+        {
+          "name": "Depth Holds",
+          "description": "Sit deep in Cossack on one side, hold 20-30s, breathe.",
+          "dose": "3-5 holds per side",
+          "purpose": "Capsular loading under active engagement"
+        },
+        {
+          "name": "Reach-Across (T-spine rotation)",
+          "description": "In Cossack, reach opposite hand toward the extended leg's foot. Adds spine rotation.",
+          "dose": "5-8 per side",
+          "purpose": "Integrated rotation + frontal plane"
+        }
+      ],
+      "typical_block_dose": {
+        "beginner_client": "5-8 min per side with support",
+        "intermediate_client": "6-10 min per side active",
+        "advanced_client": "8-12 min per side loaded",
+        "kinstretch_flow_class": "5-8 min in flow"
+      },
+      "flow_partners": [
+        {
+          "position": "butterfly",
+          "why_pairs": "Butterfly prepares bilateral adductors passively; Cossack loads them unilaterally"
+        },
+        {
+          "position": "straddle",
+          "why_pairs": "Straddle passive wide legs; Cossack active wide legs"
+        },
+        {
+          "position": "squat",
+          "why_pairs": "Cossack is frontal plane squat; sagittal squat is complement"
+        },
+        {
+          "position": "standing",
+          "why_pairs": "Cossack is a loaded standing position - integrates with all standing work"
+        }
+      ],
+      "builder_selection_logic": {
+        "prescribe_this_position_when": [
+          "Frontal plane strength + mobility integration",
+          "Lateral squat progression",
+          "Adductor capacity work",
+          "Hip abduction + flexion combined restriction",
+          "Athletic clients needing lateral movement prep"
+        ],
+        "avoid_this_position_when": [
+          "Acute adductor strain",
+          "Acute knee pain",
+          "Recent lower body surgery"
+        ],
+        "pair_with_external_strength_work": [
+          "Lateral movement training days",
+          "Squat progressions that need frontal plane variation",
+          "Hip mobility + strength combined blocks"
+        ]
+      }
+    }
+  }
+}
