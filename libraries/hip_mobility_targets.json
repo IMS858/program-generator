@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "description": "IMS hip mobility targets · structured cue data for PAIL/RAIL prescriptions. The 6 targets cover the primary positions used in the IMS movement system. Default programming favors the first 3 (IR/ER/Extension) · the last 3 (deep flexion / abduction / adduction) only get programmed when explicitly listed as a priority.",
+  "targets": [
+    {
+      "id": "hip_ir_90_90_back_leg",
+      "name": "90/90 Back Leg · Posterior Capsule (IR Bias)",
+      "default_priority": "primary",
+      "fra_aliases": ["hip ir", "hip internal rotation", "posterior capsule",
+                       "right hip ir", "left hip ir", "hip ir l+r", "hip ir bilateral"],
+      "joint": "hip",
+      "direction": "IR",
+      "setup": "Sit in 90/90 with the BACK leg bent · ankle and shin on the floor, hip externally rotated. Keep the front leg passive · this is a back-leg drill.",
+      "passive_position": "Allow the back-leg pelvis to settle · do not force end range. Hands rest forward on the floor for support, spine tall and neutral.",
+      "pail_intent": "Drive the back ankle and outer shin DOWN into the floor. Imagine you're trying to push the floor away with the entire posterior shin · effort comes from the hip, not the knee.",
+      "rail_intent": "Try to LIFT the back ankle and shin AWAY from the floor without twisting the trunk or rolling the pelvis. The pelvis stays settled · only the leg moves.",
+      "common_compensation": "Trunk twist, pelvis lift on the back-leg side, gripping with the foot or knee instead of the hip.",
+      "coach_cue": "Anchor the back-leg pelvis. Push, then lift, all from the hip joint. Trunk doesn't move.",
+      "client_friendly_cue": "Press your back ankle into the floor, then try to lift it off without letting your body twist.",
+      "contraindication_notes": "Recent hip labral repair · check tolerance before loading rotation. Knee meniscus flare · ease into the back-leg knee flexion."
+    },
+    {
+      "id": "hip_er_90_90_front_leg",
+      "name": "90/90 Front Leg · Anterior Capsule (ER Bias)",
+      "default_priority": "primary",
+      "fra_aliases": ["hip er", "hip external rotation", "anterior capsule",
+                       "right hip er", "left hip er", "hip er l+r", "hip er bilateral"],
+      "joint": "hip",
+      "direction": "ER",
+      "setup": "Sit in 90/90 with the FRONT leg bent at 90° · shin and ankle on the floor, hip externally rotated. Back leg passive.",
+      "passive_position": "Hinge slightly forward at the hips over the front leg · spine tall, no rounding through the lumbar. Front-leg hip externally rotated.",
+      "pail_intent": "Drive the front shin and ankle DOWN into the floor. Pressure comes from the hip · imagine pushing the floor through the side of the shin.",
+      "rail_intent": "Try to LIFT the front ankle and shin AWAY from the floor without leaning, rotating, or shifting weight back. The pelvis stays square.",
+      "common_compensation": "Pelvis tilts back, weight shifts off the front leg, lumbar rounds, knee gripping instead of hip.",
+      "coach_cue": "Stack tall over the front hip. Push the floor, then lift the leg, no shifting back.",
+      "client_friendly_cue": "Press your front shin into the floor, then try to lift it without falling back or twisting.",
+      "contraindication_notes": "Anterior hip impingement · stay short of pinch. FAI symptoms · regress the depth before loading."
+    },
+    {
+      "id": "hip_extension_couch_stretch",
+      "name": "Hip Extension · Couch Stretch Position",
+      "default_priority": "primary",
+      "fra_aliases": ["hip extension", "couch stretch", "hip flexor",
+                       "right hip extension", "left hip extension"],
+      "joint": "hip",
+      "direction": "extension",
+      "setup": "Half-kneeling against a wall or couch · back foot elevated, front foot flat, knees stacked vertically. Pelvis tucked posteriorly to lock out the spine and isolate the hip.",
+      "passive_position": "Hold a tall, posteriorly-tilted pelvis. Allow the hip flexor and quad to lengthen passively without arching the low back. Glute of the back leg stays gently active to support pelvis position.",
+      "pail_intent": "Drive the back KNEE down and slightly FORWARD as if trying to pull the thigh into flexion. Effort comes from the hip flexor side · low back stays locked.",
+      "rail_intent": "Squeeze the back-leg glute and try to pull the thigh FARTHER into extension without arching the low back. The pelvis stays tucked.",
+      "common_compensation": "Lumbar extension (arching), pelvis tipping forward, losing tall spine, quad-gripping instead of hip extension.",
+      "coach_cue": "Tuck the pelvis. Lock the spine. Then push, then squeeze · all hip, no back.",
+      "client_friendly_cue": "Pretend someone's pulling the bottom of your ribs toward your hips. Now press the back knee down and forward, then squeeze your butt to drive it back.",
+      "contraindication_notes": "Knee pain in the down-leg · pad the knee or regress to standing. Acute lumbar flare · skip until calm."
+    },
+    {
+      "id": "hip_deep_flexion",
+      "name": "Hip Deep Flexion · Loaded Bottom Position",
+      "default_priority": "supporting",
+      "fra_aliases": ["hip flexion", "deep hip flexion", "deep squat",
+                       "right hip flexion", "left hip flexion", "hip flexion l+r"],
+      "joint": "hip",
+      "direction": "flexion",
+      "setup": "Supported deep squat or seated knee-to-chest with hands on the knee or block. Spine stays as long as possible · don't dump into a rounded position.",
+      "passive_position": "Allow the hip to flex into the available range · use hands or block for support if the bottom position is unsupported. Breathe into the back of the ribs.",
+      "pail_intent": "Drive the THIGH or KNEE DOWN into the hands or block as if trying to push the leg back into hip extension. Effort comes from the glute.",
+      "rail_intent": "Pull the knee CLOSER to the chest using the hip flexors · do not aggressively round the lumbar to gain range.",
+      "common_compensation": "Lumbar rounding to fake range, ribcage flaring, holding breath, hands pulling instead of hip flexors working.",
+      "coach_cue": "Long spine. Push the knee down, then pull it up · all hip, no spine.",
+      "client_friendly_cue": "Push your knee into your hands first, then pull it toward your chest with your hip · keep your back long.",
+      "contraindication_notes": "Acute meniscus flare · stay shallow. Femoroacetabular impingement (anterior pinch) · stay just short of pinch. Hip replacement · check surgeon's depth restrictions."
+    },
+    {
+      "id": "hip_abduction",
+      "name": "Hip Abduction · Side-Lying Capsule",
+      "default_priority": "supporting",
+      "fra_aliases": ["hip abduction", "abduction", "glute med",
+                       "right hip abduction", "left hip abduction"],
+      "joint": "hip",
+      "direction": "abduction",
+      "setup": "Side-lying with the working leg up, knee straight or slightly bent. Lower hip stacked on the floor · keep the trunk square (no rolling backward).",
+      "passive_position": "Working leg lifted into available abduction range · short of where the trunk wants to compensate.",
+      "pail_intent": "Drive the working leg DOWN and IN as if trying to adduct it back to the floor. Effort comes from the inner thigh and adductors.",
+      "rail_intent": "Pull the working leg FARTHER OUT into abduction using the outer hip and glute med · no trunk lean to gain range.",
+      "common_compensation": "Trunk rolling back, hip hiking, leg drifting forward into hip flexion instead of pure abduction.",
+      "coach_cue": "Stack the trunk. Push down then lift up, all from the side hip.",
+      "client_friendly_cue": "Press your top leg down toward the floor first, then lift it as high as you can without rolling backward.",
+      "contraindication_notes": "Lateral hip pain or bursitis · regress depth and dose. Recent IT band release · check tolerance."
+    },
+    {
+      "id": "hip_adduction",
+      "name": "Hip Adduction · Side-Lying or Cossack",
+      "default_priority": "supporting",
+      "fra_aliases": ["hip adduction", "adduction", "adductor",
+                       "right hip adduction", "left hip adduction"],
+      "joint": "hip",
+      "direction": "adduction",
+      "setup": "Side-lying with the bottom leg straight and active OR Cossack squat position with the extended leg's hip adducting. Trunk square.",
+      "passive_position": "Working leg in adduction · for side-lying the bottom leg lifts toward the ceiling · for Cossack the extended leg straightens with hip adducting.",
+      "pail_intent": "Drive the working leg OUT (away from midline) as if trying to abduct. Effort from the outer hip and glute med.",
+      "rail_intent": "Pull the leg INWARD or ACROSS the midline using the adductors · no trunk shifting to fake range.",
+      "common_compensation": "Trunk shifts toward the working leg, lumbar lateral flexion, gripping with the abs instead of using the adductors.",
+      "coach_cue": "Trunk stays square. Push out, then pull in · all from the inner thigh.",
+      "client_friendly_cue": "Press your leg outward like you're pushing it away · then pull it back across using the inside of your thigh.",
+      "contraindication_notes": "Acute groin/adductor strain · skip until pain-free. Pubic symphysis pain · regress dose."
+    }
+  ],
+  "effort_ramp_by_level": {
+    "level_1": {
+      "label": "Foundation · learning the position",
+      "pail_pct": "20-40%",
+      "rail_pct": "20-40%",
+      "client_facing": true,
+      "rounds": 2,
+      "structure": "20s PAIL · 20s RAIL · 20s breathe / passive reset",
+      "description": "Light contractions. Focus on finding the right muscles · don't grind."
+    },
+    "level_2": {
+      "label": "Build · tolerated and consistent",
+      "pail_pct": "40-60%",
+      "rail_pct": "40-60%",
+      "client_facing": true,
+      "rounds": 2,
+      "structure": "20s PAIL · 20s RAIL · 20s breathe / passive reset",
+      "description": "Moderate effort. The position is familiar · push enough to feel work, not enough to lose form."
+    },
+    "level_3": {
+      "label": "Capacity · advanced, supervised",
+      "pail_pct": "60-80%",
+      "rail_pct": "60-80%",
+      "client_facing": true,
+      "rounds": 3,
+      "structure": "20s PAIL · 20s RAIL · 20s breathe / passive reset",
+      "description": "High effort. Reserve for clients who own the pattern at lower levels and have coach supervision."
+    },
+    "level_advanced_supervised": {
+      "label": "Maximum · coach-only",
+      "pail_pct": "80-100%",
+      "rail_pct": "80-100%",
+      "client_facing": false,
+      "rounds": 3,
+      "structure": "20s PAIL · 20s RAIL · 20s breathe / passive reset",
+      "description": "Maximum effort contractions. NEVER printed in client-facing PDFs · coach-supervised only."
+    }
+  },
+  "default_programming_rules": {
+    "primary_targets": ["hip_ir_90_90_back_leg", "hip_er_90_90_front_leg", "hip_extension_couch_stretch"],
+    "supporting_targets": ["hip_deep_flexion", "hip_abduction", "hip_adduction"],
+    "max_targets_per_session": 2,
+    "max_targets_with_supporting": 3,
+    "rule": "Default to 1-2 primary targets + 1 supporting target per session. Only program a supporting target if it appears explicitly in the FRA priorities OR the coach selected an advanced hip focus. Six separate hip drills is too much for a normal client plan."
+  }
+}
