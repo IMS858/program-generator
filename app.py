@@ -10,6 +10,7 @@ Vercel's Python runtime auto-detects the `app` variable here.
 import json
 import os
 import hmac
+import base64
 import sys
 import tempfile
 from pathlib import Path
@@ -137,7 +138,7 @@ def require_generator_auth():
 
 
 
-def build_program_pdf(form_data, out_warnings=None):
+def build_program_pdf(form_data, out_warnings=None, out_program=None):
     """Generate the plan PDF. Returns (pdf_bytes, client_name).
 
     ``out_warnings`` · optional list the validator's non-blocking warnings are
@@ -382,6 +383,9 @@ def build_program_pdf(form_data, out_warnings=None):
         json_path = str(Path(tmpdir) / "program.json")
         pdf_path = str(Path(tmpdir) / "plan.pdf")
         program.to_json(json_path)
+        if out_program is not None:
+            with open(json_path, encoding="utf-8") as structured_file:
+                out_program.append(json.load(structured_file))
         generate_plan_pdf(program_json=json_path, output_pdf=pdf_path, pdf_mode=pdf_mode)
         with open(pdf_path, 'rb') as f:
             pdf_bytes = f.read()
@@ -409,8 +413,11 @@ def generate():
         return jsonify({'error': 'invalid_json', 'errors': [str(e)]}), 400
 
     warnings = []
+    structured = []
+    wants_json = request.headers.get("Accept", "").lower().startswith("application/json")
     try:
-        pdf_bytes, client_name = build_program_pdf(form_data, out_warnings=warnings)
+        pdf_bytes, client_name = build_program_pdf(form_data, out_warnings=warnings,
+                                                   out_program=structured if wants_json else None)
     except PayloadError as e:
         # Structural problem with the payload · nothing was generated. Every
         # error is returned at once so the caller fixes them in one pass.
@@ -434,6 +441,15 @@ def generate():
             'detail': 'Program generation failed. Please contact IMS support.',
             'contract_version': CONTRACT_VERSION,
         }), 500
+
+    if wants_json:
+        return jsonify({
+            'program': structured[0],
+            'pdf_base64': base64.b64encode(pdf_bytes).decode('ascii'),
+            'contract_version': CONTRACT_VERSION,
+            'generator_version': GENERATOR_VERSION,
+            'warnings': warnings,
+        })
 
     safe_name = (client_name or 'client').lower().replace(' ', '_')
     safe_name = ''.join(c for c in safe_name if c.isalnum() or c == '_')
