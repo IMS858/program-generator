@@ -10,7 +10,6 @@ Vercel's Python runtime auto-detects the `app` variable here.
 import json
 import sys
 import tempfile
-import traceback
 from pathlib import Path
 from flask import Flask, request, send_file, send_from_directory, jsonify, Response
 
@@ -46,7 +45,8 @@ def index():
         resp.headers['Expires'] = '0'
         return resp
     except Exception as e:
-        return Response(f"Home page failed to load: {e}", status=500)
+        app.logger.exception("Generator home page failed")
+        return Response("Service temporarily unavailable", status=500)
 
 
 @app.route('/favicon.ico')
@@ -404,10 +404,12 @@ def generate():
             'contract_version': CONTRACT_VERSION,
         }), 422
     except Exception as e:
+        # Never disclose server tracebacks or internal filesystem paths to callers.
+        app.logger.exception('Program generation failed')
         return jsonify({
-            'error': str(e),
+            'error': 'generation_failed',
+            'detail': 'Program generation failed. Please contact IMS support.',
             'contract_version': CONTRACT_VERSION,
-            'trace': traceback.format_exc()
         }), 500
 
     safe_name = (client_name or 'client').lower().replace(' ', '_')
