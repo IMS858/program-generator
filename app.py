@@ -32,6 +32,7 @@ from objective_measures import parse_objective_measures
 
 
 app = Flask(__name__, static_folder=None)
+app.config["MAX_CONTENT_LENGTH"] = 262144
 
 
 # ── Static file serving ────────────────────────────────────
@@ -443,13 +444,16 @@ def generate():
         }), 500
 
     if wants_json:
-        return jsonify({
+        response = jsonify({
             'program': structured[0],
             'pdf_base64': base64.b64encode(pdf_bytes).decode('ascii'),
             'contract_version': CONTRACT_VERSION,
             'generator_version': GENERATOR_VERSION,
             'warnings': warnings,
         })
+        response.headers['Cache-Control'] = 'private, no-store'
+        response.headers['X-Content-Type-Options'] = 'nosniff'
+        return response
 
     safe_name = (client_name or 'client').lower().replace(' ', '_')
     safe_name = ''.join(c for c in safe_name if c.isalnum() or c == '_')
@@ -464,6 +468,8 @@ def generate():
     if warnings:
         # Warnings must not be silent, but they must not block a plan either.
         headers['X-IMS-Warnings'] = ' | '.join(warnings)[:900]
+    headers['Cache-Control'] = 'private, no-store'
+    headers['X-Content-Type-Options'] = 'nosniff'
     return Response(pdf_bytes, mimetype='application/pdf', headers=headers)
 
 
