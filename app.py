@@ -8,6 +8,8 @@ Flask app that ·
 Vercel's Python runtime auto-detects the `app` variable here.
 """
 import json
+import os
+import hmac
 import sys
 import tempfile
 from pathlib import Path
@@ -118,6 +120,22 @@ def calculate_nutrition(body_comp, activity_factor, strategy):
 
 
 # ── PDF generation endpoint ────────────────────────────────
+
+def require_generator_auth():
+    """Enforce service auth when PROGRAM_GENERATOR_SECRET is configured.
+
+    Deploy Coach OS with the same secret before setting it here. Without the
+    secret this remains backward compatible with the existing public form.
+    """
+    expected = os.environ.get('PROGRAM_GENERATOR_SECRET')
+    if not expected:
+        return None
+    supplied = request.headers.get('Authorization', '')
+    if not hmac.compare_digest(supplied, 'Bearer ' + expected):
+        return jsonify({'error': 'unauthorized'}), 401
+    return None
+
+
 
 def build_program_pdf(form_data, out_warnings=None):
     """Generate the plan PDF. Returns (pdf_bytes, client_name).
@@ -380,6 +398,11 @@ def generate():
             'Access-Control-Allow-Headers': 'Content-Type'
         })
 
+    auth_error = require_generator_auth()
+    if auth_error is not None:
+        return auth_error
+    if request.content_length is not None and request.content_length > 262144:
+        return jsonify({'error': 'payload_too_large'}), 413
     try:
         form_data = request.get_json(force=True)
     except Exception as e:
