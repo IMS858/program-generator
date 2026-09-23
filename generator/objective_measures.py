@@ -458,17 +458,23 @@ def _parse_measure_set(raw, cfg: dict, warnings: list, which: str,
         val = _to_float(entry.get("value") if entry.get("value") is not None
                         else entry.get("peak_force"))
         lb = _to_lb(val, entry.get("unit"), cfg)
-        if lb is None or lb <= 0:
-            warnings.append(f"{which}.dynamo[{i}] ({test}) ignored · unreadable value")
+        if lb is None or not (0 < lb <= 700):
+            warnings.append(f"{which}.dynamo[{i}] ({test}) ignored · invalid or implausible force")
+            continue
+        source = str(entry.get("source") or "manual")
+        if source.startswith("activforce") and (
+                entry.get("side") not in ("L", "R", "bilateral")
+                or not measured_on):
+            warnings.append(f"{which}.dynamo[{i}] ignored · ActivForce requires side and date")
             continue
         joint, motion = DYNAMO_TESTS[test]
         ms.forces.append(ForceMeasure(
             test=test, joint=joint, motion=motion,
             side=canonical_side(entry.get("side")),
-            value_lb=lb, device="dynamo",
+            value_lb=lb, device=("activforce_2" if source.startswith("activforce") else "dynamo"),
             raw_value=val, raw_unit=str(entry.get("unit") or "lb"),
             measured_on=measured_on,
-            source=str(entry.get("source") or "manual"),
+            source=source,
             source_id=(str(entry["source_id"]) if entry.get("source_id") else None),
             metrics=(entry.get("metrics") if isinstance(entry.get("metrics"), dict) else {}),
         ))
@@ -532,9 +538,20 @@ def _parse_measure_set(raw, cfg: dict, warnings: list, which: str,
         if not (-50 <= deg <= 200):
             warnings.append(f"{which}.rom[{i}] ignored · {deg}° out of plausible range")
             continue
+        source = str(entry.get("source") or "manual")
+        mode = str(entry.get("mode") or "").strip().lower()
+        if source.startswith("activforce") and (
+                mode not in ("active", "passive")
+                or entry.get("side") not in ("L", "R", "bilateral")
+                or not measured_on or deg < 0):
+            warnings.append(f"{which}.rom[{i}] ignored · ActivForce requires explicit mode, side and date")
+            continue
+        if mode and mode not in ("active", "passive"):
+            warnings.append(f"{which}.rom[{i}] ignored · unrecognized ROM mode")
+            continue
         ms.roms.append(RomMeasure(
             joint=joint, motion=motion, side=canonical_side(entry.get("side")),
-            degrees=deg, mode=str(entry.get("mode") or "passive"),
+            degrees=deg, mode=mode or "passive",
             measured_on=measured_on,
             source=str(entry.get("source") or "manual"),
             source_id=(str(entry["source_id"]) if entry.get("source_id") else None),
