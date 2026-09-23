@@ -23,6 +23,7 @@ def validate_reviewed_program(program):
     if not isinstance(weeks, list) or not 1 <= len(weeks) <= 8:
         fail("weeks must contain 1-8 entries")
     expected_days = None
+    expected_structure = None
     total_exercises = 0
     for wi, week in enumerate(weeks):
         if not isinstance(week, dict) or not isinstance(week.get("sessions"), list):
@@ -31,16 +32,25 @@ def validate_reviewed_program(program):
         if not 1 <= len(sessions) <= 7:
             fail(f"weeks[{wi}] must have 1-7 sessions")
         day_types = []
+        week_structure = []
         for si, session in enumerate(sessions):
             if not isinstance(session, dict) or not isinstance(session.get("blocks"), list):
                 fail(f"weeks[{wi}].sessions[{si}].blocks must be a list")
             day_types.append(session.get("day_type"))
             blocks = session["blocks"]
+            session_structure = []
             if not 1 <= len(blocks) <= 16:
                 fail(f"weeks[{wi}].sessions[{si}] must have 1-16 blocks")
             for bi, block in enumerate(blocks):
                 if not isinstance(block, dict) or not isinstance(block.get("exercises"), list):
                     fail(f"weeks[{wi}].sessions[{si}].blocks[{bi}].exercises must be a list")
+                # Detailed PDF pages use week-one exercise names and block
+                # order, then show week-specific doses in progression cells.
+                # Different exercises or block order in later weeks would
+                # silently print the wrong plan and must be rejected.
+                session_structure.append((block.get("name"), tuple(
+                    exercise.get("name") if isinstance(exercise, dict) else None
+                    for exercise in block["exercises"])))
                 if len(block["exercises"]) > 30:
                     fail("too many exercises in a block")
                 for exercise in block["exercises"]:
@@ -57,10 +67,12 @@ def validate_reviewed_program(program):
                     total_exercises += 1
                     if total_exercises > 2000:
                         fail("program contains too many exercises")
+            week_structure.append(tuple(session_structure))
         # The current client PDF draws detailed sessions from week one.
         # Reject different day structures rather than misrepresenting later weeks.
         if expected_days is None:
             expected_days = day_types
-        elif day_types != expected_days:
-            fail("session structure differs between weeks; PDF cannot safely represent it")
+            expected_structure = week_structure
+        elif day_types != expected_days or week_structure != expected_structure:
+            fail("session exercises or block structure differ between weeks; PDF cannot safely represent them")
     return program
