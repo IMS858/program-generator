@@ -177,8 +177,8 @@ class TestMachineChoice(unittest.TestCase):
         p.avoid_modalities = []
         p.limitations = []
         p.z2_baseline = {}; p.interval_test = {}; p.hr_recovery = {}
-        machine, _ = choose_primary_cardio_machine(normalize_cardio_profile(p))
-        self.assertEqual(machine, "stationary_bike")
+        with self.assertRaisesRegex(ValueError, "coach review required"):
+            choose_primary_cardio_machine(normalize_cardio_profile(p))
 
     def test_active_surgery_cannot_be_overridden_by_secondary_tolerance(self):
         from cardio_rules import normalize_cardio_profile, choose_primary_cardio_machine
@@ -199,7 +199,7 @@ class TestMachineChoice(unittest.TestCase):
         class P: pass
         p = P()
         p.primary_modality = "upright_bike"
-        p.secondary_modalities = ["rower", "skierg", "arc_trainer"]
+        p.secondary_modalities = ["skierg", "arc_trainer"]
         p.avoid_modalities = ["skierg"]
         p.limitations = ["low_back_sensitive"]
         p.z2_baseline = {}; p.interval_test = {}; p.hr_recovery = {}
