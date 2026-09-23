@@ -125,22 +125,28 @@ def canonical_motion(raw) -> str:
 
 
 def _to_float(v) -> Optional[float]:
+    """Accept one finite scalar with an optional known unit, never concatenate digits."""
+    import math
+    import re
     if v is None or isinstance(v, bool):
         return None
     if isinstance(v, (int, float)):
-        return float(v)
-    s = str(v).strip()
-    if not s:
+        value = float(v)
+    elif isinstance(v, str):
+        match = re.fullmatch(
+            r"\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*(?:lb|lbs|kg|n|deg|degrees|°)?\s*",
+            v, re.IGNORECASE)
+        if not match:
+            return None
+        value = float(match.group(1))
+    else:
         return None
-    cleaned = "".join(ch for ch in s if ch.isdigit() or ch in ".-")
-    try:
-        return float(cleaned)
-    except ValueError:
-        return None
+    return value if math.isfinite(value) else None
 
 
 def _to_lb(value: float, unit, cfg: dict) -> Optional[float]:
-    if value is None:
+    import math
+    if value is None or not math.isfinite(value):
         return None
     u = str(unit or "lb").strip().lower()
     units = cfg.get("units", {})
