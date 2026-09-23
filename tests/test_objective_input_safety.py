@@ -13,9 +13,24 @@ class TestObjectiveInputSafety(unittest.TestCase):
                 self.assertIsNone(_to_float(bad))
 
     def test_explicit_numeric_units_are_accepted(self):
-        for value in (45, 45.0, "45", "45 lb", "45kg", "45 N", "45 degrees"):
+        for value in (45, 45.0, "45", " 45 ", "45.0"):
             with self.subTest(value=value):
                 self.assertEqual(_to_float(value), 45)
+
+    def test_embedded_units_never_silently_override_explicit_unit(self):
+        for value in ("45 lb", "45kg", "45 N", "45 degrees", "35°"):
+            with self.subTest(value=value):
+                self.assertIsNone(_to_float(value))
+        payload = {"current": {"date": "2026-09-20", "dynamo": [
+            {"test": "hip_ir", "side": "L", "value": "45kg", "unit": "lb",
+             "source": "activforce_2_manual"},
+            {"test": "hip_ir", "side": "R", "value": 45, "unit": "kg",
+             "source": "activforce_2_manual"}]}}
+        result = parse_objective_measures(payload)
+        self.assertEqual(len(result.current.forces), 1)
+        self.assertEqual(result.current.forces[0].side, "R")
+        self.assertAlmostEqual(result.current.forces[0].value_lb, 99.208, places=2)
+        self.assertTrue(result.warnings)
 
     def test_activforce_requires_explicit_rom_mode_side_and_date(self):
         payload = {"current": {"date": "2026-09-20", "rom": [
