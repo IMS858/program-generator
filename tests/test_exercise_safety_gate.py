@@ -45,6 +45,20 @@ class TestSafetyGate(unittest.TestCase):
         self.assertTrue(assess_candidate(entry, {"knee"}).allowed)
         self.assertFalse(assess_candidate(entry, {"wrist"}).allowed)
 
+    def test_generator_holds_rich_active_restrictions_before_strength_selection(self):
+        from generator import Generator
+        from types import SimpleNamespace
+        root = Path(__file__).resolve().parents[1]
+        g = Generator(libraries_path=str(root / "libraries"))
+        for status in ("active_flare_up", "post_surgery", "avoid_loading"):
+            with self.subTest(status=status):
+                assessment = SimpleNamespace(
+                    constraints_rich=[{"key": "knee", "status": status}],
+                    concerns=[], constraints=[]
+                )
+                with self.assertRaisesRegex(ValueError, "coach review required"):
+                    g._pick_strength_exercise("squat", [], assessment=assessment)
+
     def test_unknown_restriction_holds_every_candidate(self):
         entry = {"name": "Seated Wrist Extension", "primary_joints": ["wrist"],
                  "secondary_joints": [], "safety_review_approved": True}
