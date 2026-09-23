@@ -7,6 +7,7 @@ import argparse
 import csv
 import json
 import re
+from difflib import get_close_matches
 from collections import defaultdict
 from pathlib import Path
 
@@ -24,6 +25,7 @@ def reconcile(rows, database):
                                             "generator_id": exercise.get("id"),
                                             "generator_name": name})
     output = []
+    normalized_names = list(index)
     for row in rows:
         canonical = row.get("canonical_name") or row.get("name") or ""
         candidates = index.get(normalize(canonical), [])
@@ -33,6 +35,7 @@ def reconcile(rows, database):
             "match_status": "exact_normalized" if len(candidates) == 1 else
                             "ambiguous" if candidates else "unmatched",
             "candidates": candidates,
+            "suggestions_for_coach_review": [candidate for match in get_close_matches(\n                normalize(canonical), normalized_names, n=3, cutoff=0.55\n            ) for candidate in index[match]] if not candidates else [],
             "safety_approved": False,
         })
     return output
