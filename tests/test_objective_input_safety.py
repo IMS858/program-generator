@@ -1,6 +1,8 @@
 """Strict parsing of synthetic ActivForce measurements."""
 import unittest
 from objective_measures import _to_float, parse_objective_measures
+from force_load import find_force_anchor
+from weakest_link import rank_joints, asymmetries
 
 
 class TestObjectiveInputSafety(unittest.TestCase):
@@ -42,6 +44,40 @@ class TestObjectiveInputSafety(unittest.TestCase):
         self.assertEqual(result.current.forces[0].device, "activforce_2")
         self.assertAlmostEqual(result.current.forces[0].value_lb, 112.40447, places=3)
         self.assertEqual(len(result.warnings), 2)
+
+    def test_activforce_measurements_reach_prescription_and_asymmetry(self):
+        payload = {"current": {"date": "2026-09-20", "bodyweight_lb": 185,
+            "dynamo": [
+                {"test": "knee_extension", "side": "L", "value": 60,
+                 "source": "activforce_2_manual"},
+                {"test": "knee_extension", "side": "R", "value": 90,
+                 "source": "activforce_2_manual"},
+                {"test": "hip_abduction", "side": "L", "value": 45,
+                 "source": "activforce_2_manual"},
+                {"test": "shoulder_er", "side": "L", "value": 18,
+                 "source": "activforce_2_manual"}]}}
+        objective = parse_objective_measures(payload)
+        anchor = find_force_anchor(
+            {"name": "Leg Extension", "joint": "knee", "pattern": "isolation",
+             "equipment": ["machine"]}, objective, exercise_name="Leg Extension")
+        self.assertIsNotNone(anchor)
+        self.assertEqual(anchor.device, "activforce_2")
+        self.assertEqual(anchor.side, "L")
+        self.assertEqual(anchor.value_lb, 60)
+        self.assertTrue(rank_joints(objective))
+        gaps = asymmetries(objective)
+        self.assertTrue(any(x["test"] == "knee_extension" and x["weak_side"] == "L"
+                            for x in gaps))
+
+    def test_activforce_does_not_anchor_compound_lift(self):
+        payload = {"current": {"date": "2026-09-20", "dynamo": [
+            {"test": "knee_extension", "side": "L", "value": 80,
+             "source": "activforce_2_manual"}]}}
+        objective = parse_objective_measures(payload)
+        anchor = find_force_anchor(
+            {"name": "Barbell Back Squat", "joint": "knee", "pattern": "squat",
+             "equipment": ["barbell"]}, objective, exercise_name="Barbell Back Squat")
+        self.assertIsNone(anchor)
 
     def test_invalid_force_and_rom_are_dropped(self):
         payload = {"current": {"date": "2026-09-20",
