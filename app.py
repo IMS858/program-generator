@@ -393,6 +393,54 @@ def build_program_pdf(form_data, out_warnings=None, out_program=None):
     return pdf_bytes, assessment.name
 
 
+
+@app.route('/api/render', methods=['POST'])
+def render_edited_program():
+    """Render a coach-reviewed structured plan without running the engine again."""
+    auth_error = require_generator_auth()
+    if auth_error is not None:
+        return auth_error
+    if not os.environ.get('PROGRAM_GENERATOR_SECRET'):
+        return jsonify({'error': 'render_requires_service_auth'}), 503
+    payload = request.get_json(silent=True)
+    if not isinstance(payload, dict):
+        return jsonify({'error': 'invalid_json'}), 400
+    program = payload.get('program')
+    mode = payload.get('pdf_mode', 'client')
+    if mode not in ('client', 'coach'):
+        return jsonify({'error': 'invalid_pdf_mode'}), 400
+    if (not isinstance(program, dict) or not isinstance(program.get('client_name'), str)
+            or not isinstance(program.get('weeks'), list)
+            or not 1 <= len(program['weeks']) <= 8
+            or not isinstance(program.get('assessment'), dict)):
+        return jsonify({'error': 'invalid_program'}), 400
+    for week in program['weeks']:
+        if not isinstance(week, dict) or not isinstance(week.get('sessions'), list):
+            return jsonify({'error': 'invalid_sessions'}), 400
+        for session in week['sessions']:
+            if not isinstance(session, dict) or not isinstance(session.get('blocks'), list):
+                return jsonify({'error': 'invalid_blocks'}), 400
+            for block in session['blocks']:
+                if not isinstance(block, dict) or not isinstance(block.get('exercises'), list):
+                    return jsonify({'error': 'invalid_exercises'}), 400
+    try:
+        with tempfile.TemporaryDirectory() as tmp:
+            json_path = str(Path(tmp) / 'reviewed_program.json')
+            pdf_path = str(Path(tmp) / 'reviewed_program.pdf')
+            Path(json_path).write_text(json.dumps(program), encoding='utf-8')
+            generate_plan_pdf(json_path, pdf_path, pdf_mode=mode)
+            pdf_bytes = Path(pdf_path).read_bytes()
+        if not pdf_bytes.startswith(b'%PDF-'):
+            raise ValueError('Invalid PDF')
+    except Exception:
+        app.logger.exception('Reviewed program PDF rendering failed')
+        return jsonify({'error': 'render_failed'}), 500
+    response = jsonify({'pdf_base64': base64.b64encode(pdf_bytes).decode('ascii')})
+    response.headers['Cache-Control'] = 'private, no-store'
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    return response
+
+
 @app.route('/api/generate', methods=['POST', 'OPTIONS'])
 def generate():
     # CORS preflight
