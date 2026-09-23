@@ -27,3 +27,9 @@ For a flagged client, an absent or unreviewed relevant tag is **unknown** and mu
 **Audit artifacts:** `tests/test_exercise_library_inventory.py` prints the real DB shape, counts, populated safety fields and duplicate-name indicators in CI. The output is an inventory, not a medical safety certification.
 
 **Approval required:** Jason or a qualified IMS coach must sign off on exercise-level safety tags and prescription thresholds before broad automatic use.
+
+## Canonical workbook extraction (2026-09-23)
+The source `IMS_Exercise_Database(1).xlsx`, `All Exercises` tab, contains **423** rows with **423 unique canonical IDs and 423 unique names**. Provenance: 306 Jason supplied; 28 Jason programmed; 25 Jason supplied + programmed; 2 Jason corrected; 60 Claude draft unreviewed; 1 Claude draft + Jason programmed; 1 rule only. The `Safety tags set` column is **Yes on 8 / 423** and **No on 415 / 423**. These workbook indicators do not certify clinical safety or prove the generator's separate 604 entries have been reconciled. A UTF-8 CSV was exported for the read-only `scripts/reconcile_exercise_ids.py` tool; the crosswalk has not yet been executed against both complete datasets in one environment.
+
+## Regression gate status
+The existing four-week/PDF suite generated an 85-page synthetic coach PDF during the September 23 CI run, but the strict picker patch produced two **no eligible exercise** errors for flagged shoulder and low-back personas and one unrelated anchor-load assertion failure. These are release blockers; do not interpret a fail-closed generator error as a usable completed client plan. The unrestricted tested-exercise match was restored in a follow-up patch; the flagged-persona behavior still needs a coach-approved substitution pool or explicit UI hold workflow. Do not merge or deploy while CI is red.
