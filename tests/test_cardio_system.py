@@ -217,6 +217,40 @@ class TestMachineChoice(unittest.TestCase):
 
 
 class TestIntervalClearance(unittest.TestCase):
+    def test_unassessed_intervals_default_to_zone_two(self):
+        from cardio_rules import normalize_cardio_profile, determine_interval_clearance
+        self.assertEqual(determine_interval_clearance(normalize_cardio_profile(None)), "z2_only")
+
+    def test_avoid_loading_blocks_even_when_interval_flag_was_cleared(self):
+        from cardio_rules import normalize_cardio_profile, determine_interval_clearance
+        from types import SimpleNamespace
+        p = SimpleNamespace(
+            primary_modality="stationary_bike",
+            secondary_modalities=[], avoid_modalities=[],
+            limitations=["cleared_for_intervals"],
+            z2_baseline={}, interval_test={}, hr_recovery={})
+        n = normalize_cardio_profile(p, constraints_rich=[
+            {"key": "left_knee", "status": "avoid_loading"}])
+        self.assertEqual(determine_interval_clearance(n), "blocked")
+
+    def test_unknown_active_restriction_does_not_fallback_to_bike(self):
+        from cardio_rules import normalize_cardio_profile, choose_primary_cardio_machine
+        n = normalize_cardio_profile(None, constraints_rich=[
+            {"key": "undocumented_site", "status": "post_surgery"}])
+        with self.assertRaisesRegex(ValueError, "coach review required"):
+            choose_primary_cardio_machine(n)
+
+    def test_generator_accepts_direct_clearance_and_treadmill(self):
+        from cardio_profile import parse_cardio_profile
+        from cardio_rules import normalize_cardio_profile, determine_interval_clearance
+        p = parse_cardio_profile({
+            "primary_modality": "treadmill", "interval_clearance": "cleared",
+            "avoid_modalities": ["rower"]})
+        self.assertEqual(p.primary_modality, "treadmill")
+        self.assertEqual(determine_interval_clearance(normalize_cardio_profile(p)), "full")
+        blocked = parse_cardio_profile({"interval_clearance": "not_assessed"})
+        self.assertEqual(determine_interval_clearance(normalize_cardio_profile(blocked)), "blocked")
+
     def test_not_cleared_blocks(self):
         from cardio_rules import normalize_cardio_profile, determine_interval_clearance
         class P: pass
