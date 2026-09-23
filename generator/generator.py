@@ -286,10 +286,10 @@ class Generator:
         self.accessory_lib = self._load_accessory_library()
         # Objective layer state · always present, empty until build_program
         # resolves it, so every consumer can read it unconditionally.
-        try:
-            self._cfg = load_thresholds()
-        except Exception:
-            self._cfg = {}
+        # Thresholds govern prescription decisions; fail closed if a deployment
+        # ships missing or malformed configuration rather than silently
+        # generating plans without its safety limits.
+        self._cfg = load_thresholds()
         self._reset_objective_state()
 
     def _load_accessory_library(self) -> dict:
