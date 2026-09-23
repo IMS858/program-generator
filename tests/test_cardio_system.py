@@ -341,6 +341,20 @@ class TestProgression(unittest.TestCase):
         self.assertIn("20s hard", prog[4]["main"].lower())
 
 
+
+class TestUnassessedFinisher(unittest.TestCase):
+    def test_absent_assessment_cannot_produce_hiit(self):
+        from generator import Generator
+        from pathlib import Path
+        root = Path(__file__).resolve().parents[1]
+        generator = Generator(libraries_path=str(root / "libraries"))
+        result = generator._build_hiit_finisher(None)
+        self.assertIn("unassessed", result.name.lower())
+        self.assertNotIn("HIIT", result.name)
+        self.assertTrue(all("sprint" not in e.name.lower() for e in result.exercises))
+
+
+
 class TestCoachFlags(unittest.TestCase):
     def test_knee_flag_present(self):
         from cardio_rules import normalize_cardio_profile, generate_cardio_coach_flags
