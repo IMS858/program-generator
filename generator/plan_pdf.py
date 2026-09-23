@@ -1323,7 +1323,7 @@ def draw_rotating_week_pages(c, program, indices, pdf_mode="client"):
 
 
 def draw_session_page(c, program, session_idx, day_num_in_week,
-                      start_page_num=1, total_pages=1):
+                      start_page_num=1, total_pages=1, rotating=False):
     """Detailed session page · one per training day.
 
     May consume 1 or 2 PDF pages depending on content density.
@@ -1338,7 +1338,8 @@ def draw_session_page(c, program, session_idx, day_num_in_week,
     current_page = start_page_num
 
     page_header_bar(c, f"SECTION 07 · SESSION {session_idx + 1} DETAIL",
-                    f"WEEK 01-04 · DAY {day_num_in_week}")
+                    f"WEEK 01 OVERVIEW · DAY {day_num_in_week}" if rotating
+                    else f"WEEK 01-04 · DAY {day_num_in_week}")
 
     # Session title
     y = PAGE_H - MARGIN - 140
@@ -3731,7 +3732,7 @@ def generate_plan_pdf(program_json: str, output_pdf: str, pdf_mode: str = "clien
         for i in range(num_sessions):
             day_in_week = day_map.get(i + 1, i + 1)
             pages_used = draw_session_page(c, program, i, day_in_week,
-                                           page_num + 1, 0)  # total no longer needed inline
+                                           page_num + 1, 0, rotating=i in _rotating_sessions(program))  # total no longer needed inline
             page_num += pages_used
 
     # The initial generator may rotate exercises. Print the actual plan for
