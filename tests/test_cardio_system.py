@@ -168,6 +168,32 @@ class TestMachineChoice(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "coach review required"):
             choose_primary_cardio_machine(normalize_cardio_profile(p))
 
+    def test_unknown_primary_machine_is_rejected(self):
+        from cardio_rules import normalize_cardio_profile, choose_primary_cardio_machine
+        class P: pass
+        p = P()
+        p.primary_modality = "imaginary_treadmill"
+        p.secondary_modalities = []
+        p.avoid_modalities = []
+        p.limitations = []
+        p.z2_baseline = {}; p.interval_test = {}; p.hr_recovery = {}
+        machine, _ = choose_primary_cardio_machine(normalize_cardio_profile(p))
+        self.assertEqual(machine, "stationary_bike")
+
+    def test_active_surgery_cannot_be_overridden_by_secondary_tolerance(self):
+        from cardio_rules import normalize_cardio_profile, choose_primary_cardio_machine
+        class P: pass
+        p = P()
+        p.primary_modality = "rower"
+        p.secondary_modalities = ["rower"]
+        p.avoid_modalities = []
+        p.limitations = []
+        p.z2_baseline = {}; p.interval_test = {}; p.hr_recovery = {}
+        n = normalize_cardio_profile(p, constraints_rich=[
+            {"key": "post_surgery_knee", "status": "post_surgery"}])
+        machine, _ = choose_primary_cardio_machine(n)
+        self.assertNotEqual(machine, "rower")
+
     def test_default_when_nothing_set(self):
         from cardio_rules import normalize_cardio_profile, choose_primary_cardio_machine
         n = normalize_cardio_profile(profile=None, concerns=[], constraints_rich=[])
