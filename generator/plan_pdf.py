@@ -1242,6 +1242,74 @@ def draw_strength_plan(c, program):
 # PAGES 9-11 · SESSION DETAIL PAGES (NEW · one per training day)
 # ==========================================================
 
+def _rotating_sessions(program):
+    """Identify sessions with different exercises or block order across weeks."""
+    weeks = program.get("weeks") or []
+    if not weeks:
+        return []
+    def signature(session):
+        return tuple((b.get("name"), tuple(e.get("name") for e in b.get("exercises", [])))
+                     for b in session.get("blocks", []))
+    return [i for i, first in enumerate(weeks[0].get("sessions", []))
+            if any(i >= len(w.get("sessions", [])) or
+                   signature(w["sessions"][i]) != signature(first) for w in weeks[1:])]
+
+
+def draw_rotating_week_pages(c, program, indices):
+    """Print actual week-specific exercise names and doses for rotating sessions."""
+    pages = 0
+    for session_idx in indices:
+        for wi, week in enumerate(program["weeks"]):
+            if session_idx >= len(week.get("sessions", [])):
+                continue
+            session = week["sessions"][session_idx]
+            fill_page(c, NAVY)
+            ghost_watermark(c, "ims")
+            page_header_bar(c, f"DAY {session_idx + 1} · ROTATING PLAN",
+                            f"WEEK {wi + 1:02d} · ACTUAL EXERCISES")
+            y = PAGE_H - MARGIN - 110
+            c.setFillColor(CREAM)
+            c.setFont(SERIF, 23)
+            c.drawString(MARGIN, y, f"Week {wi + 1} · Day {session_idx + 1}")
+            y -= 28
+            c.setFillColor(CREAM_DIM)
+            c.setFont(SERIF_ITALIC, 9)
+            c.drawString(MARGIN, y, "Follow this week's actual exercises, not the week-one overview.")
+            y -= 28
+            for block in session.get("blocks", []):
+                if y - (35 + len(block.get("exercises", [])) * 50) < MARGIN + 40:
+                    c.showPage()
+                    pages += 1
+                    fill_page(c, NAVY)
+                    ghost_watermark(c, "ims")
+                    page_header_bar(c, f"DAY {session_idx + 1} · CONTINUED",
+                                    f"WEEK {wi + 1:02d}")
+                    y = PAGE_H - MARGIN - 100
+                small_caps_label(c, str(block.get("name") or "Training block").upper(),
+                                 MARGIN, y, color=SKY_BLUE, size=9)
+                y -= 20
+                for ex in block.get("exercises", []):
+                    c.setFillColor(CREAM)
+                    c.setFont(SANS_MEDIUM, 10)
+                    for line in _wrap_to_lines(c, str(ex.get("name") or ""),
+                                               CONTENT_W - 20, SANS_MEDIUM, 10, max_lines=2):
+                        c.drawString(MARGIN + 10, y, line)
+                        y -= 12
+                    c.setFillColor(CREAM_DIM)
+                    c.setFont(SERIF_ITALIC, 9)
+                    dose = str(ex.get("dose") or "")
+                    tempo = str(ex.get("tempo") or "")
+                    for line in _wrap_to_lines(c, f"{dose}   {tempo}".strip(),
+                                               CONTENT_W - 24, SERIF_ITALIC, 9, max_lines=2):
+                        c.drawString(MARGIN + 12, y, line)
+                        y -= 11
+                    y -= 10
+                y -= 9
+            c.showPage()
+            pages += 1
+    return pages
+
+
 def draw_session_page(c, program, session_idx, day_num_in_week,
                       start_page_num=1, total_pages=1):
     """Detailed session page · one per training day.
@@ -1570,7 +1638,11 @@ def render_strength_progression(c, program, session_idx, block_name, y):
 
     if not blocks_per_week:
         return y
-    if len(blocks_per_week) < 4:
+    if len(blocks_per_week) < 4 or any(
+            [e.get("name") for e in b.get("exercises", [])] !=
+            [e.get("name") for e in blocks_per_week[0].get("exercises", [])]
+            for b in blocks_per_week[1:]):
+        # Rotating exercises cannot share a week-one-indexed progression table.
         return render_block_compact(c, blocks_per_week[0], y, program=program)
 
     # ── BLOCK LABEL ──
@@ -3649,6 +3721,11 @@ def generate_plan_pdf(program_json: str, output_pdf: str, pdf_mode: str = "clien
             pages_used = draw_session_page(c, program, i, day_in_week,
                                            page_num + 1, 0)  # total no longer needed inline
             page_num += pages_used
+
+    # The initial generator may rotate exercises. Print the actual plan for
+    # every week rather than mislabeling a week-one exercise as week two's.
+    if pdf_mode != "coach":
+        page_num += draw_rotating_week_pages(c, program, _rotating_sessions(program))
 
     # Draw closing
     for fn in closing_pages:
