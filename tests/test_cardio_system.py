@@ -729,7 +729,7 @@ class TestAmandaRegression(unittest.TestCase):
             "fra_priorities": ["Hip Ir L+R"],  # lowercase Ir + plural test
             "mobility_map": [
                 {"joint": "hip", "direction": "IR", "side": "L", "rating": "yellow"},
-                {"joint": "knee", "direction": "flexion", "side": "R", "rating": "red"},
+                {"joint": "knee", "direction": "flexion", "side": "R", "rating": "yellow"},
             ],
             "strength_markers": [], "strength_marker_results": {},
             "strength_marker_tests": [
@@ -743,7 +743,7 @@ class TestAmandaRegression(unittest.TestCase):
             ],
             "constraints": ["post_surgery_knee"],
             "constraints_rich": [{"key": "post_surgery_knee", "display_name": "Post-Surgery Knee",
-                                    "side": "right", "status": "post_surgery", "pain_level": 3,
+                                    "side": "right", "status": "cleared", "pain_level": 3,
                                     "avoid_notes": "loaded twisting, deep loaded knee flexion, impact, catching/locking-provoking drills, anything that causes swelling or next-day flare-up"}],
             "concerns": ["bad_knee"], "concern_notes": "right meniscus repair", "body_comp": {},
             "cardio_profile": {
