@@ -35,7 +35,9 @@ def reconcile(rows, database):
             "match_status": "exact_normalized" if len(candidates) == 1 else
                             "ambiguous" if candidates else "unmatched",
             "candidates": candidates,
-            "suggestions_for_coach_review": [candidate for match in get_close_matches(\n                normalize(canonical), normalized_names, n=3, cutoff=0.55\n            ) for candidate in index[match]] if not candidates else [],
+            "suggestions_for_coach_review": [candidate for match in get_close_matches(
+                normalize(canonical), normalized_names, n=3, cutoff=0.55
+            ) for candidate in index[match]] if not candidates else [],
             "safety_approved": False,
         })
     return output
@@ -53,7 +55,8 @@ def main():
         rows = list(csv.DictReader(file))
     database = json.loads(args.database.read_text(encoding="utf-8"))
     result = reconcile(rows, database)
-    args.output.write_text(json.dumps(result, indent=2, ensure_ascii=False) + "\n",
+    args.output.write_text(json.dumps(result, indent=2, ensure_ascii=False) + "
+",
                            encoding="utf-8")
     summary = {key: sum(row["match_status"] == key for row in result)
                for key in ("exact_normalized", "ambiguous", "unmatched")}
