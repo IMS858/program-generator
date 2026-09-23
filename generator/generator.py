@@ -1524,11 +1524,17 @@ class Generator:
         Tier selection · inferred from client_tier (new=T1, intermediate=T2, advanced=T3)
         or from constraints (post-surgery / chronic-anything → T1 always).
         """
-        # Pick tier
+        # Pick tier. Missing assessment does not constitute interval clearance.
         if assessment is None:
-            # Cardio day context · default to T2, coach can substitute
-            tier = "mid"
-            rationale_prefix = "Cardio day finisher"
+            return Block(
+                name="Conditioning Reset (unassessed)",
+                exercises=[Exercise(
+                    name="Comfortable Breathing Reset", library="external_training",
+                    dose="2 min of easy breathing in a comfortable position",
+                    rationale="No HIIT or machine assignment without a reviewed assessment",
+                )],
+                duration_note="No intervals · an IMS coach must assess cardio tolerance first",
+            )
         else:
             client_tier = self._infer_client_tier(assessment)
             tier = self._hiit_tier_for_client(assessment, client_tier)
