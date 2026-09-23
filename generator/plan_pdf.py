@@ -1488,6 +1488,12 @@ def render_block_compact(c, block, y, program=None):
     for ex in exercises:
         name = ex.get('name', '')
         dose = ex.get('dose', '')
+        # Coach Studio edits must survive regeneration into the client PDF.
+        # Keep tempo and progression instructions visible for compact blocks.
+        tempo = ex.get('tempo') or ''
+        progression_note = ex.get('progression_note') or ''
+        if tempo:
+            dose = f"{dose} · tempo {tempo}" if dose else f"Tempo {tempo}"
 
         # Per-mode dose softening · for the Capsule Work block in client mode,
         # hide the explicit "@ 20-40%" effort percentages. Coach + Full plans
@@ -1530,6 +1536,13 @@ def render_block_compact(c, block, y, program=None):
             c.drawRightString(PAGE_W - MARGIN, y - li * line_h, line)
 
         y -= rows * line_h
+        if progression_note:
+            y -= 2
+            c.setFillColor(CREAM_DIM)
+            c.setFont(SANS, 8)
+            for note_line in _wrap_to_lines(c, progression_note, CONTENT_W - 24, SANS, 8, max_lines=3):
+                c.drawString(MARGIN + 12, y, note_line)
+                y -= 10
 
     return y
 
