@@ -2794,8 +2794,14 @@ class Generator:
             tested_match = self._match_pattern_to_tested_exercise(
                 pattern, candidates, assessment, exclude_names=exclude_names)
             if tested_match:
-                name = tested_match
-                if not rationale:
+                # A strength test is evidence of a measurement, not clearance
+                # to prescribe the same exercise during a new joint flare.
+                tested_entry = self._find_entry_by_name(tested_match)
+                if tested_entry is not None and not self._violates_constraints(
+                    tested_entry, constraints, concerns=client_concerns
+                ):
+                    name = tested_match
+                if name is not None and not rationale:
                     rationale = "Pattern picked from your tested exercises"
 
         # 2 · Day-based rotation through the pool · skip excluded names
@@ -2817,8 +2823,16 @@ class Generator:
         if name is None:
             filtered = [c for c in candidates if c not in exclude_names]
             filtered = self._bias_candidates(filtered)
-            name = (self._first_valid_candidate(filtered, constraints, concerns=client_concerns)
-                    or (filtered[0] if filtered else candidates[0]))
+            name = self._first_valid_candidate(
+                filtered, constraints, concerns=client_concerns
+            )
+            if name is None:
+                # Do not silently reinsert the first contraindicated candidate.
+                # An explicit hold is safer than manufacturing a valid exercise.
+                raise ValueError(
+                    f"No eligible exercise for pattern {pattern!r}; "
+                    "coach review required for current restrictions"
+                )
 
         # If concerns drove a non-default pick, surface that in the rationale
         if client_concerns and not rationale:
