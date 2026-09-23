@@ -194,6 +194,21 @@ class TestMachineChoice(unittest.TestCase):
         machine, _ = choose_primary_cardio_machine(n)
         self.assertNotEqual(machine, "rower")
 
+    def test_avoided_secondary_never_appears_in_client_progression(self):
+        from cardio_rules import normalize_cardio_profile, generate_cardio_progression
+        class P: pass
+        p = P()
+        p.primary_modality = "upright_bike"
+        p.secondary_modalities = ["rower", "skierg", "arc_trainer"]
+        p.avoid_modalities = ["skierg"]
+        p.limitations = ["low_back_sensitive"]
+        p.z2_baseline = {}; p.interval_test = {}; p.hr_recovery = {}
+        progression = generate_cardio_progression(normalize_cardio_profile(p))
+        for week in progression.values():
+            self.assertNotIn("Rower", week["machine"])
+            self.assertNotIn("SkiErg", week["machine"])
+            self.assertIn("Arc Trainer", week["machine"])
+
     def test_default_when_nothing_set(self):
         from cardio_rules import normalize_cardio_profile, choose_primary_cardio_machine
         n = normalize_cardio_profile(profile=None, concerns=[], constraints_rich=[])
