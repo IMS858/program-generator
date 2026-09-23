@@ -23,7 +23,7 @@ class VoltraCSVTests(unittest.TestCase):
         parsed = parse_voltra_csv(sample([row(1), row(2)]))
         self.assertEqual(len(parsed["repetitions"]), 2)
         self.assertEqual(parsed["repetitions"][0]["metrics"]["Base Weight (LBS)"], 180)
-        self.assertEqual(parsed["repetitions"][0]["traces"]["Ecc. Power (W)"], [-260, -317])
+        self.assertEqual(parsed["repetitions"][0]["traces"]["Ecc Power (W)"], [-260, -317])
         self.assertIn("session_date", parsed["requires_coach_context"])
 
     def test_rejects_duplicate_reps(self):
