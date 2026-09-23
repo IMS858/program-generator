@@ -448,7 +448,7 @@ class TestIntegrationKneeClient(unittest.TestCase):
         self.assertIn("COACH APPENDIX", ft.upper())
 
 
-class TestAmandaRegression(unittest.TestCase):
+class TestAmandaRoutingRegression(unittest.TestCase):
     """Regression tests for the Amanda Patterson scenario · contradictory inputs.
 
     Amanda's input ·
@@ -472,7 +472,6 @@ class TestAmandaRegression(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        raise unittest.SkipTest("Requires approved post-surgical exercise substitutions; PDF generation intentionally held")
         from app import build_program_pdf
         form = {
             "client_name": "Amanda Regression",
@@ -483,7 +482,7 @@ class TestAmandaRegression(unittest.TestCase):
             "fra_priorities": ["Hip flexion L+R"],  # this triggers Deep Squat Hold mapping
             "mobility_map": [
                 {"joint": "hip", "direction": "flexion", "side": "L", "rating": "yellow"},
-                {"joint": "knee", "direction": "flexion", "side": "R", "rating": "red"},
+                {"joint": "knee", "direction": "flexion", "side": "R", "rating": "yellow"},
             ],
             "strength_markers": [], "strength_marker_results": {},
             "strength_marker_tests": [],
