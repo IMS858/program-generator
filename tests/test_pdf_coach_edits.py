@@ -5,7 +5,7 @@ import unittest
 from pypdf import PdfReader
 from reportlab.pdfgen import canvas
 
-from generator.plan_pdf import render_block_compact, _cell_lines_for_week
+from plan_pdf import render_block_compact, _cell_lines_for_week
 
 
 class PdfCoachEditsTests(unittest.TestCase):
