@@ -31,3 +31,11 @@ Project: IMS Coach OS. Applied migration `restrict_objective_measurements_to_ims
 ## Release hold
 
 A green generator unit suite is necessary but not sufficient. Obtain qualified coach sign-off for safety tags/substitution pools, pass cross-account JWT tests and staged end-to-end PDF review, resolve Vercel scope access, and keep PR #1 unmerged until these gates are satisfied.
+
+## Follow-up verification and role-escalation fix (2026-09-23)
+
+- CI run #100 on audit commit `d76b7bf` passed: https://github.com/IMS858/program-generator/actions/runs/35894684784
+- Supabase migration `prevent_client_profile_role_escalation` added a BEFORE UPDATE trigger to prevent non-owner/non-service-role changes to `profiles.id`, `profiles.role` or `profiles.deleted_at`. This closes a privilege-escalation path where a self-update policy alone did not protect privileged columns. Verified with a real existing client identity under `SET LOCAL ROLE authenticated`: attempted `client -> trainer` update raised `insufficient_privilege`, role remained `client`, and the transaction was rolled back. This is a database policy test, not an HTTP/session-token penetration test.
+- Rolled-back role-simulation checks: an unrecognized synthetic authenticated identity saw 0 client/assessment/program/canonical/coach-artifact rows; an existing client identity saw exactly 1 client row and 0 canonical/coach-artifact rows; an existing staff identity saw 22 clients, 4 assessments, 24 programs and 423 canonical queue rows. Measurements tables are currently empty; verify nonempty ownership isolation with synthetic fixture rows before release.
+- The exercise review queue is prioritized: priority 1 = 132, priority 2 = 149, priority 3 = 142. These priorities are workflow ordering, **not** exercise safety certification. All 423 remain pending; 27 have unique exact candidates, 396 lack exact candidates and 0 safety reviews are complete.
+- Additional audit concern: client UPDATE policies on `sessions` need column-level restriction or a trigger before release so a client cannot alter staff-owned scheduling/payment/completion fields. Verify application write paths before narrowing permissions.
