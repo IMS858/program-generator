@@ -29,3 +29,6 @@ Synthetic test data only in CI. Restrict imports to authorized staff, encrypt pr
 - VOLTRA: Beyond+ CSV import now; no Cortex beta access and no API dependency for launch. Obtain a de-identified real export before mapping vendor-specific columns.
 - ActivForce 2: manual data entry in Coach OS now, with input validation and explicit units; no API or importer required.
 - Both: show source, assessment date, test protocol and coach verification before measurements affect programming.
+
+## Verified Beyond+ CSV sample (provided by IMS)
+Actual header contains 17 columns: set/rep index, base/eccentric/chains weights (lb), ROM (m), duration (s), mean/peak velocity (m/s), mean/peak power (W), and six sampled concentric/eccentric force/velocity/power traces. The last six columns contain **semicolon-separated arrays inside CSV cells**, not single scalar measurements. Eccentric velocity and power are signed negative in the provided sample; preserve those signs. The export does **not** contain client ID, exercise, side, session timestamp or training mode, so require coach-supplied context and do not infer them. The validated pure parser is `generator/voltra_csv.py`; Coach OS import UI and private persistence remain separate work.
