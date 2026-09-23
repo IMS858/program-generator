@@ -263,8 +263,22 @@ class TestTransformEndpoint(unittest.TestCase):
         import app as app_module
         cls.client = app_module.app.test_client()
 
+    def setUp(self):
+        from unittest.mock import patch
+        self.auth = patch.dict('os.environ', {'PROGRAM_GENERATOR_SECRET': 'test-vald-secret'})
+        self.auth.start()
+        self.addCleanup(self.auth.stop)
+
+    def _post_transform(self, payload):
+        return self.client.post('/api/vald/transform', json=payload,
+                                headers={'Authorization': 'Bearer test-vald-secret'})
+
+    def test_transform_requires_authentication(self):
+        response = self.client.post('/api/vald/transform', json={'current': []})
+        self.assertEqual(response.status_code, 401)
+
     def test_transform_returns_a_valid_block(self):
-        resp = self.client.post("/api/vald/transform", json={
+        resp = self._post_transform({
             "current": [STRENGTH_TEST, SHOULDER_TEST, ROM_TEST],
             "bodyweight_lb": 185,
         })
@@ -275,8 +289,7 @@ class TestTransformEndpoint(unittest.TestCase):
 
     def test_transform_reports_unmapped_without_failing(self):
         novel = dict(STRENGTH_TEST, bodyRegion="Thumb", movement="Opposition")
-        resp = self.client.post("/api/vald/transform",
-                                json={"current": [STRENGTH_TEST, novel]})
+        resp = self._post_transform({"current": [STRENGTH_TEST, novel]})
         self.assertEqual(resp.status_code, 200)
         body = resp.get_json()
         self.assertTrue(body["valid"])
