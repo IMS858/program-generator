@@ -27,6 +27,7 @@ from generator import (
 from plan_pdf import generate_plan_pdf
 from ims_contract import CONTRACT_VERSION, GENERATOR_VERSION, PROTOCOL_VERSION
 from validation import PayloadError, validate_payload
+from reviewed_program import validate_reviewed_program, ReviewedProgramError
 from force_load import ImplausibleLoadError
 from objective_measures import parse_objective_measures
 
@@ -409,20 +410,10 @@ def render_edited_program():
     mode = payload.get('pdf_mode', 'client')
     if mode not in ('client', 'coach'):
         return jsonify({'error': 'invalid_pdf_mode'}), 400
-    if (not isinstance(program, dict) or not isinstance(program.get('client_name'), str)
-            or not isinstance(program.get('weeks'), list)
-            or not 1 <= len(program['weeks']) <= 8
-            or not isinstance(program.get('assessment'), dict)):
+    try:
+        validate_reviewed_program(program)
+    except ReviewedProgramError:
         return jsonify({'error': 'invalid_program'}), 400
-    for week in program['weeks']:
-        if not isinstance(week, dict) or not isinstance(week.get('sessions'), list):
-            return jsonify({'error': 'invalid_sessions'}), 400
-        for session in week['sessions']:
-            if not isinstance(session, dict) or not isinstance(session.get('blocks'), list):
-                return jsonify({'error': 'invalid_blocks'}), 400
-            for block in session['blocks']:
-                if not isinstance(block, dict) or not isinstance(block.get('exercises'), list):
-                    return jsonify({'error': 'invalid_exercises'}), 400
     try:
         with tempfile.TemporaryDirectory() as tmp:
             json_path = str(Path(tmp) / 'reviewed_program.json')
@@ -578,6 +569,11 @@ def vald_transform():
             'Access-Control-Allow-Methods': 'POST, OPTIONS',
             'Access-Control-Allow-Headers': 'Content-Type'
         })
+    auth_error = require_generator_auth()
+    if auth_error is not None:
+        return auth_error
+    if not os.environ.get('PROGRAM_GENERATOR_SECRET'):
+        return jsonify({'error': 'transform_requires_service_auth'}), 503
     try:
         body = request.get_json(force=True)
     except Exception as e:
