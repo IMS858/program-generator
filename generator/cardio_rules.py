@@ -292,7 +292,7 @@ def _machine_is_safe(machine: str, normalized: dict) -> bool:
     before flagging the limitation. Only `secondary_modalities` counts as
     explicit "yes, tested, this is fine despite the limitation."
     """
-    if not machine:
+    if not machine or machine not in MODALITIES:
         return False
     secondary_tolerated = set(normalized.get("secondary_modalities", []))
 
@@ -302,7 +302,7 @@ def _machine_is_safe(machine: str, normalized: dict) -> bool:
 
     for limit in normalized.get("limitations", []):
         risky = _RISKY_MACHINES_BY_LIMIT.get(limit, [])
-        if machine in risky and machine not in secondary_tolerated:
+        if machine in risky and (machine not in secondary_tolerated or normalized.get("post_surgery") or normalized.get("active_flare_up")):
             return False
     return True
 
