@@ -143,6 +143,31 @@ class TestMachineChoice(unittest.TestCase):
         self.assertNotEqual(machine, "skierg")
         self.assertIn("conflicts", rationale.lower())
 
+    def test_every_machine_avoided_requires_coach_review(self):
+        from cardio_rules import normalize_cardio_profile, choose_primary_cardio_machine, MODALITIES
+        class P: pass
+        p = P()
+        p.primary_modality = "stationary_bike"
+        p.secondary_modalities = []
+        p.avoid_modalities = sorted(MODALITIES)
+        p.limitations = ["knee_sensitive"]
+        p.z2_baseline = {}; p.interval_test = {}; p.hr_recovery = {}
+        n = normalize_cardio_profile(p)
+        with self.assertRaisesRegex(ValueError, "coach review required"):
+            choose_primary_cardio_machine(n)
+
+    def test_no_primary_and_all_avoided_requires_coach_review(self):
+        from cardio_rules import normalize_cardio_profile, choose_primary_cardio_machine, MODALITIES
+        class P: pass
+        p = P()
+        p.primary_modality = None
+        p.secondary_modalities = []
+        p.avoid_modalities = sorted(MODALITIES)
+        p.limitations = []
+        p.z2_baseline = {}; p.interval_test = {}; p.hr_recovery = {}
+        with self.assertRaisesRegex(ValueError, "coach review required"):
+            choose_primary_cardio_machine(normalize_cardio_profile(p))
+
     def test_default_when_nothing_set(self):
         from cardio_rules import normalize_cardio_profile, choose_primary_cardio_machine
         n = normalize_cardio_profile(profile=None, concerns=[], constraints_rich=[])
