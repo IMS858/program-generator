@@ -35,6 +35,50 @@ class SyntheticProgramScenarios(unittest.TestCase):
         self.assertTrue(all(1 <= len(w["sessions"]) <= 7 for w in program["weeks"]))
         return program
 
+    def test_ims_review_inspired_personas_generate_four_week_pdf(self):
+        # Fictional composite personas inspired by public IMS review themes.
+        # These are not the reviewers' records or individualized prescriptions.
+        scenarios = [
+            ("general_strength", dict(strength_days=3, cardio_days=1)),
+            ("knee_history_cleared", dict(strength_days=2, cardio_days=1,
+                concerns=["bad_knee"], constraints_rich=[
+                    {"key": "post_surgery_knee", "status": "cleared"}],
+                mobility_map=[{"joint": "knee", "direction": "flexion", "side": "L", "rating": "yellow"}])),
+            ("college_football_offseason", dict(strength_days=4, cardio_days=2,
+                fra_priorities=["Hip IR L+R", "Shoulder ER L+R"])),
+            ("desk_worker_poor_recovery", dict(strength_days=2, cardio_days=1,
+                conditioning_level="deconditioned", sleep_quality="poor", stress_level="high",
+                body_comp={})),
+            ("older_adult_strength", dict(age_range="early 70s", strength_days=2,
+                cardio_days=1, fra_priorities=["Ankle dorsiflexion L+R"])),
+            ("shoulder_sensitive_return", dict(strength_days=2, cardio_days=1,
+                concerns=["bad_shoulder"], fra_priorities=["Shoulder ER L"])),
+            ("low_back_sensitive", dict(strength_days=2, cardio_days=1,
+                concerns=["lower_back"], constraints=["no_axial_loading"])),
+            ("busy_client_twice_weekly", dict(strength_days=2, cardio_days=0,
+                nutrition_strategy="maintenance")),
+        ]
+        for label, changes in scenarios:
+            with self.subTest(persona=label):
+                p = self.assert_generated(baseline(client_name="Synthetic " + label,
+                                                   **changes))
+                self.assertEqual(len(p["weeks"][0]["sessions"]), changes["strength_days"])
+                self.assertEqual([w.get("week") for w in p["weeks"]], [1, 2, 3, 4])
+
+    def test_active_post_surgery_is_not_silently_cleared(self):
+        # Even an athlete with high capacity cannot bypass an active restriction.
+        from generator import Generator
+        from types import SimpleNamespace
+        from pathlib import Path
+        g = Generator(libraries_path=str(Path(__file__).resolve().parents[1] / "libraries"))
+        for status in ("post_surgery", "active_flare_up", "avoid_loading"):
+            with self.subTest(status=status):
+                assessment = SimpleNamespace(
+                    constraints_rich=[{"key": "knee", "status": status}],
+                    concerns=[], constraints=[])
+                with self.assertRaisesRegex(ValueError, "coach review required"):
+                    g._pick_strength_exercise("squat", [], assessment=assessment)
+
     def test_reviewed_pdf_contract_detects_rotating_week_exercises(self):
         p = self.assert_generated(baseline(strength_days=2, concerns=["bad_knee"],
             constraints=["no_axial_loading"]))
