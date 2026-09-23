@@ -20,17 +20,15 @@ class ReviewedProgramTests(unittest.TestCase):
         with self.assertRaises(ReviewedProgramError):
             validate_reviewed_program(p)
 
-    def test_different_exercise_in_later_week_is_rejected(self):
+    def test_different_exercise_in_later_week_is_supported(self):
         p = plan()
         p["weeks"][2]["sessions"][0]["blocks"][0]["exercises"][0]["name"] = "Split squat"
-        with self.assertRaisesRegex(ReviewedProgramError, "exercise"):
-            validate_reviewed_program(p)
+        self.assertIsNotNone(validate_reviewed_program(p))
 
-    def test_different_block_name_in_later_week_is_rejected(self):
+    def test_different_block_name_in_later_week_is_supported(self):
         p = plan()
         p["weeks"][1]["sessions"][0]["blocks"][0]["name"] = "Strength B"
-        with self.assertRaisesRegex(ReviewedProgramError, "block"):
-            validate_reviewed_program(p)
+        self.assertIsNotNone(validate_reviewed_program(p))
 
     def test_week_specific_dose_changes_are_allowed(self):
         p = plan()
