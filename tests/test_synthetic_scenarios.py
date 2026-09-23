@@ -30,40 +30,48 @@ class SyntheticProgramScenarios(unittest.TestCase):
         self.assertTrue(base64.b64decode(data["pdf_base64"]).startswith(b"%PDF-"))
         program = data["program"]
         self.assertEqual(len(program["weeks"]), 4)
-        # Initial generation renders a week-one-based PDF. Reviewed regeneration
-        # currently rejects rotating exercise structures; track this separately.
+        # Every returned program has four weeks; separate tests check rotating PDFs.
         self.assertTrue(all(1 <= len(w["sessions"]) <= 7 for w in program["weeks"]))
         return program
 
-    def test_ims_review_inspired_personas_generate_four_week_pdf(self):
+    def test_ims_review_inspired_personas_generate_or_hold_safely(self):
         # Fictional composite personas inspired by public IMS review themes.
         # These are not the reviewers' records or individualized prescriptions.
         scenarios = [
-            ("general_strength", dict(strength_days=3, cardio_days=1)),
+            ("general_strength", dict(strength_days=3, cardio_days=1), False),
             ("knee_history_cleared", dict(strength_days=2, cardio_days=1,
                 concerns=["bad_knee"], constraints_rich=[
                     {"key": "post_surgery_knee", "status": "cleared"}],
-                mobility_map=[{"joint": "knee", "direction": "flexion", "side": "L", "rating": "yellow"}])),
+                mobility_map=[{"joint": "knee", "direction": "flexion", "side": "L", "rating": "yellow"}]), False),
             ("college_football_offseason", dict(strength_days=4, cardio_days=2,
-                fra_priorities=["Hip IR L+R", "Shoulder ER L+R"])),
+                fra_priorities=["Hip IR L+R", "Shoulder ER L+R"]), False),
             ("desk_worker_poor_recovery", dict(strength_days=2, cardio_days=1,
                 conditioning_level="deconditioned", sleep_quality="poor", stress_level="high",
-                body_comp={})),
+                body_comp={}), False),
             ("older_adult_strength", dict(age_range="early 70s", strength_days=2,
-                cardio_days=1, fra_priorities=["Ankle dorsiflexion L+R"])),
+                cardio_days=1, fra_priorities=["Ankle dorsiflexion L+R"]), False),
             ("shoulder_sensitive_return", dict(strength_days=2, cardio_days=1,
-                concerns=["bad_shoulder"], fra_priorities=["Shoulder ER L"])),
+                concerns=["bad_shoulder"], fra_priorities=["Shoulder ER L"]), True),
             ("low_back_sensitive", dict(strength_days=2, cardio_days=1,
-                concerns=["lower_back"], constraints=["no_axial_loading"])),
+                concerns=["lower_back"], constraints=["no_axial_loading"]), True),
             ("busy_client_twice_weekly", dict(strength_days=2, cardio_days=0,
-                nutrition_strategy="maintenance")),
+                nutrition_strategy="maintenance"), False),
         ]
-        for label, changes in scenarios:
+        for label, changes, requires_review in scenarios:
             with self.subTest(persona=label):
-                p = self.assert_generated(baseline(client_name="Synthetic " + label,
-                                                   **changes))
-                self.assertEqual(len(p["weeks"][0]["sessions"]), changes["strength_days"])
-                self.assertEqual([w.get("week") for w in p["weeks"]], [1, 2, 3, 4])
+                payload = baseline(client_name="Synthetic " + label, **changes)
+                if requires_review:
+                    response = self.client.post("/api/generate", json=payload,
+                                                headers={"Accept": "application/json"})
+                    self.assertEqual(response.status_code, 422, response.get_json())
+                    self.assertEqual(response.get_json().get("error"), "coach_review_required")
+                    self.assertNotIn("pdf_base64", response.get_json())
+                    continue
+                p = self.assert_generated(payload)
+                self.assertEqual([w["week_number"] for w in p["weeks"]], [1, 2, 3, 4])
+                expected_sessions = changes["strength_days"] + changes["cardio_days"]
+                for week in p["weeks"]:
+                    self.assertEqual(len(week["sessions"]), expected_sessions)
 
     def test_active_post_surgery_is_not_silently_cleared(self):
         # Even an athlete with high capacity cannot bypass an active restriction.
