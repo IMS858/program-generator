@@ -2797,7 +2797,9 @@ class Generator:
                 # A strength test is evidence of a measurement, not clearance
                 # to prescribe the same exercise during a new joint flare.
                 tested_entry = self._find_entry_by_name(tested_match)
-                if tested_entry is not None and not self._violates_constraints(
+                if not constraints and not client_concerns:
+                    name = tested_match
+                elif tested_entry is not None and not self._violates_constraints(
                     tested_entry, constraints, concerns=client_concerns
                 ):
                     name = tested_match
