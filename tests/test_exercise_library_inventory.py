@@ -18,11 +18,16 @@ class TestExerciseLibraryInventory(unittest.TestCase):
         print("\nEXERCISE_AUDIT top_level_type=", type(data).__name__, flush=True)
         if isinstance(data, dict):
             print("EXERCISE_AUDIT top_level_keys=", sorted(data.keys())[:35], flush=True)
-            candidates = [(key, value) for key, value in data.items()
-                          if isinstance(value, list)]
-            for key, value in candidates:
-                print("EXERCISE_AUDIT list=", key, "count=", len(value), flush=True)
-            rows = max(candidates, key=lambda item: len(item[1]))[1] if candidates else []
+            exercises = data.get("exercises")
+            if isinstance(exercises, dict):
+                rows = list(exercises.values())
+                keys = list(exercises)
+                print("EXERCISE_AUDIT exercise_map_count=", len(keys), flush=True)
+                print("EXERCISE_AUDIT duplicate_map_keys= JSON parsing cannot detect duplicates", flush=True)
+            elif isinstance(exercises, list):
+                rows = exercises
+            else:
+                self.fail("Missing exercises array or object in unified database")
         elif isinstance(data, list):
             rows = data
         else:
