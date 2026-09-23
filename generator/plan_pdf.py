@@ -1255,7 +1255,7 @@ def _rotating_sessions(program):
                    signature(w["sessions"][i]) != signature(first) for w in weeks[1:])]
 
 
-def draw_rotating_week_pages(c, program, indices):
+def draw_rotating_week_pages(c, program, indices, pdf_mode="client"):
     """Print actual week-specific exercise names and doses for rotating sessions."""
     pages = 0
     for session_idx in indices:
@@ -1277,7 +1277,11 @@ def draw_rotating_week_pages(c, program, indices):
             c.drawString(MARGIN, y, "Follow this week's actual exercises, not the week-one overview.")
             y -= 28
             for block in session.get("blocks", []):
-                if y - (35 + len(block.get("exercises", [])) * 50) < MARGIN + 40:
+                if pdf_mode == "client" and (
+                        block.get("name", "").lower().startswith("coach finisher")
+                        or block.get("coach_only")):
+                    continue
+                if y - 65 < MARGIN + 40:
                     c.showPage()
                     pages += 1
                     fill_page(c, NAVY)
@@ -1289,6 +1293,14 @@ def draw_rotating_week_pages(c, program, indices):
                                  MARGIN, y, color=SKY_BLUE, size=9)
                 y -= 20
                 for ex in block.get("exercises", []):
+                    if y - 70 < MARGIN + 40:
+                        c.showPage()
+                        pages += 1
+                        fill_page(c, NAVY)
+                        ghost_watermark(c, "ims")
+                        page_header_bar(c, f"DAY {session_idx + 1} · CONTINUED",
+                                        f"WEEK {wi + 1:02d}")
+                        y = PAGE_H - MARGIN - 100
                     c.setFillColor(CREAM)
                     c.setFont(SANS_MEDIUM, 10)
                     for line in _wrap_to_lines(c, str(ex.get("name") or ""),
@@ -1299,6 +1311,16 @@ def draw_rotating_week_pages(c, program, indices):
                     c.setFont(SERIF_ITALIC, 9)
                     dose = str(ex.get("dose") or "")
                     tempo = str(ex.get("tempo") or "")
+                    wp = next((w for w in (ex.get("week_prescriptions") or [])
+                               if w.get("week") == wi + 1), None)
+                    if wp and not ex.get("coach_override_dose"):
+                        sets, reps = wp.get("sets"), wp.get("reps")
+                        if sets is not None and reps is not None:
+                            dose = f"{sets} x {reps}"
+                        if wp.get("weight") is not None:
+                            unit = wp.get("weight_unit") or "lb"
+                            dose += f" @ {wp['weight']} {unit}"
+                        tempo = tempo or str(wp.get("tempo_note") or "")
                     for line in _wrap_to_lines(c, f"{dose}   {tempo}".strip(),
                                                CONTENT_W - 24, SERIF_ITALIC, 9, max_lines=2):
                         c.drawString(MARGIN + 12, y, line)
@@ -3725,7 +3747,7 @@ def generate_plan_pdf(program_json: str, output_pdf: str, pdf_mode: str = "clien
     # The initial generator may rotate exercises. Print the actual plan for
     # every week rather than mislabeling a week-one exercise as week two's.
     if pdf_mode != "coach":
-        page_num += draw_rotating_week_pages(c, program, _rotating_sessions(program))
+        page_num += draw_rotating_week_pages(c, program, _rotating_sessions(program), pdf_mode)
 
     # Draw closing
     for fn in closing_pages:
