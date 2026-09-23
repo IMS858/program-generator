@@ -1577,69 +1577,43 @@ class Generator:
         if assessment is not None:
             pool = self._filter_hiit_pool_by_concerns(pool, assessment)
 
-        # Check interval clearance · if blocked, abandon the HIIT pool entirely
-        # and return a Conditioning Reset block instead. No sprints, no jumps,
-        # no intervals · just safe Z2-style movement and core work.
-        clearance = None
+        # No unreviewed interval exposure. Treat missing/invalid assessment
+        # inputs as not cleared rather than silently defaulting to HIIT.
         if assessment is not None:
-            try:
-                from cardio_rules import normalize_cardio_profile, determine_interval_clearance
-                normalized = normalize_cardio_profile(
-                    getattr(assessment, "cardio_profile", None),
-                    concerns=getattr(assessment, "concerns", None),
-                    constraints_rich=getattr(assessment, "constraints_rich", None),
-                )
-                clearance = determine_interval_clearance(normalized)
-            except Exception:
-                clearance = None
-
-        if clearance == "blocked":
-            # Build a Conditioning Reset block · no HIIT language anywhere
-            reset_pool = [
-                ("Zone 2 Bike (or approved machine)",
-                 "5-8 min easy aerobic · RPE 4 · nasal breathing",
-                 "Aerobic flush · no intensity"),
-                ("Farmer Carry (light, controlled)",
-                 "2 rounds × 30 sec heavy carry / 30 sec rest",
-                 "Posture + grip · stop if symptoms increase"),
-                ("Backward Sled Drag (if tolerated)",
-                 "10 yd × 3 rounds · easy pace",
-                 "Quad-friendly · no joint stress"),
-                ("Dead Bug Variations",
-                 "30 sec × 2 rounds",
-                 "Anti-extension core · no impact"),
-                ("Diaphragmatic Breathing Reset",
-                 "2 min · supine, knees bent, slow nasal breaths",
-                 "Down-regulate the nervous system"),
-            ]
-            # Filter once more to honor any non-cardio veto
-            if assessment is not None:
-                from cardio_rules import filter_finishers_by_cardio_limitations
-                try:
-                    normalized = normalize_cardio_profile(
-                        getattr(assessment, "cardio_profile", None),
-                        concerns=getattr(assessment, "concerns", None),
-                        constraints_rich=getattr(assessment, "constraints_rich", None),
-                    )
-                    reset_pool = filter_finishers_by_cardio_limitations(reset_pool, normalized)
-                except Exception:
-                    pass
-            if not reset_pool:
-                reset_pool = [
-                    ("Diaphragmatic Breathing Reset",
-                     "2 min · supine, knees bent, slow nasal breaths",
-                     "Down-regulate the nervous system"),
-                ]
-            exercises = [
-                Exercise(name=name, library="external_training", dose=dose,
-                          rationale=f"Conditioning reset · {note}")
-                for name, dose, note in reset_pool[:3]
-            ]
-            return Block(
-                name="Conditioning Reset (optional · low-intensity)",
-                exercises=exercises,
-                duration_note="3-5 min · NO sprints / NO intervals / Z2 only this block",
+            from cardio_rules import (
+                normalize_cardio_profile, determine_interval_clearance,
+                choose_primary_cardio_machine, MODALITY_DISPLAY,
             )
+            normalized = normalize_cardio_profile(
+                getattr(assessment, "cardio_profile", None),
+                concerns=getattr(assessment, "concerns", None),
+                constraints_rich=getattr(assessment, "constraints_rich", None),
+            )
+            clearance = determine_interval_clearance(normalized)
+            if clearance != "full":
+                # This call fails closed if every machine is avoided or an
+                # active restriction has unknown joint involvement.
+                machine_id, _ = choose_primary_cardio_machine(normalized)
+                name = MODALITY_DISPLAY[machine_id]
+                reset = [
+                    Exercise(
+                        name=f"Easy {name}",
+                        library="external_training",
+                        dose="5-8 min easy conversational pace · RPE 2-4",
+                        rationale="Optional low-intensity aerobic movement; stop if symptoms occur",
+                    ),
+                    Exercise(
+                        name="Diaphragmatic Breathing Reset",
+                        library="external_training",
+                        dose="2 min easy, comfortable breathing",
+                        rationale="Optional recovery reset; never force a painful position",
+                    ),
+                ]
+                return Block(
+                    name="Conditioning Reset (optional · low-intensity)",
+                    exercises=reset,
+                    duration_note="Low intensity only · no sprints, pickups, or intervals",
+                )
 
         if not pool:
             # Last-resort fallback · everything in T1 is broadly safe except sled
