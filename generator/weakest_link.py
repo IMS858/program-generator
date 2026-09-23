@@ -54,7 +54,7 @@ def rank_joints(objective, cfg: dict = None) -> list:
         return []
     cfg = cfg or load_thresholds()
     current = objective.current
-    dynamo = [f for f in current.forces if f.device == "dynamo" and f.joint]
+    dynamo = [f for f in current.forces if f.device in ("dynamo", "activforce_2") and f.joint]
     if not dynamo:
         return []
 
@@ -169,7 +169,7 @@ def asymmetries(objective, cfg: dict = None) -> list:
     seen = set()
     out = []
     for f in current.forces:
-        if f.device != "dynamo" or f.side not in ("L", "R"):
+        if f.device not in ("dynamo", "activforce_2") or f.side not in ("L", "R"):
             continue
         if f.test in seen:
             continue
