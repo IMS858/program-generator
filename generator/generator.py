@@ -2615,6 +2615,19 @@ class Generator:
         Picker will avoid duplicates · falls through to the next valid candidate.
         """
         exclude_names = exclude_names or set()
+        # Rich active restrictions require verified exercise-level joint tagging.
+        # The legacy library does not yet have coach-approved primary/secondary
+        # joint tags; hold these plans rather than inferring clearance from
+        # mobility labels or from a previous strength measurement.
+        from exercise_safety_gate import restricted_joints
+        active_restrictions = restricted_joints(
+            getattr(assessment, "constraints_rich", None) if assessment else None
+        )
+        if active_restrictions:
+            raise ValueError(
+                "Active flare, post-surgery or avoid-loading restriction: "
+                "coach review required before strength exercise selection"
+            )
         # ─── POOLS · each pattern has multiple candidates ───
         # Order within each list = preference order for typical client.
         # Constraint filtering below then reorders.
