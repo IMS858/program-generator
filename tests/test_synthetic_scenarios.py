@@ -3,6 +3,7 @@ import base64
 import unittest
 from app import app
 from reviewed_program import validate_reviewed_program, ReviewedProgramError
+from plan_pdf import _rotating_sessions
 
 
 def baseline(**changes):
@@ -37,11 +38,12 @@ class SyntheticProgramScenarios(unittest.TestCase):
     def test_reviewed_pdf_contract_detects_rotating_week_exercises(self):
         p = self.assert_generated(baseline(strength_days=2, concerns=["bad_knee"],
             constraints=["no_axial_loading"]))
-        try:
-            validate_reviewed_program(p)
-        except ReviewedProgramError as error:
-            self.assertIn("differ", str(error))
-        # When no rotation occurs, the reviewed contract can accept it.
+        rotating = _rotating_sessions(p)
+        if rotating:
+            with self.assertRaisesRegex(ReviewedProgramError, "differ"):
+                validate_reviewed_program(p)
+        else:
+            self.assertIsNotNone(validate_reviewed_program(p))
 
     def test_general_strength_three_days(self):
         p = self.assert_generated(baseline())
