@@ -14,4 +14,11 @@ jobs:
           python-version: '3.11'
           cache: pip
       - run: pip install -r requirements.txt pypdf
+      - name: Reconcile IMS canonical exercise IDs (read-only)
+        run: python scripts/reconcile_exercise_ids.py audits/ims_canonical_exercises_2026-09.csv --output exercise_crosswalk_audit.json
+      - name: Preserve exercise crosswalk for coach review
+        uses: actions/upload-artifact@v4
+        with:
+          name: ims-exercise-crosswalk
+          path: exercise_crosswalk_audit.json
       - run: python -m unittest discover -s tests -p 'test_*.py' -v
