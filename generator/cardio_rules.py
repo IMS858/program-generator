@@ -391,7 +391,7 @@ def decide_machine_with_audit(normalized: dict) -> tuple[str, str, list[dict]]:
                         "reason": f"On avoid list · would have been preferred for {limit.replace('_', ' ')}",
                     })
 
-    # 4 · no primary, no limits · walk the general-priority list
+    # 4 · no primary, or limitation-specific options exhausted · safe general fallback
     # Per spec: stationary bike → upright bike → arc trainer → treadmill →
     #          rower → SkiErg → assault bike
     for candidate in _GENERAL_PRIORITY:
@@ -401,7 +401,7 @@ def decide_machine_with_audit(normalized: dict) -> tuple[str, str, list[dict]]:
                     f"general priority pick ({MODALITY_DISPLAY[candidate]})",
                     rejected)
 
-    # 5 · everything got avoided · absolute fallback
+    # 5 · no permitted machine remains · require explicit coach review
     raise ValueError("coach review required: every cardio machine is on the avoid list")
 
 
@@ -611,7 +611,7 @@ def generate_cardio_progression(normalized: dict) -> dict:
     machine_id, machine_rationale = choose_primary_cardio_machine(normalized)
     machine_label = MODALITY_DISPLAY.get(machine_id, machine_id)
     secondary = [MODALITY_DISPLAY.get(m, m) for m in normalized.get("secondary_modalities", [])
-                  if m != machine_id]
+                  if m != machine_id and _machine_is_safe(m, normalized)]
     machine_with_alt = (f"{machine_label}  ·  alt: {', '.join(secondary)}"
                          if secondary else machine_label)
 
