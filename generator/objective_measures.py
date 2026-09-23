@@ -76,7 +76,7 @@ def _to_float(v):
     if v is None or isinstance(v,bool): return None
     if isinstance(v,(int,float)): value=float(v)
     elif isinstance(v,str):
-        m=re.fullmatch(r"\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*(?:lb|lbs|kg|n|deg|degrees|°)?\s*",v,re.I)
+        # Units must be supplied separately: stripping "kg" would silently treat it as lb.\n        m=re.fullmatch(r"\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*",v,re.I)
         if not m: return None
         value=float(m.group(1))
     else: return None
