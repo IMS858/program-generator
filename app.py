@@ -492,6 +492,21 @@ def generate():
                      'config/objective_thresholds.json.'),
             'contract_version': CONTRACT_VERSION,
         }), 422
+    except ValueError as e:
+        # Only the explicit safety hold is exposed; other ValueErrors remain
+        # internal errors and must not leak assessment details to clients.
+        if "coach review required" in str(e):
+            return jsonify({
+                'error': 'coach_review_required',
+                'detail': 'No verified exercise option is available for the current restrictions. An IMS coach must review the assessment before generating a client plan.',
+                'contract_version': CONTRACT_VERSION,
+            }), 422
+        app.logger.exception('Program generation failed')
+        return jsonify({
+            'error': 'generation_failed',
+            'detail': 'Program generation failed. Please contact IMS support.',
+            'contract_version': CONTRACT_VERSION,
+        }), 500
     except Exception as e:
         # Never disclose server tracebacks or internal filesystem paths to callers.
         app.logger.exception('Program generation failed')
