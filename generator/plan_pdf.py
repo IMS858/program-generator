@@ -1309,22 +1309,12 @@ def draw_rotating_week_pages(c, program, indices, pdf_mode="client"):
                         y -= 12
                     c.setFillColor(CREAM_DIM)
                     c.setFont(SERIF_ITALIC, 9)
-                    dose = str(ex.get("dose") or "")
-                    tempo = str(ex.get("tempo") or "")
-                    wp = next((w for w in (ex.get("week_prescriptions") or [])
-                               if w.get("week") == wi + 1), None)
-                    if wp and not ex.get("coach_override_dose"):
-                        sets, reps = wp.get("sets"), wp.get("reps")
-                        if sets is not None and reps is not None:
-                            dose = f"{sets} x {reps}"
-                        if wp.get("weight") is not None:
-                            unit = wp.get("weight_unit") or "lb"
-                            dose += f" @ {wp['weight']} {unit}"
-                        tempo = tempo or str(wp.get("tempo_note") or "")
-                    for line in _wrap_to_lines(c, f"{dose}   {tempo}".strip(),
-                                               CONTENT_W - 24, SERIF_ITALIC, 9, max_lines=2):
-                        c.drawString(MARGIN + 12, y, line)
-                        y -= 11
+                    lines = _cell_lines_for_week(ex, wi + 1, CONTENT_W - 24, c, program=program)
+                    for line in lines:
+                        for wrapped in _wrap_to_lines(c, str(line), CONTENT_W - 24,
+                                                      SERIF_ITALIC, 9, max_lines=2):
+                            c.drawString(MARGIN + 12, y, wrapped)
+                            y -= 11
                     y -= 10
                 y -= 9
             c.showPage()
