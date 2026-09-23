@@ -179,13 +179,13 @@ def find_force_anchor(exercise_entry, objective, cfg: dict = None,
         return None
     joint = next(iter(joints))
     candidates = [f for f in current.forces
-                  if f.device == "dynamo" and f.joint == joint and fresh(f)]
+                  if f.device in ("dynamo", "activforce_2") and f.joint == joint and fresh(f)]
     if not candidates:
         return None
     weakest = min(candidates, key=lambda f: f.value_lb)
     return ForceAnchor(test=weakest.test, joint=weakest.joint or "",
                        side=weakest.side, value_lb=weakest.value_lb,
-                       device="dynamo", measured_on=weakest.measured_on)
+                       device=weakest.device, measured_on=weakest.measured_on)
 
 
 # ── prescription ───────────────────────────────────────────

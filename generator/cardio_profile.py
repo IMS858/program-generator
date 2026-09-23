@@ -21,7 +21,7 @@ from typing import Optional
 
 MODALITIES = {
     "upright_bike", "stationary_bike", "arc_trainer", "assault_bike",
-    "rower", "skierg",
+    "rower", "skierg", "treadmill",
 }
 
 MODALITY_DISPLAY = {
@@ -31,6 +31,7 @@ MODALITY_DISPLAY = {
     "assault_bike": "Assault Bike",
     "rower": "Rower",
     "skierg": "SkiErg",
+    "treadmill": "Treadmill",
 }
 
 LIMITATIONS = {
@@ -235,11 +236,21 @@ class CardioProfile:
     def from_dict(cls, data: dict) -> "CardioProfile":
         if not isinstance(data, dict):
             return cls()
+        limitations = _limitation_list(data.get("limitations"))
+        # Integration compatibility: accept the explicit clearance field as
+        # well as the canonical limitation tags. Unknown clearance fails closed.
+        if "interval_clearance" in data:
+            clearance = str(data.get("interval_clearance") or "").strip().lower()
+            if clearance in ("cleared", "cleared_for_intervals"):
+                if "cleared_for_intervals" not in limitations:
+                    limitations.append("cleared_for_intervals")
+            elif "not_cleared_for_intervals" not in limitations:
+                limitations.append("not_cleared_for_intervals")
         return cls(
             primary_modality=_modality_or_none(data.get("primary_modality")),
             secondary_modalities=_modality_list(data.get("secondary_modalities")),
             avoid_modalities=_modality_list(data.get("avoid_modalities")),
-            limitations=_limitation_list(data.get("limitations")),
+            limitations=limitations,
             z2_baseline=Z2BaselineTest.from_dict(data.get("z2_baseline")),
             interval_test=IntervalTest.from_dict(data.get("interval_test")),
             hr_recovery=HRRecovery.from_dict(data.get("hr_recovery")),

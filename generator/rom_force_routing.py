@@ -162,7 +162,7 @@ def _classify_force(measure_set, joint: str, side: str, cfg: dict):
 
     # 2 · DynaMo peak isometric normalized to bodyweight
     candidates = [f for f in measure_set.forces
-                  if f.device == "dynamo" and f.joint == joint
+                  if f.device in ("dynamo", "activforce_2") and f.joint == joint
                   and (side not in ("L", "R") or f.side in (side, "bilateral"))]
     if not candidates:
         return None, None, "low"

@@ -621,18 +621,10 @@ class ClientConcernsTests(unittest.TestCase):
         )
         with contextlib.redirect_stdout(io.StringIO()):
             g = Generator(libraries_path=str(REPO_ROOT / "libraries"))
-            program = g.build_program(a)
-
-        for session in program.weeks[0].sessions:
-            if session.day_type == "strength_ub":
-                sa = next((b for b in session.blocks if b.name == "Strength A"), None)
-                names = [ex.name for ex in sa.exercises]
-                self.assertNotIn(
-                    "Barbell Bench Press", names,
-                    "Bad-shoulder client must not get Barbell Bench Press"
-                )
-                return
-        self.fail("No strength_ub session found")
+            # The unapproved library has no verified shoulder-safe press.
+            # A hold is safer than generating an apparently complete plan.
+            with self.assertRaisesRegex(ValueError, "coach review required"):
+                g.build_program(a)
 
     def test_no_concerns_does_not_regress(self):
         """A client without concerns should still get the default picks ·
@@ -862,10 +854,10 @@ class KneeFilteringTests(unittest.TestCase):
             "constraints": [], "body_comp": {}, "concerns": ["lower_back"],
             "nutrition_strategy": "maintenance", "activity_factor": 1.4,
         }
-        pdf, _ = build_pdf_silently(form)
-        text = extract_pdf_text(pdf)
-        self.assertNotIn("Trap Bar Deadlift", text,
-                         "Lower back concern should drop Trap Bar Deadlift")
+        # No coach-approved hip-extension alternative is available for this
+        # synthetic spine restriction. Do not silently publish a PDF.
+        with self.assertRaisesRegex(ValueError, "coach review required"):
+            build_pdf_silently(form)
 
 
 class CopySanitizerTests(unittest.TestCase):

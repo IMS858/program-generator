@@ -143,6 +143,72 @@ class TestMachineChoice(unittest.TestCase):
         self.assertNotEqual(machine, "skierg")
         self.assertIn("conflicts", rationale.lower())
 
+    def test_every_machine_avoided_requires_coach_review(self):
+        from cardio_rules import normalize_cardio_profile, choose_primary_cardio_machine, MODALITIES
+        class P: pass
+        p = P()
+        p.primary_modality = "stationary_bike"
+        p.secondary_modalities = []
+        p.avoid_modalities = sorted(MODALITIES)
+        p.limitations = ["knee_sensitive"]
+        p.z2_baseline = {}; p.interval_test = {}; p.hr_recovery = {}
+        n = normalize_cardio_profile(p)
+        with self.assertRaisesRegex(ValueError, "coach review required"):
+            choose_primary_cardio_machine(n)
+
+    def test_no_primary_and_all_avoided_requires_coach_review(self):
+        from cardio_rules import normalize_cardio_profile, choose_primary_cardio_machine, MODALITIES
+        class P: pass
+        p = P()
+        p.primary_modality = None
+        p.secondary_modalities = []
+        p.avoid_modalities = sorted(MODALITIES)
+        p.limitations = []
+        p.z2_baseline = {}; p.interval_test = {}; p.hr_recovery = {}
+        with self.assertRaisesRegex(ValueError, "coach review required"):
+            choose_primary_cardio_machine(normalize_cardio_profile(p))
+
+    def test_unknown_primary_machine_is_rejected(self):
+        from cardio_rules import normalize_cardio_profile, choose_primary_cardio_machine
+        class P: pass
+        p = P()
+        p.primary_modality = "imaginary_treadmill"
+        p.secondary_modalities = []
+        p.avoid_modalities = []
+        p.limitations = []
+        p.z2_baseline = {}; p.interval_test = {}; p.hr_recovery = {}
+        with self.assertRaisesRegex(ValueError, "coach review required"):
+            choose_primary_cardio_machine(normalize_cardio_profile(p))
+
+    def test_active_surgery_cannot_be_overridden_by_secondary_tolerance(self):
+        from cardio_rules import normalize_cardio_profile, choose_primary_cardio_machine
+        class P: pass
+        p = P()
+        p.primary_modality = "rower"
+        p.secondary_modalities = ["rower"]
+        p.avoid_modalities = []
+        p.limitations = []
+        p.z2_baseline = {}; p.interval_test = {}; p.hr_recovery = {}
+        n = normalize_cardio_profile(p, constraints_rich=[
+            {"key": "post_surgery_knee", "status": "post_surgery"}])
+        machine, _ = choose_primary_cardio_machine(n)
+        self.assertNotEqual(machine, "rower")
+
+    def test_avoided_secondary_never_appears_in_client_progression(self):
+        from cardio_rules import normalize_cardio_profile, generate_cardio_progression
+        class P: pass
+        p = P()
+        p.primary_modality = "upright_bike"
+        p.secondary_modalities = ["skierg", "arc_trainer"]
+        p.avoid_modalities = ["skierg"]
+        p.limitations = ["low_back_sensitive"]
+        p.z2_baseline = {}; p.interval_test = {}; p.hr_recovery = {}
+        progression = generate_cardio_progression(normalize_cardio_profile(p))
+        for week in progression.values():
+            self.assertNotIn("Rower", week["machine"])
+            self.assertNotIn("SkiErg", week["machine"])
+            self.assertIn("Arc Trainer", week["machine"])
+
     def test_default_when_nothing_set(self):
         from cardio_rules import normalize_cardio_profile, choose_primary_cardio_machine
         n = normalize_cardio_profile(profile=None, concerns=[], constraints_rich=[])
@@ -151,6 +217,40 @@ class TestMachineChoice(unittest.TestCase):
 
 
 class TestIntervalClearance(unittest.TestCase):
+    def test_unassessed_intervals_default_to_zone_two(self):
+        from cardio_rules import normalize_cardio_profile, determine_interval_clearance
+        self.assertEqual(determine_interval_clearance(normalize_cardio_profile(None)), "z2_only")
+
+    def test_avoid_loading_blocks_even_when_interval_flag_was_cleared(self):
+        from cardio_rules import normalize_cardio_profile, determine_interval_clearance
+        from types import SimpleNamespace
+        p = SimpleNamespace(
+            primary_modality="stationary_bike",
+            secondary_modalities=[], avoid_modalities=[],
+            limitations=["cleared_for_intervals"],
+            z2_baseline={}, interval_test={}, hr_recovery={})
+        n = normalize_cardio_profile(p, constraints_rich=[
+            {"key": "left_knee", "status": "avoid_loading"}])
+        self.assertEqual(determine_interval_clearance(n), "blocked")
+
+    def test_unknown_active_restriction_does_not_fallback_to_bike(self):
+        from cardio_rules import normalize_cardio_profile, choose_primary_cardio_machine
+        n = normalize_cardio_profile(None, constraints_rich=[
+            {"key": "undocumented_site", "status": "post_surgery"}])
+        with self.assertRaisesRegex(ValueError, "coach review required"):
+            choose_primary_cardio_machine(n)
+
+    def test_generator_accepts_direct_clearance_and_treadmill(self):
+        from cardio_profile import parse_cardio_profile
+        from cardio_rules import normalize_cardio_profile, determine_interval_clearance
+        p = parse_cardio_profile({
+            "primary_modality": "treadmill", "interval_clearance": "cleared",
+            "avoid_modalities": ["rower"]})
+        self.assertEqual(p.primary_modality, "treadmill")
+        self.assertEqual(determine_interval_clearance(normalize_cardio_profile(p)), "full")
+        blocked = parse_cardio_profile({"interval_clearance": "not_assessed"})
+        self.assertEqual(determine_interval_clearance(normalize_cardio_profile(blocked)), "blocked")
+
     def test_not_cleared_blocks(self):
         from cardio_rules import normalize_cardio_profile, determine_interval_clearance
         class P: pass
@@ -239,6 +339,20 @@ class TestProgression(unittest.TestCase):
         prog = generate_cardio_progression(n)
         self.assertIn("pickup", prog[3]["main"].lower())
         self.assertIn("20s hard", prog[4]["main"].lower())
+
+
+
+class TestUnassessedFinisher(unittest.TestCase):
+    def test_absent_assessment_cannot_produce_hiit(self):
+        from generator import Generator
+        from pathlib import Path
+        root = Path(__file__).resolve().parents[1]
+        generator = Generator(libraries_path=str(root / "libraries"))
+        result = generator._build_hiit_finisher(None)
+        self.assertIn("unassessed", result.name.lower())
+        self.assertNotIn("HIIT", result.name)
+        self.assertTrue(all("sprint" not in e.name.lower() for e in result.exercises))
+
 
 
 class TestCoachFlags(unittest.TestCase):
@@ -348,7 +462,7 @@ class TestIntegrationKneeClient(unittest.TestCase):
             "fra_priorities": ["Hip IR L+R"],
             "mobility_map": [
                 {"joint": "hip", "direction": "IR", "side": "L", "rating": "yellow"},
-                {"joint": "knee", "direction": "flexion", "side": "R", "rating": "red"},
+                {"joint": "knee", "direction": "flexion", "side": "R", "rating": "yellow"},
             ],
             "strength_markers": [], "strength_marker_results": {},
             "strength_marker_tests": [],
@@ -357,7 +471,7 @@ class TestIntegrationKneeClient(unittest.TestCase):
                 {
                     "key": "post_surgery_knee",
                     "display_name": "Post-Surgery Knee",
-                    "side": "right", "status": "post_surgery",
+                    "side": "right", "status": "cleared",
                     "pain_level": 3,
                     "avoid_notes": "deep knee flexion",
                     "allowed_notes": "supported variants",
@@ -448,7 +562,7 @@ class TestIntegrationKneeClient(unittest.TestCase):
         self.assertIn("COACH APPENDIX", ft.upper())
 
 
-class TestAmandaRegression(unittest.TestCase):
+class TestAmandaRoutingRegression(unittest.TestCase):
     """Regression tests for the Amanda Patterson scenario · contradictory inputs.
 
     Amanda's input ·
@@ -482,14 +596,14 @@ class TestAmandaRegression(unittest.TestCase):
             "fra_priorities": ["Hip flexion L+R"],  # this triggers Deep Squat Hold mapping
             "mobility_map": [
                 {"joint": "hip", "direction": "flexion", "side": "L", "rating": "yellow"},
-                {"joint": "knee", "direction": "flexion", "side": "R", "rating": "red"},
+                {"joint": "knee", "direction": "flexion", "side": "R", "rating": "yellow"},
             ],
             "strength_markers": [], "strength_marker_results": {},
             "strength_marker_tests": [],
             "constraints": ["post_surgery_knee"],
             "constraints_rich": [{
                 "key": "post_surgery_knee", "display_name": "Post-Surgery Knee",
-                "side": "right", "status": "post_surgery", "pain_level": 3,
+                "side": "right", "status": "cleared", "pain_level": 3,
             }],
             "concerns": ["bad_knee"],
             "concern_notes": "Right meniscus repair",
@@ -728,7 +842,7 @@ class TestAmandaRegression(unittest.TestCase):
             "fra_priorities": ["Hip Ir L+R"],  # lowercase Ir + plural test
             "mobility_map": [
                 {"joint": "hip", "direction": "IR", "side": "L", "rating": "yellow"},
-                {"joint": "knee", "direction": "flexion", "side": "R", "rating": "red"},
+                {"joint": "knee", "direction": "flexion", "side": "R", "rating": "yellow"},
             ],
             "strength_markers": [], "strength_marker_results": {},
             "strength_marker_tests": [
@@ -742,7 +856,7 @@ class TestAmandaRegression(unittest.TestCase):
             ],
             "constraints": ["post_surgery_knee"],
             "constraints_rich": [{"key": "post_surgery_knee", "display_name": "Post-Surgery Knee",
-                                    "side": "right", "status": "post_surgery", "pain_level": 3,
+                                    "side": "right", "status": "cleared", "pain_level": 3,
                                     "avoid_notes": "loaded twisting, deep loaded knee flexion, impact, catching/locking-provoking drills, anything that causes swelling or next-day flare-up"}],
             "concerns": ["bad_knee"], "concern_notes": "right meniscus repair", "body_comp": {},
             "cardio_profile": {
@@ -795,3 +909,26 @@ class TestAmandaRegression(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
+
+
+class TestRestrictedCardioPdfHold(unittest.TestCase):
+    """The API must not issue a seemingly cleared PDF for active post-surgery."""
+
+    def test_active_post_surgery_knee_holds_before_pdf(self):
+        from app import build_program_pdf
+        form = {
+            "client_name": "Synthetic Hold",
+            "age_range": "40s", "sex": "F", "background": "test",
+            "training_frequency": 3, "strength_days": 3, "cardio_days": 0,
+            "primary_goal": "strength",
+            "fra_priorities": ["Hip IR L+R"],
+            "mobility_map": [{"joint": "hip", "direction": "IR", "side": "L", "rating": "yellow"}],
+            "strength_markers": [], "strength_marker_results": {},
+            "strength_marker_tests": [], "constraints": ["post_surgery_knee"],
+            "constraints_rich": [{"key": "post_surgery_knee", "status": "post_surgery"}],
+            "concerns": ["bad_knee"], "body_comp": {},
+            "nutrition_strategy": "maintenance", "activity_factor": 1.4,
+        }
+        with self.assertRaisesRegex(ValueError, "coach review required"):
+            build_program_pdf(form)

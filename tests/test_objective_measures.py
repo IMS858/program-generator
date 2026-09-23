@@ -356,9 +356,9 @@ class TestQuadrant(unittest.TestCase):
             "date": "2026-06-14", "bodyweight_lb": 185,
             "voltra": [
                 {"pattern": "trap_bar_deadlift", "position": "mid_range",
-                 "value": 300, "joint": "hip"},
+                 "value": 300, "joint": "hip", "test_type": "isometric"},
                 {"pattern": "trap_bar_deadlift", "position": "end_range",
-                 "value": 120, "joint": "hip"},   # 40% · weak end range
+                 "value": 120, "joint": "hip", "test_type": "isometric"},   # 40% · weak end range
             ],
             "rom": [{"joint": "hip", "motion": "ir", "side": "L", "degrees": 40}],
         }}

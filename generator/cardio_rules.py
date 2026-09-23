@@ -166,11 +166,15 @@ def normalize_cardio_profile(profile, concerns=None, constraints_rich=None) -> d
     # ── Rich constraints mapping ──
     active_flare = False
     post_surgery = False
+    avoid_loading = False
+    unknown_active_constraint = False
     for cr in (constraints_rich or []):
         if not isinstance(cr, dict):
             continue
         status = _norm_key(cr.get("status"))
         ckey = _norm_key(cr.get("key"))
+        if ckey.startswith(("left_", "right_")):
+            ckey = ckey.split("_", 1)[1]
         # Cleared constraints don't drive filtering
         if status == "cleared":
             continue
@@ -178,8 +182,12 @@ def normalize_cardio_profile(profile, concerns=None, constraints_rich=None) -> d
             active_flare = True
         if status == "post_surgery":
             post_surgery = True
+        if status == "avoid_loading":
+            avoid_loading = True
 
         mapped = _CONCERN_TO_LIMIT.get(ckey)
+        if status in ("post_surgery", "avoid_loading", "active_flare_up") and not mapped:
+            unknown_active_constraint = True
         if mapped:
             label = f"constraint:{ckey}"
             if status:
@@ -249,6 +257,8 @@ def normalize_cardio_profile(profile, concerns=None, constraints_rich=None) -> d
         "hr_recovery": hrr,
         "active_flare_up": active_flare,
         "post_surgery": post_surgery,
+        "avoid_loading": avoid_loading,
+        "unknown_active_constraint": unknown_active_constraint,
         "sources": sources,
     }
 
@@ -292,7 +302,7 @@ def _machine_is_safe(machine: str, normalized: dict) -> bool:
     before flagging the limitation. Only `secondary_modalities` counts as
     explicit "yes, tested, this is fine despite the limitation."
     """
-    if not machine:
+    if not machine or machine not in MODALITIES or normalized.get("unknown_active_constraint"):
         return False
     secondary_tolerated = set(normalized.get("secondary_modalities", []))
 
@@ -302,7 +312,7 @@ def _machine_is_safe(machine: str, normalized: dict) -> bool:
 
     for limit in normalized.get("limitations", []):
         risky = _RISKY_MACHINES_BY_LIMIT.get(limit, [])
-        if machine in risky and machine not in secondary_tolerated:
+        if machine in risky and (machine not in secondary_tolerated or normalized.get("post_surgery") or normalized.get("active_flare_up") or normalized.get("avoid_loading")):
             return False
     return True
 
@@ -374,10 +384,7 @@ def decide_machine_with_audit(normalized: dict) -> tuple[str, str, list[dict]]:
 
         # All safe-list candidates got vetoed by avoid list. Best we can do:
         # fall through to absolute fallback with a loud explanation.
-        return ("stationary_bike",
-                f"{rationale_part}All preferred safe machines on avoid list · "
-                f"defaulted to stationary bike (coach should review)",
-                rejected)
+        raise ValueError("coach review required: no permitted cardio machine for current restrictions")
 
     # 3 · no primary set · pick from limits
     for limit in normalized.get("limitations", []):
@@ -394,20 +401,18 @@ def decide_machine_with_audit(normalized: dict) -> tuple[str, str, list[dict]]:
                         "reason": f"On avoid list · would have been preferred for {limit.replace('_', ' ')}",
                     })
 
-    # 4 · no primary, no limits · walk the general-priority list
+    # 4 · no primary, or limitation-specific options exhausted · safe general fallback
     # Per spec: stationary bike → upright bike → arc trainer → treadmill →
     #          rower → SkiErg → assault bike
     for candidate in _GENERAL_PRIORITY:
-        if candidate not in avoid:
+        if _machine_is_safe(candidate, normalized):
             return (candidate,
                     "No primary specified, no joint limits · "
                     f"general priority pick ({MODALITY_DISPLAY[candidate]})",
                     rejected)
 
-    # 5 · everything got avoided · absolute fallback
-    return ("stationary_bike",
-            "No primary, all preferred machines avoided · default stationary bike (coach review)",
-            rejected)
+    # 5 · no permitted machine remains · require explicit coach review
+    raise ValueError("coach review required: every cardio machine is on the avoid list")
 
 
 # General-priority order for clients with no joint limitations.
@@ -575,7 +580,7 @@ def determine_interval_clearance(normalized: dict) -> str:
       - deconditioned/beginner         → z2_only
       - high stress / poor recovery    → z2_only
       - cleared_for_intervals          → full
-      - default                        → controlled
+      - default/unassessed             → z2_only (no automatic interval clearance)
     """
     limits = set(normalized.get("limitations", []))
 
@@ -583,7 +588,7 @@ def determine_interval_clearance(normalized: dict) -> str:
         return "blocked"
     if normalized.get("active_flare_up"):
         return "blocked"
-    if normalized.get("post_surgery"):
+    if normalized.get("post_surgery") or normalized.get("avoid_loading") or normalized.get("unknown_active_constraint"):
         return "blocked"
 
     hrr_quality = normalized.get("hr_recovery", {}).get("quality")
@@ -598,7 +603,7 @@ def determine_interval_clearance(normalized: dict) -> str:
     if "cleared_for_intervals" in limits:
         return "full"
 
-    return "controlled"
+    return "z2_only"
 
 
 # ─── 4 · 4-WEEK PROGRESSION ──────────────────────────────────
@@ -616,7 +621,7 @@ def generate_cardio_progression(normalized: dict) -> dict:
     machine_id, machine_rationale = choose_primary_cardio_machine(normalized)
     machine_label = MODALITY_DISPLAY.get(machine_id, machine_id)
     secondary = [MODALITY_DISPLAY.get(m, m) for m in normalized.get("secondary_modalities", [])
-                  if m != machine_id]
+                  if m != machine_id and _machine_is_safe(m, normalized)]
     machine_with_alt = (f"{machine_label}  ·  alt: {', '.join(secondary)}"
                          if secondary else machine_label)
 
@@ -840,6 +845,8 @@ def generate_cardio_coach_flags(normalized: dict) -> list[str]:
         elif normalized.get("post_surgery"):
             flags.append("Post-surgery · NO intervals this block. Reassess at W5.")
     elif clearance == "z2_only":
+        if "cleared_for_intervals" not in limits:
+            flags.append("Interval clearance not documented · do not add pickups or intervals.")
         if hrr.get("quality") == "poor":
             flags.append("Poor HR recovery · progress duration before intensity. "
                          "Reassess HR recovery at W4 retest.")

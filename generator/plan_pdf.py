@@ -1242,8 +1242,88 @@ def draw_strength_plan(c, program):
 # PAGES 9-11 · SESSION DETAIL PAGES (NEW · one per training day)
 # ==========================================================
 
+def _rotating_sessions(program):
+    """Identify sessions with different exercises or block order across weeks."""
+    weeks = program.get("weeks") or []
+    if not weeks:
+        return []
+    def signature(session):
+        return tuple((b.get("name"), tuple(e.get("name") for e in b.get("exercises", [])))
+                     for b in session.get("blocks", []))
+    return [i for i, first in enumerate(weeks[0].get("sessions", []))
+            if any(i >= len(w.get("sessions", [])) or
+                   signature(w["sessions"][i]) != signature(first) for w in weeks[1:])]
+
+
+def draw_rotating_week_pages(c, program, indices, pdf_mode="client"):
+    """Print actual week-specific exercise names and doses for rotating sessions."""
+    pages = 0
+    for session_idx in indices:
+        for wi, week in enumerate(program["weeks"]):
+            if session_idx >= len(week.get("sessions", [])):
+                continue
+            session = week["sessions"][session_idx]
+            fill_page(c, NAVY)
+            ghost_watermark(c, "ims")
+            page_header_bar(c, f"DAY {session_idx + 1} · ROTATING PLAN",
+                            f"WEEK {wi + 1:02d} · ACTUAL EXERCISES")
+            y = PAGE_H - MARGIN - 110
+            c.setFillColor(CREAM)
+            c.setFont(SERIF, 23)
+            c.drawString(MARGIN, y, f"Week {wi + 1} · Day {session_idx + 1}")
+            y -= 28
+            c.setFillColor(CREAM_DIM)
+            c.setFont(SERIF_ITALIC, 9)
+            c.drawString(MARGIN, y, "Follow this week's actual exercises, not the week-one overview.")
+            y -= 28
+            for block in session.get("blocks", []):
+                if pdf_mode == "client" and (
+                        block.get("name", "").lower().startswith("coach finisher")
+                        or block.get("coach_only")):
+                    continue
+                if y - 65 < MARGIN + 40:
+                    c.showPage()
+                    pages += 1
+                    fill_page(c, NAVY)
+                    ghost_watermark(c, "ims")
+                    page_header_bar(c, f"DAY {session_idx + 1} · CONTINUED",
+                                    f"WEEK {wi + 1:02d}")
+                    y = PAGE_H - MARGIN - 100
+                small_caps_label(c, str(block.get("name") or "Training block").upper(),
+                                 MARGIN, y, color=SKY_BLUE, size=9)
+                y -= 20
+                for ex in block.get("exercises", []):
+                    if y - 70 < MARGIN + 40:
+                        c.showPage()
+                        pages += 1
+                        fill_page(c, NAVY)
+                        ghost_watermark(c, "ims")
+                        page_header_bar(c, f"DAY {session_idx + 1} · CONTINUED",
+                                        f"WEEK {wi + 1:02d}")
+                        y = PAGE_H - MARGIN - 100
+                    c.setFillColor(CREAM)
+                    c.setFont(SANS_MEDIUM, 10)
+                    for line in _wrap_to_lines(c, str(ex.get("name") or ""),
+                                               CONTENT_W - 20, SANS_MEDIUM, 10, max_lines=2):
+                        c.drawString(MARGIN + 10, y, line)
+                        y -= 12
+                    c.setFillColor(CREAM_DIM)
+                    c.setFont(SERIF_ITALIC, 9)
+                    lines = _cell_lines_for_week(ex, wi + 1, CONTENT_W - 24, c, program=program)
+                    for line in lines:
+                        for wrapped in _wrap_to_lines(c, str(line), CONTENT_W - 24,
+                                                      SERIF_ITALIC, 9, max_lines=2):
+                            c.drawString(MARGIN + 12, y, wrapped)
+                            y -= 11
+                    y -= 10
+                y -= 9
+            c.showPage()
+            pages += 1
+    return pages
+
+
 def draw_session_page(c, program, session_idx, day_num_in_week,
-                      start_page_num=1, total_pages=1):
+                      start_page_num=1, total_pages=1, rotating=False):
     """Detailed session page · one per training day.
 
     May consume 1 or 2 PDF pages depending on content density.
@@ -1258,7 +1338,8 @@ def draw_session_page(c, program, session_idx, day_num_in_week,
     current_page = start_page_num
 
     page_header_bar(c, f"SECTION 07 · SESSION {session_idx + 1} DETAIL",
-                    f"WEEK 01-04 · DAY {day_num_in_week}")
+                    f"WEEK 01 OVERVIEW · DAY {day_num_in_week}" if rotating
+                    else f"WEEK 01-04 · DAY {day_num_in_week}")
 
     # Session title
     y = PAGE_H - MARGIN - 140
@@ -1488,6 +1569,12 @@ def render_block_compact(c, block, y, program=None):
     for ex in exercises:
         name = ex.get('name', '')
         dose = ex.get('dose', '')
+        # Coach Studio edits must survive regeneration into the client PDF.
+        # Keep tempo and progression instructions visible for compact blocks.
+        tempo = ex.get('tempo') or ''
+        progression_note = ex.get('progression_note') or ''
+        if tempo:
+            dose = f"{dose} · tempo {tempo}" if dose else f"Tempo {tempo}"
 
         # Per-mode dose softening · for the Capsule Work block in client mode,
         # hide the explicit "@ 20-40%" effort percentages. Coach + Full plans
@@ -1530,6 +1617,13 @@ def render_block_compact(c, block, y, program=None):
             c.drawRightString(PAGE_W - MARGIN, y - li * line_h, line)
 
         y -= rows * line_h
+        if progression_note:
+            y -= 2
+            c.setFillColor(CREAM_DIM)
+            c.setFont(SANS, 8)
+            for note_line in _wrap_to_lines(c, progression_note, CONTENT_W - 24, SANS, 8, max_lines=3):
+                c.drawString(MARGIN + 12, y, note_line)
+                y -= 10
 
     return y
 
@@ -1557,7 +1651,11 @@ def render_strength_progression(c, program, session_idx, block_name, y):
 
     if not blocks_per_week:
         return y
-    if len(blocks_per_week) < 4:
+    if len(blocks_per_week) < 4 or any(
+            [e.get("name") for e in b.get("exercises", [])] !=
+            [e.get("name") for e in blocks_per_week[0].get("exercises", [])]
+            for b in blocks_per_week[1:]):
+        # Rotating exercises cannot share a week-one-indexed progression table.
         return render_block_compact(c, blocks_per_week[0], y, program=program)
 
     # ── BLOCK LABEL ──
@@ -1659,6 +1757,13 @@ def _cell_lines_for_week(wk_ex, week_num, max_w, c, program=None):
 
     Returns list of strings · 1 to 3 lines.
     """
+    # An explicit Coach Studio dose edit takes precedence over the engine's
+    # original strength ladder. Never print stale sets/load beside the edit.
+    if wk_ex.get('coach_override_dose'):
+        lines = [wk_ex.get('dose') or 'Coach to prescribe']
+        if wk_ex.get('tempo'):
+            lines.append(f"Tempo {wk_ex['tempo']}")
+        return lines
     wpx = wk_ex.get('week_prescriptions') or []
     wp = next((w for w in wpx if w.get('week') == week_num), None)
 
@@ -3627,8 +3732,13 @@ def generate_plan_pdf(program_json: str, output_pdf: str, pdf_mode: str = "clien
         for i in range(num_sessions):
             day_in_week = day_map.get(i + 1, i + 1)
             pages_used = draw_session_page(c, program, i, day_in_week,
-                                           page_num + 1, 0)  # total no longer needed inline
+                                           page_num + 1, 0, rotating=i in _rotating_sessions(program))  # total no longer needed inline
             page_num += pages_used
+
+    # The initial generator may rotate exercises. Print the actual plan for
+    # every week rather than mislabeling a week-one exercise as week two's.
+    if pdf_mode != "coach":
+        page_num += draw_rotating_week_pages(c, program, _rotating_sessions(program), pdf_mode)
 
     # Draw closing
     for fn in closing_pages:

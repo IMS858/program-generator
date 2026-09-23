@@ -1,0 +1,32 @@
+name: IMS generator regression tests
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  generator-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - run: pip install -r requirements.txt pypdf
+      - name: Reconcile IMS canonical exercise IDs (read-only)
+        run: python scripts/reconcile_exercise_ids.py audits/ims_canonical_exercises_2026-09.csv --output exercise_crosswalk_audit.json
+      - name: Preserve exercise crosswalk for coach review
+        uses: actions/upload-artifact@v4
+        with:
+          name: ims-exercise-crosswalk
+          path: exercise_crosswalk_audit.json
+      - name: Run regression suite and fail on skipped tests
+        shell: bash
+        run: |
+          set -o pipefail
+          python -m unittest discover -s tests -p 'test_*.py' -v 2>&1 | tee generator-test-results.log
+          if grep -Eq '\.\.\. skipped|OK \(skipped=' generator-test-results.log; then
+            echo 'Skipped regression tests are not allowed; resolve or explicitly split the test suite.'
+            exit 1
+          fi

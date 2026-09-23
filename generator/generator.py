@@ -286,10 +286,10 @@ class Generator:
         self.accessory_lib = self._load_accessory_library()
         # Objective layer state · always present, empty until build_program
         # resolves it, so every consumer can read it unconditionally.
-        try:
-            self._cfg = load_thresholds()
-        except Exception:
-            self._cfg = {}
+        # Thresholds govern prescription decisions; fail closed if a deployment
+        # ships missing or malformed configuration rather than silently
+        # generating plans without its safety limits.
+        self._cfg = load_thresholds()
         self._reset_objective_state()
 
     def _load_accessory_library(self) -> dict:
@@ -1524,11 +1524,17 @@ class Generator:
         Tier selection · inferred from client_tier (new=T1, intermediate=T2, advanced=T3)
         or from constraints (post-surgery / chronic-anything → T1 always).
         """
-        # Pick tier
+        # Pick tier. Missing assessment does not constitute interval clearance.
         if assessment is None:
-            # Cardio day context · default to T2, coach can substitute
-            tier = "mid"
-            rationale_prefix = "Cardio day finisher"
+            return Block(
+                name="Conditioning Reset (unassessed)",
+                exercises=[Exercise(
+                    name="Comfortable Breathing Reset", library="external_training",
+                    dose="2 min of easy breathing in a comfortable position",
+                    rationale="No HIIT or machine assignment without a reviewed assessment",
+                )],
+                duration_note="No intervals · an IMS coach must assess cardio tolerance first",
+            )
         else:
             client_tier = self._infer_client_tier(assessment)
             tier = self._hiit_tier_for_client(assessment, client_tier)
@@ -1577,69 +1583,43 @@ class Generator:
         if assessment is not None:
             pool = self._filter_hiit_pool_by_concerns(pool, assessment)
 
-        # Check interval clearance · if blocked, abandon the HIIT pool entirely
-        # and return a Conditioning Reset block instead. No sprints, no jumps,
-        # no intervals · just safe Z2-style movement and core work.
-        clearance = None
+        # No unreviewed interval exposure. Treat missing/invalid assessment
+        # inputs as not cleared rather than silently defaulting to HIIT.
         if assessment is not None:
-            try:
-                from cardio_rules import normalize_cardio_profile, determine_interval_clearance
-                normalized = normalize_cardio_profile(
-                    getattr(assessment, "cardio_profile", None),
-                    concerns=getattr(assessment, "concerns", None),
-                    constraints_rich=getattr(assessment, "constraints_rich", None),
-                )
-                clearance = determine_interval_clearance(normalized)
-            except Exception:
-                clearance = None
-
-        if clearance == "blocked":
-            # Build a Conditioning Reset block · no HIIT language anywhere
-            reset_pool = [
-                ("Zone 2 Bike (or approved machine)",
-                 "5-8 min easy aerobic · RPE 4 · nasal breathing",
-                 "Aerobic flush · no intensity"),
-                ("Farmer Carry (light, controlled)",
-                 "2 rounds × 30 sec heavy carry / 30 sec rest",
-                 "Posture + grip · stop if symptoms increase"),
-                ("Backward Sled Drag (if tolerated)",
-                 "10 yd × 3 rounds · easy pace",
-                 "Quad-friendly · no joint stress"),
-                ("Dead Bug Variations",
-                 "30 sec × 2 rounds",
-                 "Anti-extension core · no impact"),
-                ("Diaphragmatic Breathing Reset",
-                 "2 min · supine, knees bent, slow nasal breaths",
-                 "Down-regulate the nervous system"),
-            ]
-            # Filter once more to honor any non-cardio veto
-            if assessment is not None:
-                from cardio_rules import filter_finishers_by_cardio_limitations
-                try:
-                    normalized = normalize_cardio_profile(
-                        getattr(assessment, "cardio_profile", None),
-                        concerns=getattr(assessment, "concerns", None),
-                        constraints_rich=getattr(assessment, "constraints_rich", None),
-                    )
-                    reset_pool = filter_finishers_by_cardio_limitations(reset_pool, normalized)
-                except Exception:
-                    pass
-            if not reset_pool:
-                reset_pool = [
-                    ("Diaphragmatic Breathing Reset",
-                     "2 min · supine, knees bent, slow nasal breaths",
-                     "Down-regulate the nervous system"),
-                ]
-            exercises = [
-                Exercise(name=name, library="external_training", dose=dose,
-                          rationale=f"Conditioning reset · {note}")
-                for name, dose, note in reset_pool[:3]
-            ]
-            return Block(
-                name="Conditioning Reset (optional · low-intensity)",
-                exercises=exercises,
-                duration_note="3-5 min · NO sprints / NO intervals / Z2 only this block",
+            from cardio_rules import (
+                normalize_cardio_profile, determine_interval_clearance,
+                choose_primary_cardio_machine, MODALITY_DISPLAY,
             )
+            normalized = normalize_cardio_profile(
+                getattr(assessment, "cardio_profile", None),
+                concerns=getattr(assessment, "concerns", None),
+                constraints_rich=getattr(assessment, "constraints_rich", None),
+            )
+            clearance = determine_interval_clearance(normalized)
+            if clearance != "full":
+                # This call fails closed if every machine is avoided or an
+                # active restriction has unknown joint involvement.
+                machine_id, _ = choose_primary_cardio_machine(normalized)
+                name = MODALITY_DISPLAY[machine_id]
+                reset = [
+                    Exercise(
+                        name=f"Easy {name}",
+                        library="external_training",
+                        dose="5-8 min easy conversational pace · RPE 2-4",
+                        rationale="Optional low-intensity aerobic movement; stop if symptoms occur",
+                    ),
+                    Exercise(
+                        name="Diaphragmatic Breathing Reset",
+                        library="external_training",
+                        dose="2 min easy, comfortable breathing",
+                        rationale="Optional recovery reset; never force a painful position",
+                    ),
+                ]
+                return Block(
+                    name="Conditioning Reset (optional · low-intensity)",
+                    exercises=reset,
+                    duration_note="Low intensity only · no sprints, pickups, or intervals",
+                )
 
         if not pool:
             # Last-resort fallback · everything in T1 is broadly safe except sled
@@ -2615,6 +2595,19 @@ class Generator:
         Picker will avoid duplicates · falls through to the next valid candidate.
         """
         exclude_names = exclude_names or set()
+        # Rich active restrictions require verified exercise-level joint tagging.
+        # The legacy library does not yet have coach-approved primary/secondary
+        # joint tags; hold these plans rather than inferring clearance from
+        # mobility labels or from a previous strength measurement.
+        from exercise_safety_gate import restricted_joints
+        active_restrictions = restricted_joints(
+            getattr(assessment, "constraints_rich", None) if assessment else None
+        )
+        if active_restrictions:
+            raise ValueError(
+                "Active flare, post-surgery or avoid-loading restriction: "
+                "coach review required before strength exercise selection"
+            )
         # ─── POOLS · each pattern has multiple candidates ───
         # Order within each list = preference order for typical client.
         # Constraint filtering below then reorders.
@@ -2794,8 +2787,16 @@ class Generator:
             tested_match = self._match_pattern_to_tested_exercise(
                 pattern, candidates, assessment, exclude_names=exclude_names)
             if tested_match:
-                name = tested_match
-                if not rationale:
+                # A strength test is evidence of a measurement, not clearance
+                # to prescribe the same exercise during a new joint flare.
+                tested_entry = self._find_entry_by_name(tested_match)
+                if not constraints and not client_concerns:
+                    name = tested_match
+                elif tested_entry is not None and not self._violates_constraints(
+                    tested_entry, constraints, concerns=client_concerns
+                ):
+                    name = tested_match
+                if name is not None and not rationale:
                     rationale = "Pattern picked from your tested exercises"
 
         # 2 · Day-based rotation through the pool · skip excluded names
@@ -2817,8 +2818,16 @@ class Generator:
         if name is None:
             filtered = [c for c in candidates if c not in exclude_names]
             filtered = self._bias_candidates(filtered)
-            name = (self._first_valid_candidate(filtered, constraints, concerns=client_concerns)
-                    or (filtered[0] if filtered else candidates[0]))
+            name = self._first_valid_candidate(
+                filtered, constraints, concerns=client_concerns
+            )
+            if name is None:
+                # Do not silently reinsert the first contraindicated candidate.
+                # An explicit hold is safer than manufacturing a valid exercise.
+                raise ValueError(
+                    f"No eligible exercise for pattern {pattern!r}; "
+                    "coach review required for current restrictions"
+                )
 
         # If concerns drove a non-default pick, surface that in the rationale
         if client_concerns and not rationale:

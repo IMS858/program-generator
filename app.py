@@ -8,9 +8,11 @@ Flask app that ·
 Vercel's Python runtime auto-detects the `app` variable here.
 """
 import json
+import os
+import hmac
+import base64
 import sys
 import tempfile
-import traceback
 from pathlib import Path
 from flask import Flask, request, send_file, send_from_directory, jsonify, Response
 
@@ -25,11 +27,13 @@ from generator import (
 from plan_pdf import generate_plan_pdf
 from ims_contract import CONTRACT_VERSION, GENERATOR_VERSION, PROTOCOL_VERSION
 from validation import PayloadError, validate_payload
+from reviewed_program import validate_reviewed_program, ReviewedProgramError
 from force_load import ImplausibleLoadError
 from objective_measures import parse_objective_measures
 
 
 app = Flask(__name__, static_folder=None)
+app.config["MAX_CONTENT_LENGTH"] = 262144
 
 
 # ── Static file serving ────────────────────────────────────
@@ -46,7 +50,8 @@ def index():
         resp.headers['Expires'] = '0'
         return resp
     except Exception as e:
-        return Response(f"Home page failed to load: {e}", status=500)
+        app.logger.exception("Generator home page failed")
+        return Response("Service temporarily unavailable", status=500)
 
 
 @app.route('/favicon.ico')
@@ -77,17 +82,37 @@ def static_files(filename):
 
 # ── Nutrition calculation (Katch-McArdle) ──────────────────
 
-def calculate_nutrition(body_comp, activity_factor, strategy):
-    lean_str = body_comp.get('lean_mass', '')
-    weight_str = body_comp.get('weight', '')
-    try:
-        lean_lb = float(''.join(c for c in lean_str if c.isdigit() or c == '.'))
-        weight_lb = float(''.join(c for c in weight_str if c.isdigit() or c == '.'))
-    except (ValueError, TypeError):
-        return body_comp
+def _mass_lb(value):
+    """Parse an explicitly unit-labelled or legacy pounds mass; never guess kg."""
+    import re
+    if isinstance(value, bool):
+        return None
+    if isinstance(value, (int, float)):
+        amount, unit = float(value), "lb"
+    elif isinstance(value, str):
+        match = re.fullmatch(r"\s*(\d+(?:\.\d+)?)\s*(lb|lbs|pounds?|kg|kilograms?)?\s*", value, re.I)
+        if not match:
+            return None
+        amount = float(match.group(1))
+        unit = (match.group(2) or "lb").lower()
+    else:
+        return None
+    if not (0 < amount < 1000):
+        return None
+    return amount * 2.2046226218 if unit in ("kg", "kilogram", "kilograms") else amount
 
-    lean_kg = lean_lb / 2.2046
-    weight_kg = weight_lb / 2.2046
+
+def calculate_nutrition(body_comp, activity_factor, strategy):
+    """Estimate nutrition only when both lean and total mass are plausible."""
+    import math
+    lean_lb = _mass_lb(body_comp.get('lean_mass'))
+    weight_lb = _mass_lb(body_comp.get('weight'))
+    if (lean_lb is None or weight_lb is None or not 65 <= weight_lb <= 650
+            or not 30 <= lean_lb <= weight_lb or not isinstance(activity_factor, (int, float))
+            or not math.isfinite(activity_factor) or not 1.0 <= activity_factor <= 2.5):
+        return body_comp
+    lean_kg = lean_lb / 2.2046226218
+    weight_kg = weight_lb / 2.2046226218
     rmr = 370 + (21.6 * lean_kg)
     tdee = rmr * activity_factor
 
@@ -116,10 +141,25 @@ def calculate_nutrition(body_comp, activity_factor, strategy):
     }
     return body_comp
 
-
 # ── PDF generation endpoint ────────────────────────────────
 
-def build_program_pdf(form_data, out_warnings=None):
+def require_generator_auth():
+    """Enforce service auth when PROGRAM_GENERATOR_SECRET is configured.
+
+    Deploy Coach OS with the same secret before setting it here. Without the
+    secret this remains backward compatible with the existing public form.
+    """
+    expected = os.environ.get('PROGRAM_GENERATOR_SECRET')
+    if not expected:
+        return None
+    supplied = request.headers.get('Authorization', '')
+    if not hmac.compare_digest(supplied, 'Bearer ' + expected):
+        return jsonify({'error': 'unauthorized'}), 401
+    return None
+
+
+
+def build_program_pdf(form_data, out_warnings=None, out_program=None):
     """Generate the plan PDF. Returns (pdf_bytes, client_name).
 
     ``out_warnings`` · optional list the validator's non-blocking warnings are
@@ -364,10 +404,51 @@ def build_program_pdf(form_data, out_warnings=None):
         json_path = str(Path(tmpdir) / "program.json")
         pdf_path = str(Path(tmpdir) / "plan.pdf")
         program.to_json(json_path)
+        if out_program is not None:
+            with open(json_path, encoding="utf-8") as structured_file:
+                out_program.append(json.load(structured_file))
         generate_plan_pdf(program_json=json_path, output_pdf=pdf_path, pdf_mode=pdf_mode)
         with open(pdf_path, 'rb') as f:
             pdf_bytes = f.read()
     return pdf_bytes, assessment.name
+
+
+
+@app.route('/api/render', methods=['POST'])
+def render_edited_program():
+    """Render a coach-reviewed structured plan without running the engine again."""
+    auth_error = require_generator_auth()
+    if auth_error is not None:
+        return auth_error
+    if not os.environ.get('PROGRAM_GENERATOR_SECRET'):
+        return jsonify({'error': 'render_requires_service_auth'}), 503
+    payload = request.get_json(silent=True)
+    if not isinstance(payload, dict):
+        return jsonify({'error': 'invalid_json'}), 400
+    program = payload.get('program')
+    mode = payload.get('pdf_mode', 'client')
+    if mode not in ('client', 'coach'):
+        return jsonify({'error': 'invalid_pdf_mode'}), 400
+    try:
+        validate_reviewed_program(program)
+    except ReviewedProgramError:
+        return jsonify({'error': 'invalid_program'}), 400
+    try:
+        with tempfile.TemporaryDirectory() as tmp:
+            json_path = str(Path(tmp) / 'reviewed_program.json')
+            pdf_path = str(Path(tmp) / 'reviewed_program.pdf')
+            Path(json_path).write_text(json.dumps(program), encoding='utf-8')
+            generate_plan_pdf(json_path, pdf_path, pdf_mode=mode)
+            pdf_bytes = Path(pdf_path).read_bytes()
+        if not pdf_bytes.startswith(b'%PDF-'):
+            raise ValueError('Invalid PDF')
+    except Exception:
+        app.logger.exception('Reviewed program PDF rendering failed')
+        return jsonify({'error': 'render_failed'}), 500
+    response = jsonify({'pdf_base64': base64.b64encode(pdf_bytes).decode('ascii')})
+    response.headers['Cache-Control'] = 'private, no-store'
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    return response
 
 
 @app.route('/api/generate', methods=['POST', 'OPTIONS'])
@@ -380,14 +461,22 @@ def generate():
             'Access-Control-Allow-Headers': 'Content-Type'
         })
 
+    auth_error = require_generator_auth()
+    if auth_error is not None:
+        return auth_error
+    if request.content_length is not None and request.content_length > 262144:
+        return jsonify({'error': 'payload_too_large'}), 413
     try:
         form_data = request.get_json(force=True)
     except Exception as e:
         return jsonify({'error': 'invalid_json', 'errors': [str(e)]}), 400
 
     warnings = []
+    structured = []
+    wants_json = request.headers.get("Accept", "").lower().startswith("application/json")
     try:
-        pdf_bytes, client_name = build_program_pdf(form_data, out_warnings=warnings)
+        pdf_bytes, client_name = build_program_pdf(form_data, out_warnings=warnings,
+                                                   out_program=structured if wants_json else None)
     except PayloadError as e:
         # Structural problem with the payload · nothing was generated. Every
         # error is returned at once so the caller fixes them in one pass.
@@ -403,12 +492,41 @@ def generate():
                      'config/objective_thresholds.json.'),
             'contract_version': CONTRACT_VERSION,
         }), 422
-    except Exception as e:
+    except ValueError as e:
+        # Only the explicit safety hold is exposed; other ValueErrors remain
+        # internal errors and must not leak assessment details to clients.
+        if "coach review required" in str(e):
+            return jsonify({
+                'error': 'coach_review_required',
+                'detail': 'No verified exercise option is available for the current restrictions. An IMS coach must review the assessment before generating a client plan.',
+                'contract_version': CONTRACT_VERSION,
+            }), 422
+        app.logger.exception('Program generation failed')
         return jsonify({
-            'error': str(e),
+            'error': 'generation_failed',
+            'detail': 'Program generation failed. Please contact IMS support.',
             'contract_version': CONTRACT_VERSION,
-            'trace': traceback.format_exc()
         }), 500
+    except Exception as e:
+        # Never disclose server tracebacks or internal filesystem paths to callers.
+        app.logger.exception('Program generation failed')
+        return jsonify({
+            'error': 'generation_failed',
+            'detail': 'Program generation failed. Please contact IMS support.',
+            'contract_version': CONTRACT_VERSION,
+        }), 500
+
+    if wants_json:
+        response = jsonify({
+            'program': structured[0],
+            'pdf_base64': base64.b64encode(pdf_bytes).decode('ascii'),
+            'contract_version': CONTRACT_VERSION,
+            'generator_version': GENERATOR_VERSION,
+            'warnings': warnings,
+        })
+        response.headers['Cache-Control'] = 'private, no-store'
+        response.headers['X-Content-Type-Options'] = 'nosniff'
+        return response
 
     safe_name = (client_name or 'client').lower().replace(' ', '_')
     safe_name = ''.join(c for c in safe_name if c.isalnum() or c == '_')
@@ -423,6 +541,8 @@ def generate():
     if warnings:
         # Warnings must not be silent, but they must not block a plan either.
         headers['X-IMS-Warnings'] = ' | '.join(warnings)[:900]
+    headers['Cache-Control'] = 'private, no-store'
+    headers['X-Content-Type-Options'] = 'nosniff'
     return Response(pdf_bytes, mimetype='application/pdf', headers=headers)
 
 
@@ -454,76 +574,6 @@ def validate_only():
         'protocol_version': PROTOCOL_VERSION,
         'warnings': result.get('warnings', []),
     }), 200
-
-
-@app.route('/api/vald/transform', methods=['POST', 'OPTIONS'])
-def vald_transform():
-    """Turn raw VALD DynaMo test objects into an objective_measures block.
-
-    Coach OS owns the VALD integration · OAuth, the modifiedFromUtc cursor,
-    athlete-to-client identity, storage. All of that is stateful and this
-    service is not.
-
-    What this endpoint owns is the VOCABULARY. The canonical test ids belong to
-    the generator, and a mapping table maintained in two places drifts. So
-    Coach OS POSTs the raw tests it pulled and gets back a block it can hand
-    straight to /api/generate.
-
-    Body ·
-      {"current": [ ...VALD test objects... ],
-       "previous": [ ... ],            // optional
-       "bodyweight_lb": 185}           // optional
-
-    Unmapped tests are SKIPPED and listed in `warnings`, never fatal · one
-    novel movement type must not fail a whole assessment sync.
-    """
-    if request.method == 'OPTIONS':
-        return Response('', status=204, headers={
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'POST, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type'
-        })
-    try:
-        body = request.get_json(force=True)
-    except Exception as e:
-        return jsonify({'error': 'invalid_json', 'errors': [str(e)]}), 400
-    if not isinstance(body, dict):
-        return jsonify({'error': 'invalid_payload',
-                        'errors': ['body must be an object']}), 400
-
-    from vald_mapping import build_objective_measures, unmapped_tests
-
-    current = body.get('current') or body.get('tests') or []
-    previous = body.get('previous') or []
-    if not isinstance(current, list) or not isinstance(previous, list):
-        return jsonify({'error': 'invalid_payload',
-                        'errors': ["'current' and 'previous' must be lists"]}), 400
-
-    warnings = []
-    objective = build_objective_measures(
-        current, previous, bodyweight_lb=body.get('bodyweight_lb'),
-        warnings=warnings)
-
-    result = {
-        'objective_measures': objective,
-        'warnings': warnings,
-        'unmapped': unmapped_tests(list(current) + list(previous)),
-        'contract_version': CONTRACT_VERSION,
-    }
-
-    # Run the same validation /api/generate would, so a sync problem surfaces
-    # here rather than at plan time.
-    if objective is not None:
-        try:
-            validate_payload({'objective_measures': objective})
-            result['valid'] = True
-        except PayloadError as e:
-            result['valid'] = False
-            result['errors'] = e.errors
-            return jsonify(result), 422
-    else:
-        result['valid'] = True
-    return jsonify(result), 200
 
 
 @app.route('/api/version', methods=['GET'])
