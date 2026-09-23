@@ -15,6 +15,34 @@ class TestObjectiveInputSafety(unittest.TestCase):
             with self.subTest(value=value):
                 self.assertEqual(_to_float(value), 45)
 
+    def test_activforce_requires_explicit_rom_mode_side_and_date(self):
+        payload = {"current": {"date": "2026-09-20", "rom": [
+            {"joint": "hip", "motion": "ir", "side": "L", "degrees": 32,
+             "source": "activforce_2_manual"},
+            {"joint": "hip", "motion": "ir", "side": "R", "degrees": 36,
+             "mode": "active", "source": "activforce_2_manual"},
+            {"joint": "hip", "motion": "er", "degrees": 45,
+             "mode": "passive", "source": "activforce_2_manual"}]}}
+        result = parse_objective_measures(payload)
+        self.assertEqual(len(result.current.roms), 1)
+        self.assertEqual(result.current.roms[0].mode, "active")
+        self.assertEqual(result.current.roms[0].side, "R")
+        self.assertEqual(len(result.warnings), 2)
+
+    def test_activforce_force_requires_side_and_plausible_load(self):
+        payload = {"current": {"date": "2026-09-20", "dynamo": [
+            {"test": "knee_extension", "value": 50,
+             "source": "activforce_2_manual"},
+            {"test": "knee_extension", "side": "L", "value": 900,
+             "source": "activforce_2_manual"},
+            {"test": "knee_extension", "side": "R", "value": 500,
+             "unit": "N", "source": "activforce_2_manual"}]}}
+        result = parse_objective_measures(payload)
+        self.assertEqual(len(result.current.forces), 1)
+        self.assertEqual(result.current.forces[0].device, "activforce_2")
+        self.assertAlmostEqual(result.current.forces[0].value_lb, 112.40447, places=3)
+        self.assertEqual(len(result.warnings), 2)
+
     def test_invalid_force_and_rom_are_dropped(self):
         payload = {"current": {"date": "2026-09-20",
             "dynamo": [{"test": "hip_abduction", "side": "L", "value": "50/60", "unit": "lb"},
