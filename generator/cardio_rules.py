@@ -374,10 +374,7 @@ def decide_machine_with_audit(normalized: dict) -> tuple[str, str, list[dict]]:
 
         # All safe-list candidates got vetoed by avoid list. Best we can do:
         # fall through to absolute fallback with a loud explanation.
-        return ("stationary_bike",
-                f"{rationale_part}All preferred safe machines on avoid list · "
-                f"defaulted to stationary bike (coach should review)",
-                rejected)
+        raise ValueError("coach review required: no permitted cardio machine for current restrictions")
 
     # 3 · no primary set · pick from limits
     for limit in normalized.get("limitations", []):
@@ -398,16 +395,14 @@ def decide_machine_with_audit(normalized: dict) -> tuple[str, str, list[dict]]:
     # Per spec: stationary bike → upright bike → arc trainer → treadmill →
     #          rower → SkiErg → assault bike
     for candidate in _GENERAL_PRIORITY:
-        if candidate not in avoid:
+        if _machine_is_safe(candidate, normalized):
             return (candidate,
                     "No primary specified, no joint limits · "
                     f"general priority pick ({MODALITY_DISPLAY[candidate]})",
                     rejected)
 
     # 5 · everything got avoided · absolute fallback
-    return ("stationary_bike",
-            "No primary, all preferred machines avoided · default stationary bike (coach review)",
-            rejected)
+    raise ValueError("coach review required: every cardio machine is on the avoid list")
 
 
 # General-priority order for clients with no joint limitations.
