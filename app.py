@@ -82,17 +82,37 @@ def static_files(filename):
 
 # ── Nutrition calculation (Katch-McArdle) ──────────────────
 
-def calculate_nutrition(body_comp, activity_factor, strategy):
-    lean_str = body_comp.get('lean_mass', '')
-    weight_str = body_comp.get('weight', '')
-    try:
-        lean_lb = float(''.join(c for c in lean_str if c.isdigit() or c == '.'))
-        weight_lb = float(''.join(c for c in weight_str if c.isdigit() or c == '.'))
-    except (ValueError, TypeError):
-        return body_comp
+def _mass_lb(value):
+    """Parse an explicitly unit-labelled or legacy pounds mass; never guess kg."""
+    import re
+    if isinstance(value, bool):
+        return None
+    if isinstance(value, (int, float)):
+        amount, unit = float(value), "lb"
+    elif isinstance(value, str):
+        match = re.fullmatch(r"\\s*(\\d+(?:\\.\\d+)?)\\s*(lb|lbs|pounds?|kg|kilograms?)?\\s*", value, re.I)
+        if not match:
+            return None
+        amount = float(match.group(1))
+        unit = (match.group(2) or "lb").lower()
+    else:
+        return None
+    if not (0 < amount < 1000):
+        return None
+    return amount * 2.2046226218 if unit in ("kg", "kilogram", "kilograms") else amount
 
-    lean_kg = lean_lb / 2.2046
-    weight_kg = weight_lb / 2.2046
+
+def calculate_nutrition(body_comp, activity_factor, strategy):
+    """Estimate nutrition only when both lean and total mass are plausible."""
+    import math
+    lean_lb = _mass_lb(body_comp.get('lean_mass'))
+    weight_lb = _mass_lb(body_comp.get('weight'))
+    if (lean_lb is None or weight_lb is None or not 65 <= weight_lb <= 650
+            or not 30 <= lean_lb <= weight_lb or not isinstance(activity_factor, (int, float))
+            or not math.isfinite(activity_factor) or not 1.0 <= activity_factor <= 2.5):
+        return body_comp
+    lean_kg = lean_lb / 2.2046226218
+    weight_kg = weight_lb / 2.2046226218
     rmr = 370 + (21.6 * lean_kg)
     tdee = rmr * activity_factor
 
@@ -120,7 +140,6 @@ def calculate_nutrition(body_comp, activity_factor, strategy):
         "water": f"{water_oz} oz baseline · {water_suffix}"
     }
     return body_comp
-
 
 # ── PDF generation endpoint ────────────────────────────────
 
