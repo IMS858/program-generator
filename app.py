@@ -90,7 +90,7 @@ def _mass_lb(value):
     if isinstance(value, (int, float)):
         amount, unit = float(value), "lb"
     elif isinstance(value, str):
-        match = re.fullmatch(r"\\s*(\\d+(?:\\.\\d+)?)\\s*(lb|lbs|pounds?|kg|kilograms?)?\\s*", value, re.I)
+        match = re.fullmatch(r"\s*(\d+(?:\.\d+)?)\s*(lb|lbs|pounds?|kg|kilograms?)?\s*", value, re.I)
         if not match:
             return None
         amount = float(match.group(1))
