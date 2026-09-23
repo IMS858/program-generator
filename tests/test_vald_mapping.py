@@ -296,13 +296,13 @@ class TestTransformEndpoint(unittest.TestCase):
         self.assertEqual(body["unmapped"][0]["bodyRegion"], "Thumb")
 
     def test_transform_of_nothing_is_not_an_error(self):
-        resp = self.client.post("/api/vald/transform", json={"current": []})
+        resp = self._post_transform({"current": []})
         self.assertEqual(resp.status_code, 200)
         self.assertIsNone(resp.get_json()["objective_measures"])
 
     def test_transform_output_feeds_generate(self):
         """The two endpoints have to actually compose."""
-        t = self.client.post("/api/vald/transform", json={
+        t = self._post_transform({
             "current": [STRENGTH_TEST, SHOULDER_TEST, ROM_TEST],
             "bodyweight_lb": 185}).get_json()
         resp = self.client.post("/api/generate", json={
