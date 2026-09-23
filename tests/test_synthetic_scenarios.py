@@ -73,6 +73,22 @@ class SyntheticProgramScenarios(unittest.TestCase):
                 for week in p["weeks"]:
                     self.assertEqual(len(week["sessions"]), expected_sessions)
 
+    def test_restricted_composite_personas_hold_for_coach_review(self):
+        # No verified exercise option is available for these fictional profiles.
+        for label, changes in [
+            ("shoulder_sensitive_return", dict(strength_days=2, cardio_days=1,
+                concerns=["bad_shoulder"], fra_priorities=["Shoulder ER L"])),
+            ("low_back_sensitive", dict(strength_days=2, cardio_days=1,
+                concerns=["lower_back"], constraints=["no_axial_loading"])),
+        ]:
+            with self.subTest(persona=label):
+                response = self.client.post("/api/generate",
+                    json=baseline(client_name="Synthetic " + label, **changes),
+                    headers={"Accept": "application/json"})
+                self.assertEqual(response.status_code, 422, response.get_json())
+                self.assertEqual(response.get_json().get("error"), "coach_review_required")
+                self.assertNotIn("pdf_base64", response.get_json())
+
     def test_active_post_surgery_is_not_silently_cleared(self):
         # Even an athlete with high capacity cannot bypass an active restriction.
         from generator import Generator
