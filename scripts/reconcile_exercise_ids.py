@@ -55,8 +55,7 @@ def main():
         rows = list(csv.DictReader(file))
     database = json.loads(args.database.read_text(encoding="utf-8"))
     result = reconcile(rows, database)
-    args.output.write_text(json.dumps(result, indent=2, ensure_ascii=False) + "
-",
+    args.output.write_text(json.dumps(result, indent=2, ensure_ascii=False) + "\n",
                            encoding="utf-8")
     summary = {key: sum(row["match_status"] == key for row in result)
                for key in ("exact_normalized", "ambiguous", "unmatched")}
