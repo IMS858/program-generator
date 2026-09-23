@@ -12,6 +12,8 @@ JOINT_ALIASES = {
     "lumbar_spine": "lumbar", "si_joint": "lumbar", "spine": "lumbar",
     "bad_knee": "knee", "bad_shoulder": "shoulder", "bad_hip": "hip",
     "bad_wrist": "wrist", "bad_ankle": "ankle", "bad_elbow": "elbow",
+    "neck_cervical": "cervical", "neck": "cervical",
+    "t_spine": "thoracic", "si_joint_sensitivity": "lumbar",
 }
 SPINE_EXCLUSIONS = frozenset({
     "back squat", "front squat", "conventional deadlift", "trap bar deadlift",
@@ -21,6 +23,8 @@ SPINE_EXCLUSIONS = frozenset({
 
 def normalize_joint(value: object) -> str:
     raw = str(value or "").strip().casefold().replace("-", "_").replace(" ", "_")
+    if raw.startswith(("left_", "right_")):
+        raw = raw.split("_", 1)[1]
     return JOINT_ALIASES.get(raw, raw.removeprefix("bad_"))
 
 
