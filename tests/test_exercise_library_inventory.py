@@ -32,6 +32,16 @@ class TestExerciseLibraryInventory(unittest.TestCase):
             rows = data
         else:
             self.fail("Exercise database must be a JSON object or array")
+        if isinstance(data, dict):
+            indexes = data.get("indexes") or {}
+            print("EXERCISE_AUDIT index_names=", sorted(indexes) if isinstance(indexes, dict) else type(indexes).__name__, flush=True)
+            if isinstance(indexes, dict):
+                for key, value in indexes.items():
+                    if isinstance(value, (dict, list)):
+                        print("EXERCISE_AUDIT index=", key, "entries=", len(value), flush=True)
+            meta = data.get("meta") or {}
+            if isinstance(meta, dict):
+                print("EXERCISE_AUDIT meta_keys=", sorted(meta), flush=True)
         print("EXERCISE_AUDIT primary_row_count=", len(rows), flush=True)
         if rows and isinstance(rows[0], dict):
             print("EXERCISE_AUDIT sample_field_names=", sorted(rows[0].keys()), flush=True)
