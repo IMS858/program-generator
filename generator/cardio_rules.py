@@ -166,11 +166,15 @@ def normalize_cardio_profile(profile, concerns=None, constraints_rich=None) -> d
     # ── Rich constraints mapping ──
     active_flare = False
     post_surgery = False
+    avoid_loading = False
+    unknown_active_constraint = False
     for cr in (constraints_rich or []):
         if not isinstance(cr, dict):
             continue
         status = _norm_key(cr.get("status"))
         ckey = _norm_key(cr.get("key"))
+        if ckey.startswith(("left_", "right_")):
+            ckey = ckey.split("_", 1)[1]
         # Cleared constraints don't drive filtering
         if status == "cleared":
             continue
@@ -178,8 +182,12 @@ def normalize_cardio_profile(profile, concerns=None, constraints_rich=None) -> d
             active_flare = True
         if status == "post_surgery":
             post_surgery = True
+        if status == "avoid_loading":
+            avoid_loading = True
 
         mapped = _CONCERN_TO_LIMIT.get(ckey)
+        if status in ("post_surgery", "avoid_loading", "active_flare_up") and not mapped:
+            unknown_active_constraint = True
         if mapped:
             label = f"constraint:{ckey}"
             if status:
@@ -249,6 +257,8 @@ def normalize_cardio_profile(profile, concerns=None, constraints_rich=None) -> d
         "hr_recovery": hrr,
         "active_flare_up": active_flare,
         "post_surgery": post_surgery,
+        "avoid_loading": avoid_loading,
+        "unknown_active_constraint": unknown_active_constraint,
         "sources": sources,
     }
 
@@ -292,7 +302,7 @@ def _machine_is_safe(machine: str, normalized: dict) -> bool:
     before flagging the limitation. Only `secondary_modalities` counts as
     explicit "yes, tested, this is fine despite the limitation."
     """
-    if not machine or machine not in MODALITIES:
+    if not machine or machine not in MODALITIES or normalized.get("unknown_active_constraint"):
         return False
     secondary_tolerated = set(normalized.get("secondary_modalities", []))
 
@@ -302,7 +312,7 @@ def _machine_is_safe(machine: str, normalized: dict) -> bool:
 
     for limit in normalized.get("limitations", []):
         risky = _RISKY_MACHINES_BY_LIMIT.get(limit, [])
-        if machine in risky and (machine not in secondary_tolerated or normalized.get("post_surgery") or normalized.get("active_flare_up")):
+        if machine in risky and (machine not in secondary_tolerated or normalized.get("post_surgery") or normalized.get("active_flare_up") or normalized.get("avoid_loading")):
             return False
     return True
 
@@ -570,7 +580,7 @@ def determine_interval_clearance(normalized: dict) -> str:
       - deconditioned/beginner         → z2_only
       - high stress / poor recovery    → z2_only
       - cleared_for_intervals          → full
-      - default                        → controlled
+      - default/unassessed             → z2_only (no automatic interval clearance)
     """
     limits = set(normalized.get("limitations", []))
 
@@ -578,7 +588,7 @@ def determine_interval_clearance(normalized: dict) -> str:
         return "blocked"
     if normalized.get("active_flare_up"):
         return "blocked"
-    if normalized.get("post_surgery"):
+    if normalized.get("post_surgery") or normalized.get("avoid_loading") or normalized.get("unknown_active_constraint"):
         return "blocked"
 
     hrr_quality = normalized.get("hr_recovery", {}).get("quality")
@@ -593,7 +603,7 @@ def determine_interval_clearance(normalized: dict) -> str:
     if "cleared_for_intervals" in limits:
         return "full"
 
-    return "controlled"
+    return "z2_only"
 
 
 # ─── 4 · 4-WEEK PROGRESSION ──────────────────────────────────
@@ -835,6 +845,8 @@ def generate_cardio_coach_flags(normalized: dict) -> list[str]:
         elif normalized.get("post_surgery"):
             flags.append("Post-surgery · NO intervals this block. Reassess at W5.")
     elif clearance == "z2_only":
+        if "cleared_for_intervals" not in limits:
+            flags.append("Interval clearance not documented · do not add pickups or intervals.")
         if hrr.get("quality") == "poor":
             flags.append("Poor HR recovery · progress duration before intensity. "
                          "Reassess HR recovery at W4 retest.")
