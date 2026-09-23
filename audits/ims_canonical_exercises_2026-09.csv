@@ -1,0 +1,424 @@
+exercise_id,canonical_name,aliases,status,confidence,category,movement_pattern,primary_joints,equipment,safety_tags_set
+EX-0001,Ankle Dorsiflexion Lift-Off,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_mobility,foot_ankle,ankle,,No
+EX-0002,Ankle Plantarflexion Lift-Off,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_mobility,foot_ankle,ankle,,No
+EX-0003,Ankle Inversion Lift-Off,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_mobility,foot_ankle,ankle,,No
+EX-0004,Ankle Eversion Lift-Off,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_mobility,foot_ankle,ankle,,No
+EX-0005,Ankle ERRs,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_mobility,foot_ankle,ankle,,No
+EX-0006,Toe Yoga,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_mobility,foot_ankle,toe,,No
+EX-0007,Short Foot Drill,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_mobility,foot_ankle,,,No
+EX-0008,Tripod Foot Drill,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_mobility,foot_ankle,,,No
+EX-0009,Great Toe Extension Lift-Off,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_mobility,foot_ankle,toe,,No
+EX-0010,Great Toe Flexion Lift-Off,,Jason supplied + Jason programmed,CONFIRMED (name + grouping only) + used/described by Jason,foot_ankle_mobility,foot_ankle,toe,,No
+EX-0011,Seated Ankle CARs,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_mobility,foot_ankle,ankle,,No
+EX-0012,Standing Ankle CARs,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_mobility,foot_ankle,ankle,,No
+EX-0013,Knee-to-Wall Dorsiflexion,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_mobility,foot_ankle,knee,wall,No
+EX-0014,Banded Ankle Dorsiflexion,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_mobility,foot_ankle,ankle,band,No
+EX-0015,Tibialis Raise,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_mobility,foot_ankle,knee; ankle,,No
+EX-0016,Soleus Raise,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_mobility,foot_ankle,ankle,,No
+EX-0017,Calf Raise Iso,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_mobility,foot_ankle,ankle,,No
+EX-0018,ToePro Dorsiflexion,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_mobility,foot_ankle,toe,ToePro,No
+EX-0019,ToePro Plantarflexion,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_mobility,foot_ankle,toe,ToePro,No
+EX-0020,ToePro Inversion,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_mobility,foot_ankle,toe,ToePro,No
+EX-0021,ToePro Eversion,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_mobility,foot_ankle,toe,ToePro,No
+EX-0022,Knee Passive CARs,,Jason supplied,CONFIRMED (name + grouping only),knee_mobility_control,knee_control,knee,,No
+EX-0023,Knee IR Lift-Off,,Jason supplied,CONFIRMED (name + grouping only),knee_mobility_control,knee_control,knee,,No
+EX-0024,Knee ER Lift-Off,,Jason supplied,CONFIRMED (name + grouping only),knee_mobility_control,knee_control,knee,,No
+EX-0025,Knee IR ERR,,Jason supplied,CONFIRMED (name + grouping only),knee_mobility_control,knee_control,knee,,No
+EX-0026,Knee ER ERR,,Jason supplied,CONFIRMED (name + grouping only),knee_mobility_control,knee_control,knee,,No
+EX-0027,Seated Tibial IR,,Jason supplied,CONFIRMED (name + grouping only),knee_mobility_control,knee_control,knee,,No
+EX-0028,Seated Tibial ER,,Jason supplied,CONFIRMED (name + grouping only),knee_mobility_control,knee_control,knee,,No
+EX-0029,Supine Knee Rotations,,Jason supplied + Jason programmed,CONFIRMED (Jason-described in his own session flow),knee_mobility_control,knee_control,knee,,No
+EX-0030,Terminal Knee Extension,,Jason supplied,CONFIRMED (name + grouping only),knee_mobility_control,knee_control,knee,,No
+EX-0031,Spanish Squat Iso,,Jason supplied,CONFIRMED (name + grouping only),knee_mobility_control,knee_control,,,No
+EX-0032,Wall Sit Partial Range,,Jason supplied,CONFIRMED (name + grouping only),knee_mobility_control,knee_control,,wall,No
+EX-0033,Step-Up Iso Hold,,Jason supplied,CONFIRMED (name + grouping only),knee_mobility_control,knee_control,,,No
+EX-0034,Supported Split Squat Iso,,Jason supplied,CONFIRMED (name + grouping only),knee_mobility_control,knee_control,,,No
+EX-0035,Patella Glides,,Jason supplied + Jason programmed,CONFIRMED (Jason-described in his own session flow),knee_mobility_control,knee_control,knee,,No
+EX-0036,Heel Slide Partial Range,,Jason supplied,CONFIRMED (name + grouping only),knee_mobility_control,knee_control,,,No
+EX-0037,90/90 Hip IR PRLO,,Jason supplied,CONFIRMED (name + grouping only),hip_mobility,mobility,hip,,No
+EX-0038,90/90 Back Thigh Lift,,Jason supplied,CONFIRMED (name + grouping only),hip_mobility,mobility,hip,,No
+EX-0039,90/90 Front Leg Lift-Off,,Jason supplied,CONFIRMED (name + grouping only),hip_mobility,mobility,hip,,No
+EX-0040,Hip IR Lift-Off,,Jason supplied,CONFIRMED (name + grouping only),hip_mobility,mobility,hip,,No
+EX-0041,Hip ER Lift-Off,,Jason supplied,CONFIRMED (name + grouping only),hip_mobility,mobility,hip,,No
+EX-0042,Hip IR ERR,,Jason supplied,CONFIRMED (name + grouping only),hip_mobility,mobility,hip,,No
+EX-0043,Hip ER ERR,,Jason supplied,CONFIRMED (name + grouping only),hip_mobility,mobility,hip,,No
+EX-0044,Hip Hovers,,Jason supplied,CONFIRMED (name + grouping only),hip_mobility,mobility,hip,,No
+EX-0045,Hip Flexion Lift-Off,,Jason supplied,CONFIRMED (name + grouping only),hip_mobility,mobility,hip,,No
+EX-0046,Hip Extension Lift-Off,,Jason supplied,CONFIRMED (name + grouping only),hip_mobility,mobility,hip,,No
+EX-0047,Hip Abduction Lift-Off,,Jason supplied,CONFIRMED (name + grouping only),hip_mobility,mobility,hip,,No
+EX-0048,Hip Adduction Lift-Off,,Jason supplied,CONFIRMED (name + grouping only),hip_mobility,mobility,hip,,No
+EX-0049,Quadruped Hip IR Lift-Off,,Jason supplied,CONFIRMED (name + grouping only),hip_mobility,mobility,hip,,No
+EX-0050,Quadruped Hip ER Lift-Off,,Jason supplied,CONFIRMED (name + grouping only),hip_mobility,mobility,hip,,No
+EX-0051,Prone Hip IR Lift-Off,,Jason supplied,CONFIRMED (name + grouping only),hip_mobility,mobility,hip,,No
+EX-0052,Prone Hip ER Lift-Off,,Jason supplied,CONFIRMED (name + grouping only),hip_mobility,mobility,hip,,No
+EX-0053,Supine Hip Capsule Lean,,Jason supplied,CONFIRMED (name + grouping only),hip_mobility,mobility,hip,,No
+EX-0054,Hip Capsule CARs,,Jason supplied + Jason programmed,CONFIRMED (Jason-described in his own session flow),hip_mobility,mobility,hip,,No
+EX-0055,Hip Abducted Rock Back,,Jason supplied,CONFIRMED (name + grouping only),hip_mobility,mobility,hip,,No
+EX-0056,Hip Flexion Rocking,,Jason supplied,CONFIRMED (name + grouping only),hip_mobility,mobility,hip,,No
+EX-0057,90/90 Transitions,,Jason supplied,CONFIRMED (name + grouping only),hip_mobility,mobility,hip,,No
+EX-0058,Shin Box Switch,,Jason supplied,CONFIRMED (name + grouping only),hip_mobility,mobility,hip,box,No
+EX-0059,Assisted 90/90 Switch,,Jason supplied,CONFIRMED (name + grouping only),hip_mobility,mobility,hip,,No
+EX-0060,Couch Stretch Lift-Off,,Jason supplied,CONFIRMED (name + grouping only),hip_mobility,mobility,hip,,No
+EX-0061,Half-Kneeling Hip Flexor Lift-Off,,Jason supplied,CONFIRMED (name + grouping only),hip_mobility,mobility,knee; hip,,No
+EX-0062,Shoulder Flexion PRLO Wall Lift-Off,,Jason supplied,CONFIRMED (name + grouping only),shoulder_scap_mobility,mobility,shoulder,wall,No
+EX-0063,Shoulder Extension Lift-Off,,Jason supplied,CONFIRMED (name + grouping only),shoulder_scap_mobility,mobility,shoulder,,No
+EX-0064,Shoulder ER Lift-Off,,Jason supplied,CONFIRMED (name + grouping only),shoulder_scap_mobility,mobility,shoulder,,No
+EX-0065,Shoulder IR Lift-Off,,Jason supplied,CONFIRMED (name + grouping only),shoulder_scap_mobility,mobility,shoulder,,No
+EX-0066,Shoulder ER ERR,,Jason supplied,CONFIRMED (name + grouping only),shoulder_scap_mobility,mobility,shoulder,,No
+EX-0067,Shoulder IR ERR,,Jason supplied,CONFIRMED (name + grouping only),shoulder_scap_mobility,mobility,shoulder,,No
+EX-0068,Sleeper Position Shoulder IR Lift-Off,,Jason supplied,CONFIRMED (name + grouping only),shoulder_scap_mobility,mobility,shoulder,,No
+EX-0069,Side-Lying Shoulder ER Lift-Off,,Jason supplied,CONFIRMED (name + grouping only),shoulder_scap_mobility,mobility,shoulder,,No
+EX-0070,Prone Shoulder Extension Lift-Off,,Jason supplied,CONFIRMED (name + grouping only),shoulder_scap_mobility,mobility,shoulder,,No
+EX-0071,Prone Swimmers,,Jason supplied,CONFIRMED (name + grouping only),shoulder_scap_mobility,mobility,,,No
+EX-0072,Prone Shoulder CARs,,Jason supplied,CONFIRMED (name + grouping only),shoulder_scap_mobility,mobility,shoulder,,No
+EX-0073,Wall Shoulder CARs,,Jason supplied,CONFIRMED (name + grouping only),shoulder_scap_mobility,mobility,shoulder,wall,No
+EX-0074,Reach-Through Shoulder IR Lift-Off,,Jason supplied,CONFIRMED (name + grouping only),shoulder_scap_mobility,mobility,shoulder,,No
+EX-0075,Scapular Protraction / Retraction CARs,,Jason supplied,CONFIRMED (name + grouping only),shoulder_scap_mobility,mobility,scapula,,No
+EX-0076,Scapular Clocks,,Jason supplied,CONFIRMED (name + grouping only),shoulder_scap_mobility,mobility,scapula,,No
+EX-0077,Wall Slide Lift-Off,,Jason supplied,CONFIRMED (name + grouping only),shoulder_scap_mobility,mobility,,wall,No
+EX-0078,Serratus Wall Slide,,Jason supplied,CONFIRMED (name + grouping only),shoulder_scap_mobility,mobility,scapula,wall,No
+EX-0079,Thoracic Extension Lift-Off,,Jason supplied,CONFIRMED (name + grouping only),spine_breathing,mobility,thoracic,,No
+EX-0080,Thoracic Rotation Lift-Off,,Jason supplied,CONFIRMED (name + grouping only),spine_breathing,mobility,thoracic,,No
+EX-0081,Quadruped Thoracic Rotation,,Jason supplied,CONFIRMED (name + grouping only),spine_breathing,mobility,thoracic,,No
+EX-0082,Open Book Rotation,,Jason supplied,CONFIRMED (name + grouping only),spine_breathing,mobility,,,No
+EX-0083,Segmental Cat / Cow,,Jason supplied + Jason programmed,CONFIRMED (name + grouping only) + used/described by Jason,spine_breathing,mobility,,,No
+EX-0084,Prone Cobra Active,,Jason supplied,CONFIRMED (name + grouping only),spine_breathing,mobility,,,No
+EX-0085,Prone Spinal Extension Lift-Off,,Jason supplied,CONFIRMED (name + grouping only),spine_breathing,mobility,,,No
+EX-0086,Seated Thoracic Extension,,Jason supplied,CONFIRMED (name + grouping only),spine_breathing,mobility,thoracic,,No
+EX-0087,Wall T-Spine Extension,,Jason supplied,CONFIRMED (name + grouping only),spine_breathing,mobility,thoracic,wall,No
+EX-0088,Lumbar Extension PRLO,,Jason supplied,CONFIRMED (name + grouping only),spine_breathing,mobility,lumbar,,No
+EX-0089,Lumbar Flexion Control Drill,,Jason supplied,CONFIRMED (name + grouping only),spine_breathing,mobility,lumbar,,No
+EX-0090,Supine Pelvic Tilt,,Jason supplied,CONFIRMED (name + grouping only),spine_breathing,mobility,,,No
+EX-0091,Deadbug Breathing,,Jason supplied,CONFIRMED (name + grouping only),spine_breathing,mobility,,,No
+EX-0092,90/90 Breathing,,Jason supplied,CONFIRMED (name + grouping only),spine_breathing,mobility,hip,,No
+EX-0093,Crocodile Breathing,,Jason supplied,CONFIRMED (name + grouping only),spine_breathing,mobility,,,No
+EX-0094,Goblet Squat,,Jason supplied,CONFIRMED (name + grouping only),squat_lunge_step,squat,,,No
+EX-0095,Box Squat,,Jason supplied,CONFIRMED (name + grouping only),squat_lunge_step,squat,,box,No
+EX-0096,High Box Squat,,Jason supplied,CONFIRMED (name + grouping only),squat_lunge_step,squat,,box,No
+EX-0097,TRX Assisted Squat,,Jason supplied + Jason programmed,CONFIRMED (name + grouping only) + used/described by Jason,squat_lunge_step,squat,,TRX,No
+EX-0098,Landmine Squat,,Jason supplied,CONFIRMED (name + grouping only),squat_lunge_step,squat,,landmine,No
+EX-0099,Heels-Elevated Goblet Squat,,Jason supplied,CONFIRMED (name + grouping only),squat_lunge_step,squat,,,No
+EX-0100,Counterbalance Squat,,Jason supplied,CONFIRMED (name + grouping only),squat_lunge_step,squat,,,No
+EX-0101,Safety Bar Box Squat,,Jason supplied,CONFIRMED (name + grouping only),squat_lunge_step,squat,,safety squat bar; box,No
+EX-0102,Front Squat,,Jason supplied,CONFIRMED (name + grouping only),squat_lunge_step,squat,,,Yes
+EX-0103,Back Squat,,Jason supplied,CONFIRMED (name + grouping only),squat_lunge_step,squat,,,Yes
+EX-0104,Belt Squat,,Jason supplied,CONFIRMED (name + grouping only),squat_lunge_step,squat,,belt squat,No
+EX-0105,Leg Press Partial Range,,Jason supplied,CONFIRMED (name + grouping only),squat_lunge_step,squat,,leg press,No
+EX-0106,Hack Squat Partial Range,,Jason supplied,CONFIRMED (name + grouping only),squat_lunge_step,squat,,hack squat,No
+EX-0107,Spanish Squat,,Jason supplied,CONFIRMED (name + grouping only),squat_lunge_step,squat,,,No
+EX-0108,Step-Up Low Box,,Jason supplied,CONFIRMED (name + grouping only),squat_lunge_step,lunge,,box,No
+EX-0109,Step-Up High Box,,Jason supplied,CONFIRMED (name + grouping only),squat_lunge_step,lunge,,box,No
+EX-0110,Lateral Step-Up,,Jason supplied,CONFIRMED (name + grouping only),squat_lunge_step,lunge,,,No
+EX-0111,Controlled Step-Down,,Jason supplied,CONFIRMED (name + grouping only),squat_lunge_step,lunge,,,No
+EX-0112,Reverse Step-Down,,Jason supplied,CONFIRMED (name + grouping only),squat_lunge_step,lunge,,,No
+EX-0113,Split Squat,,Jason supplied,CONFIRMED (name + grouping only),squat_lunge_step,lunge,,,No
+EX-0114,Rear-Foot Elevated Split Squat,,Jason supplied,CONFIRMED (name + grouping only),squat_lunge_step,lunge,,,No
+EX-0115,TRX Split Squat,,Jason supplied,CONFIRMED (name + grouping only),squat_lunge_step,lunge,,TRX,No
+EX-0116,Supported Split Squat,,Jason supplied,CONFIRMED (name + grouping only),squat_lunge_step,lunge,,,No
+EX-0117,Reverse Lunge,,Jason supplied,CONFIRMED (name + grouping only),squat_lunge_step,lunge,,,No
+EX-0118,Walking Lunge,,Jason supplied,CONFIRMED (name + grouping only),squat_lunge_step,lunge,,,No
+EX-0119,Lateral Lunge,,Jason supplied,CONFIRMED (name + grouping only),squat_lunge_step,lunge,,,No
+EX-0120,Cossack Squat,,Jason supplied,CONFIRMED (name + grouping only),squat_lunge_step,lunge,,,No
+EX-0121,Hip Thrust,Hip Thrusts,Jason supplied,CONFIRMED (name + grouping only),hinge_bridge_hamstring,hip_thrust_bridge,hip,,No
+EX-0122,Barbell Hip Thrust,,Jason supplied,CONFIRMED (name + grouping only),hinge_bridge_hamstring,hip_thrust_bridge,hip,barbell,No
+EX-0123,DB Hip Thrust,,Jason supplied,CONFIRMED (name + grouping only),hinge_bridge_hamstring,hip_thrust_bridge,hip,dumbbell,No
+EX-0124,B-Stance Hip Thrust,,Jason supplied,CONFIRMED (name + grouping only),hinge_bridge_hamstring,hip_thrust_bridge,hip,,No
+EX-0125,Single-Leg Hip Thrust,,Jason supplied,CONFIRMED (name + grouping only),hinge_bridge_hamstring,hip_thrust_bridge,hip,,No
+EX-0126,Glute Bridge,,Jason supplied,CONFIRMED (name + grouping only),hinge_bridge_hamstring,hip_thrust_bridge,hip,,No
+EX-0127,Weighted Glute Bridge,,Jason supplied,CONFIRMED (name + grouping only),hinge_bridge_hamstring,hip_thrust_bridge,hip,,No
+EX-0128,B-Stance Glute Bridge,,Jason supplied,CONFIRMED (name + grouping only),hinge_bridge_hamstring,hip_thrust_bridge,hip,,No
+EX-0129,Single-Leg Glute Bridge,Single-Leg Hip Bridge,Jason supplied,CONFIRMED (name + grouping only),hinge_bridge_hamstring,hip_thrust_bridge,hip,,No
+EX-0130,Hamstring Bridge,,Jason supplied,CONFIRMED (name + grouping only),hinge_bridge_hamstring,hip_thrust_bridge,,rings,No
+EX-0131,Long-Lever Glute Bridge,Long-Lever Bridge,Jason supplied,CONFIRMED (name + grouping only),hinge_bridge_hamstring,hip_thrust_bridge,hip,,No
+EX-0132,Trap Bar Deadlift,,Jason supplied,CONFIRMED (name + grouping only),hinge_bridge_hamstring,hinge,,trap bar,Yes
+EX-0133,Trap Bar Deadlift High Handles,,Jason supplied,CONFIRMED (name + grouping only),hinge_bridge_hamstring,hinge,,trap bar,Yes
+EX-0134,Trap Bar Deadlift From Blocks,,Jason supplied + Jason programmed,CONFIRMED (name + grouping only) + used/described by Jason,hinge_bridge_hamstring,hinge,,trap bar,Yes
+EX-0135,Romanian Deadlift,,Jason supplied + Jason programmed,CONFIRMED (name + grouping only) + used/described by Jason,hinge_bridge_hamstring,hinge,,,No
+EX-0136,DB Romanian Deadlift,,Jason supplied,CONFIRMED (name + grouping only),hinge_bridge_hamstring,hinge,,dumbbell,No
+EX-0137,Barbell Romanian Deadlift,,Jason supplied,CONFIRMED (name + grouping only),hinge_bridge_hamstring,hinge,,barbell,No
+EX-0138,Kettlebell Romanian Deadlift,,Jason supplied,CONFIRMED (name + grouping only),hinge_bridge_hamstring,hinge,,kettlebell,No
+EX-0139,Bench Supported RDL,,Jason supplied,CONFIRMED (name + grouping only),hinge_bridge_hamstring,hinge,,bench,No
+EX-0140,Bench Supported Single-Leg RDL,,Jason supplied,CONFIRMED (name + grouping only),hinge_bridge_hamstring,hinge,,bench,No
+EX-0141,Single-Leg RDL,,Jason supplied + Jason programmed,CONFIRMED (name + grouping only) + used/described by Jason,hinge_bridge_hamstring,hinge,,,No
+EX-0142,Kickstand RDL,,Jason supplied,CONFIRMED (name + grouping only),hinge_bridge_hamstring,hinge,,,No
+EX-0143,B-Stance RDL,,Jason supplied,CONFIRMED (name + grouping only),hinge_bridge_hamstring,hinge,,,No
+EX-0144,Cable Pull-Through,,Jason supplied,CONFIRMED (name + grouping only),hinge_bridge_hamstring,hinge,,cable,No
+EX-0145,Kettlebell Deadlift,,Jason supplied,CONFIRMED (name + grouping only),hinge_bridge_hamstring,hinge,,kettlebell,No
+EX-0146,Sumo Deadlift,,Jason supplied,CONFIRMED (name + grouping only),hinge_bridge_hamstring,hinge,,,Yes
+EX-0147,Landmine RDL,,Jason supplied,CONFIRMED (name + grouping only),hinge_bridge_hamstring,hinge,,landmine,No
+EX-0148,Good Morning,,Jason supplied,CONFIRMED (name + grouping only),hinge_bridge_hamstring,hinge,,,No
+EX-0149,Back Extension,,Jason supplied,CONFIRMED (name + grouping only),hinge_bridge_hamstring,hinge,,,No
+EX-0150,45-Degree Back Extension,,Jason supplied,CONFIRMED (name + grouping only),hinge_bridge_hamstring,hinge,,,No
+EX-0151,Reverse Hyper,,Jason supplied,CONFIRMED (name + grouping only),hinge_bridge_hamstring,hinge,,,No
+EX-0152,Hamstring Curl Machine,,Jason supplied,CONFIRMED (name + grouping only),hinge_bridge_hamstring,hinge,,machine; rings,No
+EX-0153,Slider Hamstring Curl,,Jason supplied,CONFIRMED (name + grouping only),hinge_bridge_hamstring,hinge,,slider; rings,No
+EX-0154,Swiss Ball Hamstring Curl,,Jason supplied,CONFIRMED (name + grouping only),hinge_bridge_hamstring,hinge,,swiss ball; rings,No
+EX-0155,Nordic Hamstring Curl,,Jason supplied,CONFIRMED (name + grouping only),hinge_bridge_hamstring,hinge,,rings,No
+EX-0156,Cable Hip Extension,,Jason supplied,CONFIRMED (name + grouping only),hip_accessory,hip_accessory (not in Jason's pattern list),hip,cable,No
+EX-0157,Cable Hip Abduction,,Jason supplied,CONFIRMED (name + grouping only),hip_accessory,hip_accessory (not in Jason's pattern list),hip,cable,No
+EX-0158,Cable Hip Adduction,,Jason supplied,CONFIRMED (name + grouping only),hip_accessory,hip_accessory (not in Jason's pattern list),hip,cable,No
+EX-0159,Cable Hip IR,,Jason supplied,CONFIRMED (name + grouping only),hip_accessory,hip_accessory (not in Jason's pattern list),hip,cable,No
+EX-0160,Cable Hip ER,,Jason supplied,CONFIRMED (name + grouping only),hip_accessory,hip_accessory (not in Jason's pattern list),hip,cable,No
+EX-0161,Banded Clamshell,,Jason supplied,CONFIRMED (name + grouping only),hip_accessory,hip_accessory (not in Jason's pattern list),hip,band,No
+EX-0162,Side-Lying Hip Abduction,,Jason supplied,CONFIRMED (name + grouping only),hip_accessory,hip_accessory (not in Jason's pattern list),hip,,No
+EX-0163,Side Plank Hip Abduction,,Jason supplied,CONFIRMED (name + grouping only),hip_accessory,hip_accessory (not in Jason's pattern list),hip,,No
+EX-0164,Monster Walk,,Jason supplied,CONFIRMED (name + grouping only),hip_accessory,hip_accessory (not in Jason's pattern list),,,No
+EX-0165,Lateral Band Walk,,Jason supplied,CONFIRMED (name + grouping only),hip_accessory,hip_accessory (not in Jason's pattern list),,band,No
+EX-0166,Standing Hip Airplane Supported,,Jason supplied,CONFIRMED (name + grouping only),hip_accessory,hip_accessory (not in Jason's pattern list),hip,,No
+EX-0167,Hip Airplane,,Jason supplied,CONFIRMED (name + grouping only),hip_accessory,hip_accessory (not in Jason's pattern list),hip,,No
+EX-0168,Quadruped Fire Hydrant,,Jason supplied,CONFIRMED (name + grouping only),hip_accessory,hip_accessory (not in Jason's pattern list),hip,,No
+EX-0169,Quadruped Donkey Kick,,Jason supplied,CONFIRMED (name + grouping only),hip_accessory,hip_accessory (not in Jason's pattern list),,,No
+EX-0170,Glute Med Wall Press,,Jason supplied,CONFIRMED (name + grouping only),hip_accessory,hip_accessory (not in Jason's pattern list),hip,wall,No
+EX-0171,Copenhagen Plank Short Lever,,Jason supplied,CONFIRMED (name + grouping only),hip_accessory,hip_accessory (not in Jason's pattern list),hip,,No
+EX-0172,Copenhagen Plank Long Lever,,Jason supplied,CONFIRMED (name + grouping only),hip_accessory,hip_accessory (not in Jason's pattern list),hip,,No
+EX-0173,Adductor Side Plank,,Jason supplied,CONFIRMED (name + grouping only),hip_accessory,hip_accessory (not in Jason's pattern list),hip,,No
+EX-0174,Frog Pump,,Jason supplied,CONFIRMED (name + grouping only),hip_accessory,hip_accessory (not in Jason's pattern list),,,No
+EX-0175,DB Row,Dumbbell Row; Single Arm DB Row; Single Arm Dumbbell Row; 3 Point Row; Three Point Row,Jason supplied,CONFIRMED (name + grouping only),horizontal_pull,horizontal_pull,,dumbbell,No
+EX-0176,Bench Supported Row,,Jason supplied,CONFIRMED (name + grouping only),horizontal_pull,horizontal_pull,,bench,No
+EX-0177,Chest Supported Row,,Jason supplied + Jason programmed,CONFIRMED (name + grouping only) + used/described by Jason,horizontal_pull,horizontal_pull,,,No
+EX-0178,Incline Bench DB Row,Incline Bench Row,Jason supplied,CONFIRMED (name + grouping only),horizontal_pull,horizontal_pull,,dumbbell; bench,No
+EX-0179,Cable Row,,Jason supplied,CONFIRMED (name + grouping only),horizontal_pull,horizontal_pull,,cable,No
+EX-0180,Seated Cable Row,,Jason supplied,CONFIRMED (name + grouping only),horizontal_pull,horizontal_pull,,cable,No
+EX-0181,Single Arm Cable Row,,Jason supplied,CONFIRMED (name + grouping only),horizontal_pull,horizontal_pull,,cable,No
+EX-0182,Machine Row,,Jason supplied,CONFIRMED (name + grouping only),horizontal_pull,horizontal_pull,,machine,No
+EX-0183,TRX Row,,Jason supplied + Jason programmed,CONFIRMED (name + grouping only) + used/described by Jason,horizontal_pull,horizontal_pull,,TRX,No
+EX-0184,Inverted Row,,Jason supplied,CONFIRMED (name + grouping only),horizontal_pull,horizontal_pull,,,No
+EX-0185,Ring Row,,Jason supplied,CONFIRMED (name + grouping only),horizontal_pull,horizontal_pull,,rings,No
+EX-0186,Barbell Row,,Jason supplied,CONFIRMED (name + grouping only),horizontal_pull,horizontal_pull,,barbell,No
+EX-0187,Pendlay Row,,Jason supplied,CONFIRMED (name + grouping only),horizontal_pull,horizontal_pull,,,No
+EX-0188,Meadows Row,,Jason supplied,CONFIRMED (name + grouping only),horizontal_pull,horizontal_pull,,,No
+EX-0189,Landmine Row,,Jason supplied,CONFIRMED (name + grouping only),horizontal_pull,horizontal_pull,,landmine,No
+EX-0190,T-Bar Row,,Jason supplied,CONFIRMED (name + grouping only),horizontal_pull,horizontal_pull,,T-bar,No
+EX-0191,Band Row,,Jason supplied,CONFIRMED (name + grouping only),horizontal_pull,horizontal_pull,,band,No
+EX-0192,Pull-Up,Pullup; Pull-Ups; Pullups,Jason supplied,CONFIRMED (name + grouping only),vertical_pull,vertical_pull,,pull-up bar,No
+EX-0193,Assisted Pull-Up,,Jason supplied,CONFIRMED (name + grouping only),vertical_pull,vertical_pull,,pull-up bar,No
+EX-0194,Band-Assisted Pull-Up,,Jason supplied,CONFIRMED (name + grouping only),vertical_pull,vertical_pull,,band; pull-up bar,No
+EX-0195,Neutral Grip Pull-Up,,Jason supplied,CONFIRMED (name + grouping only),vertical_pull,vertical_pull,,pull-up bar,No
+EX-0196,Chin-Up,,Jason supplied,CONFIRMED (name + grouping only),vertical_pull,vertical_pull,,pull-up bar,No
+EX-0197,Assisted Chin-Up,,Jason supplied,CONFIRMED (name + grouping only),vertical_pull,vertical_pull,,pull-up bar,No
+EX-0198,Lat Pulldown,,Jason supplied + Jason programmed,CONFIRMED (name + grouping only) + used/described by Jason,vertical_pull,vertical_pull,,,No
+EX-0199,Neutral Grip Lat Pulldown,Neutral Grip Pulldown,Jason supplied,CONFIRMED (name + grouping only),vertical_pull,vertical_pull,,,No
+EX-0200,Single Arm Lat Pulldown,,Jason supplied,CONFIRMED (name + grouping only),vertical_pull,vertical_pull,,,No
+EX-0201,Cable Pullover,,Jason supplied,CONFIRMED (name + grouping only),vertical_pull,vertical_pull,,cable,No
+EX-0202,Straight Arm Pulldown,,Jason supplied + Jason programmed,CONFIRMED (name + grouping only) + used/described by Jason,vertical_pull,vertical_pull,,,No
+EX-0203,Machine Pulldown,,Jason supplied,CONFIRMED (name + grouping only),vertical_pull,vertical_pull,,machine,No
+EX-0204,Scap Pull-Up,,Jason supplied,CONFIRMED (name + grouping only),vertical_pull,vertical_pull,scapula,pull-up bar,No
+EX-0205,Dead Hang,,Jason supplied,CONFIRMED (name + grouping only),vertical_pull,vertical_pull,,pull-up bar,No
+EX-0206,Active Hang,,Jason supplied,CONFIRMED (name + grouping only),vertical_pull,vertical_pull,,,No
+EX-0207,Face Pull,,Jason supplied,CONFIRMED (name + grouping only),shoulder_accessory,shoulder_accessory (not in Jason's pattern list),,,No
+EX-0208,Cable External Rotation,,Jason supplied,CONFIRMED (name + grouping only),shoulder_accessory,shoulder_accessory (not in Jason's pattern list),,cable,No
+EX-0209,Band External Rotation,,Jason supplied,CONFIRMED (name + grouping only),shoulder_accessory,shoulder_accessory (not in Jason's pattern list),,band,No
+EX-0210,Cable Internal Rotation,,Jason supplied,CONFIRMED (name + grouping only),shoulder_accessory,shoulder_accessory (not in Jason's pattern list),,cable,No
+EX-0211,Band Internal Rotation,,Jason supplied,CONFIRMED (name + grouping only),shoulder_accessory,shoulder_accessory (not in Jason's pattern list),,band,No
+EX-0212,Side-Lying External Rotation,,Jason supplied,CONFIRMED (name + grouping only),shoulder_accessory,shoulder_accessory (not in Jason's pattern list),,,No
+EX-0213,Prone Y,,Jason supplied,CONFIRMED (name + grouping only),shoulder_accessory,shoulder_accessory (not in Jason's pattern list),,,No
+EX-0214,Prone T,,Jason supplied,CONFIRMED (name + grouping only),shoulder_accessory,shoulder_accessory (not in Jason's pattern list),,,No
+EX-0215,Prone W,,Jason supplied,CONFIRMED (name + grouping only),shoulder_accessory,shoulder_accessory (not in Jason's pattern list),,,No
+EX-0216,Prone I,,Jason supplied,CONFIRMED (name + grouping only),shoulder_accessory,shoulder_accessory (not in Jason's pattern list),,,No
+EX-0217,Trap 3 Raise,,Jason supplied,CONFIRMED (name + grouping only),shoulder_accessory,shoulder_accessory (not in Jason's pattern list),,,No
+EX-0218,Serratus Punch,,Jason supplied,CONFIRMED (name + grouping only),shoulder_accessory,shoulder_accessory (not in Jason's pattern list),scapula,,No
+EX-0219,Scap Push-Up,,Jason supplied,CONFIRMED (name + grouping only),shoulder_accessory,shoulder_accessory (not in Jason's pattern list),scapula,,No
+EX-0220,Wall Slide,,Jason supplied,CONFIRMED (name + grouping only),shoulder_accessory,shoulder_accessory (not in Jason's pattern list),,wall,No
+EX-0221,Band Pull-Apart,,Jason supplied + Jason programmed,CONFIRMED (name + grouping only) + used/described by Jason,shoulder_accessory,shoulder_accessory (not in Jason's pattern list),,band,No
+EX-0222,Rear Delt Fly,,Jason supplied,CONFIRMED (name + grouping only),shoulder_accessory,shoulder_accessory (not in Jason's pattern list),,,No
+EX-0223,Cable Rear Delt Fly,,Jason supplied,CONFIRMED (name + grouping only),shoulder_accessory,shoulder_accessory (not in Jason's pattern list),,cable,No
+EX-0224,Lateral Raise,,Jason supplied,CONFIRMED (name + grouping only),shoulder_accessory,shoulder_accessory (not in Jason's pattern list),,,No
+EX-0225,Front Raise,,Jason supplied,CONFIRMED (name + grouping only),shoulder_accessory,shoulder_accessory (not in Jason's pattern list),,,No
+EX-0226,Bottoms-Up Carry,,Jason supplied,CONFIRMED (name + grouping only),shoulder_accessory,carry,,,No
+EX-0227,Waiter Carry,,Jason supplied,CONFIRMED (name + grouping only),shoulder_accessory,carry,,,No
+EX-0228,Deadbug,Dead Bug,Jason supplied + Jason programmed,CONFIRMED (name + grouping only) + used/described by Jason,core_carry,core,,,No
+EX-0229,Deadbug Training Table,,Jason supplied,CONFIRMED (name + grouping only),core_carry,core,,,No
+EX-0230,Weighted Deadbug,,Jason supplied,CONFIRMED (name + grouping only),core_carry,core,,,No
+EX-0231,Band-Resisted Deadbug,,Jason supplied,CONFIRMED (name + grouping only),core_carry,core,,band,No
+EX-0232,Heel Tap Deadbug,,Jason supplied,CONFIRMED (name + grouping only),core_carry,core,,,No
+EX-0233,Bird Dog,,Jason supplied,CONFIRMED (name + grouping only),core_carry,core,,,No
+EX-0234,Bird Dog Row,,Jason supplied,CONFIRMED (name + grouping only),core_carry,core,,,No
+EX-0235,Side Plank,,Jason supplied,CONFIRMED (name + grouping only),core_carry,core,,,No
+EX-0236,Side Plank Short Lever,,Jason supplied,CONFIRMED (name + grouping only),core_carry,core,,,No
+EX-0237,Side Plank Long Lever,,Jason supplied,CONFIRMED (name + grouping only),core_carry,core,,,No
+EX-0238,Copenhagen Side Plank,,Jason supplied,CONFIRMED (name + grouping only),core_carry,core,hip,,No
+EX-0239,Pallof Press,,Jason supplied + Jason programmed,CONFIRMED (name + grouping only) + used/described by Jason,core_carry,core,,,No
+EX-0240,Pallof Hold,,Jason supplied,CONFIRMED (name + grouping only),core_carry,core,,,No
+EX-0241,Pallof Walkout,,Jason supplied,CONFIRMED (name + grouping only),core_carry,core,,,No
+EX-0242,Cable Chop,,Jason supplied,CONFIRMED (name + grouping only),core_carry,core,,cable,No
+EX-0243,Cable Lift,,Jason supplied,CONFIRMED (name + grouping only),core_carry,core,,cable,No
+EX-0244,Half-Kneeling Chop,,Jason supplied,CONFIRMED (name + grouping only),core_carry,core,knee,,No
+EX-0245,Half-Kneeling Lift,,Jason supplied,CONFIRMED (name + grouping only),core_carry,core,knee,,No
+EX-0246,Plank,,Jason supplied,CONFIRMED (name + grouping only),core_carry,core,,,No
+EX-0247,RKC Plank,,Jason supplied,CONFIRMED (name + grouping only),core_carry,core,,,No
+EX-0248,Stir the Pot,,Jason supplied,CONFIRMED (name + grouping only),core_carry,core,,,No
+EX-0249,Hollow Hold,,Jason supplied,CONFIRMED (name + grouping only),core_carry,core,,,No
+EX-0250,Bear Crawl Hold,,Jason supplied,CONFIRMED (name + grouping only),core_carry,core,,,No
+EX-0251,Bear Crawl,,Jason supplied,CONFIRMED (name + grouping only),core_carry,core,,,No
+EX-0252,Suitcase Carry,,Jason supplied,CONFIRMED (name + grouping only),core_carry,carry,,,No
+EX-0253,Farmer Carry,,Jason supplied + Jason programmed,CONFIRMED (name + grouping only) + used/described by Jason,core_carry,carry,,,No
+EX-0254,Front Rack Carry,,Jason supplied,CONFIRMED (name + grouping only),core_carry,carry,,,No
+EX-0255,Offset Carry,,Jason supplied,CONFIRMED (name + grouping only),core_carry,carry,,,No
+EX-0256,Marching Carry,,Jason supplied,CONFIRMED (name + grouping only),core_carry,carry,,,No
+EX-0257,Turkish Get-Up Partial,,Jason supplied,CONFIRMED (name + grouping only),core_carry,core,,,No
+EX-0258,Kettlebell Pullover Deadbug,,Jason supplied,CONFIRMED (name + grouping only),core_carry,core,,kettlebell,No
+EX-0259,Supine March,,Jason supplied,CONFIRMED (name + grouping only),core_carry,core,,,No
+EX-0260,Glute Bridge March,,Jason supplied,CONFIRMED (name + grouping only),core_carry,core,hip,,No
+EX-0261,Standing Calf Raise,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_strength_balance,foot_ankle,ankle,,No
+EX-0262,Seated Calf Raise,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_strength_balance,foot_ankle,ankle,,No
+EX-0263,Single-Leg Calf Raise,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_strength_balance,foot_ankle,ankle,,No
+EX-0264,Bent-Knee Soleus Raise,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_strength_balance,foot_ankle,knee; ankle,,No
+EX-0265,Wall Tibialis Raise,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_strength_balance,foot_ankle,knee; ankle,wall,No
+EX-0266,Great Toe Lift,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_strength_balance,foot_ankle,toe,,No
+EX-0267,Lesser Toe Lift,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_strength_balance,foot_ankle,toe,,No
+EX-0268,Tripod Foot Balance,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_strength_balance,foot_ankle,,,No
+EX-0269,Single-Leg Balance,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_strength_balance,foot_ankle,,,No
+EX-0270,Single-Leg Balance With Reach,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_strength_balance,foot_ankle,,,No
+EX-0271,Star Excursion Reach,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_strength_balance,foot_ankle,,,No
+EX-0272,Banded Ankle Inversion,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_strength_balance,foot_ankle,ankle,band,No
+EX-0273,Banded Ankle Eversion,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_strength_balance,foot_ankle,ankle,band,No
+EX-0274,Banded Ankle Plantarflexion,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_strength_balance,foot_ankle,ankle,band,No
+EX-0275,Partial Wall Sit,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_strength_balance,foot_ankle,,wall,No
+EX-0276,Backward Sled Drag,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_strength_balance,foot_ankle,,sled,No
+EX-0277,Low Step-Up,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_strength_balance,foot_ankle,,,No
+EX-0278,Controlled Heel Tap,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_strength_balance,foot_ankle,,,No
+EX-0279,Knee CARs,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_strength_balance,foot_ankle,knee,,No
+EX-0280,Seated Tibial Rotation,,Jason supplied,CONFIRMED (name + grouping only),foot_ankle_strength_balance,foot_ankle,knee,,No
+EX-0281,Stationary Bike Zone 2,,Jason supplied,CONFIRMED (name + grouping only),cardio_zone2,cardio,,bike,No
+EX-0282,Upright Bike Zone 2,,Jason supplied,CONFIRMED (name + grouping only),cardio_zone2,cardio,,bike,No
+EX-0283,Arc Trainer Zone 2,,Jason supplied,CONFIRMED (name + grouping only),cardio_zone2,cardio,,Arc Trainer,No
+EX-0284,Rower Zone 2,,Jason supplied,CONFIRMED (name + grouping only),cardio_zone2,cardio,,rower,No
+EX-0285,SkiErg Zone 2,,Jason supplied + Jason programmed,CONFIRMED (name + grouping only) + used/described by Jason,cardio_zone2,cardio,,ski erg,No
+EX-0286,Assault Bike Zone 2,,Jason supplied,CONFIRMED (name + grouping only),cardio_zone2,cardio,,bike; assault bike,No
+EX-0287,Incline Walk Zone 2,,Jason supplied,CONFIRMED (name + grouping only),cardio_zone2,cardio,,,No
+EX-0288,Flat Walk Zone 2,,Jason supplied,CONFIRMED (name + grouping only),cardio_zone2,cardio,,,No
+EX-0289,Sled Drag Easy Aerobic,,Jason supplied,CONFIRMED (name + grouping only),cardio_zone2,cardio,,sled,No
+EX-0290,Assault Bike Intervals,,Jason supplied,CONFIRMED (name + grouping only),intervals,finisher,,bike; assault bike,No
+EX-0291,Stationary Bike Intervals,,Jason supplied,CONFIRMED (name + grouping only),intervals,finisher,,bike,No
+EX-0292,Upright Bike Intervals,,Jason supplied,CONFIRMED (name + grouping only),intervals,finisher,,bike,No
+EX-0293,Arc Trainer Intervals,,Jason supplied,CONFIRMED (name + grouping only),intervals,finisher,,Arc Trainer,No
+EX-0294,Rower Intervals,,Jason supplied,CONFIRMED (name + grouping only),intervals,finisher,,rower,No
+EX-0295,SkiErg Intervals,,Jason supplied,CONFIRMED (name + grouping only),intervals,finisher,,ski erg,No
+EX-0296,Battle Rope Intervals,,Jason supplied,CONFIRMED (name + grouping only),intervals,finisher,,battle ropes,No
+EX-0297,Farmer Carry Intervals,,Jason supplied,CONFIRMED (name + grouping only),intervals,finisher,,,No
+EX-0298,Sled Push Intervals,,Jason supplied,CONFIRMED (name + grouping only),intervals,finisher,,sled,No
+EX-0299,Backward Sled Drag Intervals,,Jason supplied,CONFIRMED (name + grouping only),intervals,finisher,,sled,No
+EX-0300,Med Ball Slam Intervals,,Jason supplied,CONFIRMED (name + grouping only),intervals,finisher,,medicine ball,No
+EX-0301,Low-Impact Step-Up Intervals,,Jason supplied,CONFIRMED (name + grouping only),intervals,finisher,,,No
+EX-0302,Supine Foot Traction Pull,,Jason supplied + Jason programmed,CONFIRMED (Jason-described in his own session flow),coach_recovery,coach_recovery,,,No
+EX-0303,Hip Rotation Mobilization ER / IR,,Jason supplied + Jason programmed,CONFIRMED (Jason-described in his own session flow),coach_recovery,coach_recovery,hip,,No
+EX-0304,Supine Hip Capsule Mobilization,,Jason supplied,CONFIRMED (name + grouping only),coach_recovery,coach_recovery,hip,,No
+EX-0305,Tibial IR / ER Mobilization,,Jason supplied,CONFIRMED (name + grouping only),coach_recovery,coach_recovery,knee,,No
+EX-0306,Ankle Distraction,,Jason supplied,CONFIRMED (name + grouping only),coach_recovery,coach_recovery,ankle,,No
+EX-0307,Subtalar Mobilization,,Jason supplied,CONFIRMED (name + grouping only),coach_recovery,coach_recovery,ankle,,No
+EX-0308,Calf Soft Tissue,,Jason supplied + Jason programmed,CONFIRMED (Jason-described in his own session flow),coach_recovery,coach_recovery,ankle,,No
+EX-0309,Quad Soft Tissue,,Jason supplied,CONFIRMED (name + grouping only),coach_recovery,coach_recovery,,,No
+EX-0310,Hamstring Soft Tissue,,Jason supplied,CONFIRMED (name + grouping only),coach_recovery,coach_recovery,,rings,No
+EX-0311,Hip Flexor Soft Tissue,,Jason supplied,CONFIRMED (name + grouping only),coach_recovery,coach_recovery,hip,,No
+EX-0312,Glute / Piriformis Soft Tissue,,Jason supplied,CONFIRMED (name + grouping only),coach_recovery,coach_recovery,hip,,No
+EX-0313,T-Spine Extension Mobilization,,Jason supplied,CONFIRMED (name + grouping only),coach_recovery,coach_recovery,thoracic,,No
+EX-0314,T-Spine Rotation Mobilization,,Jason supplied,CONFIRMED (name + grouping only),coach_recovery,coach_recovery,thoracic,,No
+EX-0315,Supine Shoulder ER / IR Passive Range,,Jason supplied + Jason programmed,CONFIRMED (Jason-described in his own session flow),coach_recovery,coach_recovery,shoulder,,No
+EX-0316,Shoulder Posterior Glide,,Jason supplied,CONFIRMED (name + grouping only),coach_recovery,coach_recovery,shoulder,,No
+EX-0317,Scapular Mobilization,,Jason supplied,CONFIRMED (name + grouping only),coach_recovery,coach_recovery,scapula,,No
+EX-0318,Prone Hypervolt Lumbar to Cervical,,Jason supplied + Jason programmed,CONFIRMED (Jason-described in his own session flow),coach_recovery,coach_recovery,lumbar; cervical,Hypervolt (percussion),No
+EX-0319,Normatec Boots,,Jason supplied,CONFIRMED (name + grouping only),coach_recovery,coach_recovery,,Normatec,No
+EX-0320,Breathing Reset,,Jason supplied,CONFIRMED (name + grouping only),coach_recovery,coach_recovery,,,No
+EX-0321,Supine 90/90 Decompression,,Jason supplied,CONFIRMED (name + grouping only),coach_recovery,coach_recovery,hip,,No
+EX-0322,Child's Pose With Arm Reach,,Jason supplied,CONFIRMED (name + grouping only),coach_recovery,coach_recovery,,,No
+EX-0323,Doorway Pec Stretch,,Jason supplied,CONFIRMED (name + grouping only),coach_recovery,coach_recovery,,,No
+EX-0324,Lat Stretch,,Jason supplied,CONFIRMED (name + grouping only),coach_recovery,coach_recovery,,,No
+EX-0325,Hip Capsule Lean,,Jason supplied,CONFIRMED (name + grouping only),coach_recovery,coach_recovery,hip,,No
+EX-0326,DB Bench Press,Dumbbell Bench Press; Flat DB Press; Flat Dumbbell Press,Jason supplied,CONFIRMED (name only),horizontal_vertical_push (alias block only),horizontal_push,,dumbbell,No
+EX-0327,Incline Bench Press,Incline DB Bench Press; Incline Dumbbell Press,Jason supplied,CONFIRMED (name only),horizontal_vertical_push (alias block only),horizontal_push,,dumbbell,No
+EX-0328,Single Arm DB Press,Single Arm Dumbbell Press,Jason supplied,CONFIRMED (name only),horizontal_vertical_push (alias block only),horizontal_push,,dumbbell,No
+EX-0329,Machine Chest Press,,Jason supplied,CONFIRMED (name only),horizontal_vertical_push (alias block only),horizontal_push,,machine,No
+EX-0330,Floor Press,DB Floor Press,Jason supplied + Jason programmed,CONFIRMED (name only) + used/described by Jason,horizontal_vertical_push (alias block only),horizontal_push,,dumbbell,No
+EX-0331,Landmine Press,SA Landmine Press; Single Arm Landmine Press; Landmine Single-Arm Press,Jason supplied + Jason programmed,CONFIRMED (name only) + used/described by Jason,horizontal_vertical_push (alias block only),vertical_push,,landmine,No
+EX-0332,Incline Push-Up,,Claude draft (unreviewed) + Jason programmed,PROPOSED + used/described by Jason,strength_marker_test,horizontal_push,shoulder; elbow; wrist,bar or bench at hip height,No
+EX-0333,Conventional Deadlift,,Claude draft (unreviewed),PROPOSED,strength_marker_test,hinge,hip; knee; ankle; lumbar; thoracic,barbell,Yes
+EX-0334,Wall Sit,,Claude draft (unreviewed),PROPOSED,strength_marker_test,squat_isometric,knee; hip; quad,wall,No
+EX-0335,Copenhagen Plank Hold,,Claude draft (unreviewed),PROPOSED,strength_marker_test,adductor_strength,hip_adductor; obliques; shoulder,bench or box,No
+EX-0336,Single-Leg Glute Bridge Hold,,Claude draft (unreviewed),PROPOSED,strength_marker_test,hip_extension_isometric,hip; hamstring; glute,floor,No
+EX-0337,Single-Leg Sit-to-Stand,,Jason programmed,OBSERVED,strength_test,squat,,,No
+EX-0338,Static Farmer Hold,,Jason programmed,OBSERVED,strength_test,carry,,,No
+EX-0339,Sled Push,,Jason programmed,OBSERVED,conditioning,conditioning,,sled,No
+EX-0340,"3-Minute Step Test (12in box, 60/min)",,Jason programmed,OBSERVED,cardio_test,cardio_test,,box,No
+EX-0341,Slideboard Reverse Lunge,,Jason programmed,OBSERVED,squat_lunge_step,lunge,,slideboard,No
+EX-0342,Split-Stance Row,,Jason programmed,OBSERVED,horizontal_pull,horizontal_pull,,,No
+EX-0343,VOLTRA Row,,Jason programmed,OBSERVED,horizontal_pull,horizontal_pull,,VOLTRA | VOLTRA,No
+EX-0344,Recumbent Bike,,Jason programmed,OBSERVED,cardio_zone2,cardio,,bike,No
+EX-0345,Half-Kneeling Row,,Jason programmed,OBSERVED (performed with client; session plan Claude-drafted),horizontal_pull,horizontal_pull,knee,,No
+EX-0346,Split Squat to Block,,Jason programmed,OBSERVED (performed with client; session plan Claude-drafted),squat_lunge_step,lunge,,,No
+EX-0347,Stairwell Climb (30 steps/round),,Jason programmed,OBSERVED,conditioning,cardio,,,No
+EX-0348,Ruck Walk,,Jason programmed,OBSERVED,conditioning,cardio,,,No
+EX-0349,Hip Thrust Block Glute Bridge,,Jason programmed,OBSERVED,hinge_bridge_hamstring,hip_thrust_bridge,hip,,No
+EX-0350,Shoulder CARs,,Jason programmed,OBSERVED,cars,mobility,shoulder,,No
+EX-0351,Hip CARs,,Jason programmed,OBSERVED,cars,mobility,hip,,No
+EX-0352,Neck CARs,,Jason programmed,CONFIRMED (Jason-described in his own session flow),cars,mobility,cervical,,No
+EX-0353,Scapular CARs,,Jason programmed,CONFIRMED (Jason-described in his own session flow),cars,mobility,scapula,,No
+EX-0354,T-Spine CARs,,Jason programmed,CONFIRMED (Jason-described in his own session flow),cars,mobility,thoracic,,No
+EX-0355,Thoracic Twist,,Jason programmed,CONFIRMED (Jason-described in his own session flow),warm_up,mobility,thoracic,,No
+EX-0356,Hip Flexor Rocks,,Jason programmed,CONFIRMED (Jason-described in his own session flow),warm_up_dynamic,mobility,hip,,No
+EX-0357,Groin Rockers,,Jason programmed,CONFIRMED (Jason-described in his own session flow),warm_up_dynamic,mobility,,,No
+EX-0358,World's Greatest Stretch,,Jason programmed,CONFIRMED (Jason-described in his own session flow),warm_up_dynamic,mobility,,,No
+EX-0359,90/90 Hip PAILs/RAILs,,Jason programmed,OBSERVED,pails_rails,mobility,hip,,No
+EX-0360,90/90 Hip PRH,,Jason programmed,OBSERVED,end_range,mobility,hip,,No
+EX-0361,Cat-Cow Elbow Extension Stretch,,Jason programmed,OBSERVED,mobility,mobility,elbow,,No
+EX-0362,VOLTRA Isokinetic Supine Hip IR/ER Capsule Work,,Jason programmed,OBSERVED,voltra_capsule,mobility,hip | hip,VOLTRA | VOLTRA (isokinetic mode),No
+EX-0363,VOLTRA Triceps (eccentric overload),,Jason programmed,OBSERVED,voltra,shoulder_accessory,,VOLTRA | VOLTRA (eccentric overload),No
+EX-0364,VOLTRA Hip Flexion Force/Power Test,,Jason programmed,OBSERVED,assessment,assessment,hip,VOLTRA | VOLTRA,No
+EX-0365,Kettlebell Swing,,Rule only,CONFIRMED (rule),rule_only (not in Jason's list),hinge,,kettlebell,Yes
+EX-0366,Prone Hip ER Isometric,,Claude draft (unreviewed),PROPOSED,case_B_proposed,mobility,hip,,No
+EX-0367,Prone Shoulder ER Isometric,,Claude draft (unreviewed),PROPOSED,case_B_proposed,mobility,shoulder,,No
+EX-0368,Banded 90/90 Hip ER,,Claude draft (unreviewed),PROPOSED,case_B_proposed,mobility,hip,band,No
+EX-0369,CARs library family - cervical,,Claude draft (unreviewed),PROPOSED,cars_library,mobility,cervical,,No
+EX-0370,CARs library family - thoracic,,Claude draft (unreviewed),PROPOSED,cars_library,mobility,thoracic,,No
+EX-0371,CARs library family - lumbar,,Claude draft (unreviewed),PROPOSED,cars_library,mobility,lumbar,,No
+EX-0372,CARs library family - shoulder,,Claude draft (unreviewed),PROPOSED,cars_library,mobility,shoulder,,No
+EX-0373,CARs library family - scapular,,Claude draft (unreviewed),PROPOSED,cars_library,mobility,scapular,,No
+EX-0374,CARs library family - elbow,,Claude draft (unreviewed),PROPOSED,cars_library,mobility,elbow,,No
+EX-0375,CARs library family - wrist,,Jason corrected,CONFIRMED (position order),cars_library,mobility,wrist,,No
+EX-0376,CARs library family - hip,,Jason corrected,CONFIRMED (position order),cars_library,mobility,hip,,No
+EX-0377,CARs library family - knee,,Claude draft (unreviewed),PROPOSED,cars_library,mobility,knee,,No
+EX-0378,CARs library family - ankle,,Claude draft (unreviewed),PROPOSED,cars_library,mobility,ankle,,No
+EX-0379,CARs library family - toe,,Claude draft (unreviewed),PROPOSED,cars_library,mobility,toe,,No
+EX-0380,PAILs/RAILs - cervical - Cervical Flexion,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,cervical,,No
+EX-0381,PAILs/RAILs - cervical - Cervical Extension,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,cervical,,No
+EX-0382,PAILs/RAILs - cervical - Cervical Lateral Flexion,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,cervical,,No
+EX-0383,PAILs/RAILs - cervical - Cervical Rotation,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,cervical,,No
+EX-0384,PAILs/RAILs - thoracic - T-Spine Extension,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,thoracic,,No
+EX-0385,PAILs/RAILs - thoracic - T-Spine Rotation,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,thoracic,,No
+EX-0386,PAILs/RAILs - thoracic - T-Spine Flexion,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,thoracic,,No
+EX-0387,PAILs/RAILs - lumbar - Lumbar Flexion,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,lumbar,,No
+EX-0388,PAILs/RAILs - lumbar - Lumbar Extension,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,lumbar,,No
+EX-0389,PAILs/RAILs - lumbar - Lumbar/QL Rotation,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,lumbar,,No
+EX-0390,PAILs/RAILs - shoulder - Anterior Capsule (ER in flexion),,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,shoulder,,No
+EX-0391,PAILs/RAILs - shoulder - Posterior Capsule (IR in flexion),,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,shoulder,,No
+EX-0392,PAILs/RAILs - shoulder - Inferior Capsule (overhead flexion),,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,shoulder,,No
+EX-0393,PAILs/RAILs - shoulder - Horizontal Abduction (cross-body),,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,shoulder,,No
+EX-0394,PAILs/RAILs - shoulder - Shoulder Extension,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,shoulder,,No
+EX-0395,PAILs/RAILs - scapular - Scapular Upward Rotation,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,scapular,,No
+EX-0396,PAILs/RAILs - scapular - Scapular Downward Rotation,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,scapular,,No
+EX-0397,PAILs/RAILs - scapular - Scapular Protraction,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,scapular,,No
+EX-0398,PAILs/RAILs - scapular - Scapular Retraction,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,scapular,,No
+EX-0399,PAILs/RAILs - elbow - Elbow Flexion,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,elbow,,No
+EX-0400,PAILs/RAILs - elbow - Elbow Extension,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,elbow,,No
+EX-0401,PAILs/RAILs - elbow - Forearm Supination,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,elbow,,No
+EX-0402,PAILs/RAILs - elbow - Forearm Pronation,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,elbow,,No
+EX-0403,PAILs/RAILs - wrist - Wrist Flexion,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,wrist,,No
+EX-0404,PAILs/RAILs - wrist - Wrist Extension,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,wrist,,No
+EX-0405,PAILs/RAILs - wrist - Radial Deviation,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,wrist,,No
+EX-0406,PAILs/RAILs - wrist - Ulnar Deviation,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,wrist,,No
+EX-0407,PAILs/RAILs - hip - Anterior Capsule (ER in flexion) - 90/90 ER,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,hip,,No
+EX-0408,PAILs/RAILs - hip - Posterior Capsule (IR in flexion) - 90/90 IR,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,hip,,No
+EX-0409,PAILs/RAILs - hip - Anterior Hip (Extension),,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,hip,,No
+EX-0410,PAILs/RAILs - hip - Deep Hip Flexion,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,hip,,No
+EX-0411,PAILs/RAILs - hip - Hip Abduction,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,hip,,No
+EX-0412,PAILs/RAILs - hip - Hip Adduction,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,hip,,No
+EX-0413,PAILs/RAILs - knee - Knee Flexion,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,knee,,No
+EX-0414,PAILs/RAILs - knee - Knee Extension,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,knee,,No
+EX-0415,PAILs/RAILs - knee - Tibial Internal Rotation,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,knee,,No
+EX-0416,PAILs/RAILs - knee - Tibial External Rotation,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,knee,,No
+EX-0417,PAILs/RAILs - ankle - Ankle Dorsiflexion,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,ankle,,No
+EX-0418,PAILs/RAILs - ankle - Ankle Plantarflexion,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,ankle,,No
+EX-0419,PAILs/RAILs - ankle - Ankle Inversion,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,ankle,,No
+EX-0420,PAILs/RAILs - ankle - Ankle Eversion,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,ankle,,No
+EX-0421,PAILs/RAILs - toe - Big Toe Extension,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,toe,,No
+EX-0422,PAILs/RAILs - toe - Big Toe Flexion,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,toe,,No
+EX-0423,PAILs/RAILs - toe - Lateral Toes Extension,,Claude draft (unreviewed),PROPOSED,pails_rails_library,mobility,toe,,No
