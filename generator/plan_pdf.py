@@ -1672,6 +1672,13 @@ def _cell_lines_for_week(wk_ex, week_num, max_w, c, program=None):
 
     Returns list of strings · 1 to 3 lines.
     """
+    # An explicit Coach Studio dose edit takes precedence over the engine's
+    # original strength ladder. Never print stale sets/load beside the edit.
+    if wk_ex.get('coach_override_dose'):
+        lines = [wk_ex.get('dose') or 'Coach to prescribe']
+        if wk_ex.get('tempo'):
+            lines.append(f"Tempo {wk_ex['tempo']}")
+        return lines
     wpx = wk_ex.get('week_prescriptions') or []
     wp = next((w for w in wpx if w.get('week') == week_num), None)
 
